@@ -1,0 +1,11 @@
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\bin\Release\netcoreapp2.2\ExamTesting.FrontEnd.deps.json
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\bin\Release\netcoreapp2.2\ExamTesting.FrontEnd.runtimeconfig.json
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\bin\Release\netcoreapp2.2\ExamTesting.FrontEnd.runtimeconfig.dev.json
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\bin\Release\netcoreapp2.2\ExamTesting.FrontEnd.dll
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\bin\Release\netcoreapp2.2\ExamTesting.FrontEnd.pdb
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\ExamTesting.FrontEnd.csprojAssemblyReference.cache
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\ExamTesting.FrontEnd.csproj.CoreCompileInputs.cache
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\ExamTesting.FrontEnd.AssemblyInfoInputs.cache
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\ExamTesting.FrontEnd.AssemblyInfo.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\ExamTesting.FrontEnd.dll
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\ExamTesting.FrontEnd.pdb
