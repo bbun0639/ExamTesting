@@ -17,6 +17,8 @@ namespace ExamTesting_FrontEnd.Controllers
             _db = db;
         }
 
+
+
         public IActionResult Index()
         {
             return View();
