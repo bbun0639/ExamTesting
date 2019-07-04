@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ExamTesting
 {
-    public enum SubjectLevel
+    public enum EnumLevel
     {
         Beginner = 100,
         Intermediate = 200,

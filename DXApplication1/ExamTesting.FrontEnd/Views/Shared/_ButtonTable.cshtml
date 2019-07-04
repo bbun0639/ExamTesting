@@ -1,0 +1,46 @@
+﻿@model  Guid
+
+<div>
+    <a class="btn btn-edit" style="border-radius:50%;" href="@Url.Action("Edit/"+Model)">
+        <i class="far fa-edit"></i>
+    </a>
+
+    <a class="btn btn-danger" style="border-radius:50%;" data-toggle="modal" data-target="#modalConfirmDelete">
+        <i class="fas fa-minus" style="color:#ffffff"></i>
+    </a>
+
+
+    <!--Modal: modalConfirmDelete-->
+    <div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+            <!--Content-->
+            <div class="modal-content text-center">
+                <!--Header-->
+                <div class="modal-header d-flex justify-content-center" style="background-color:crimson">
+                    <h5 class="heading" style="color:#ffffff">Are you sure to delete ?</h5>
+                </div>
+
+                <!--Body-->
+                <div class="modal-body">
+
+                    <i class="far fa-4x fa-times-circle" style="color:crimson"></i>
+
+                </div>
+
+                <!--Footer-->
+                <form method="post" enctype="multipart/form-data">
+                    <div class="modal-footer flex-center">
+                        <input type="submit" class="btn btn-outline-danger" asp-controller="List" asp-action="Delete" asp-route-id="@Model" value="Delete" />
+                        <a class="btn  btn-outline-secondary" data-dismiss="modal">No</a>
+                    </div>
+                </form>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal: modalConfirmDelete-->
+
+</div>
+
+

@@ -10,11 +10,11 @@ namespace ExamTesting.Models
         [Key]
         public Guid SubjectId { get; set; }
 
-
+        [Display(Name ="Subject")]
         public string SubjectName { get; set; }
 
-
-        public SubjectLevel SubjectLevel { get; set; }
+        [Display(Name = "Level")]
+        public EnumLevel SubjectLevels { get; set; }
 
     }
 }

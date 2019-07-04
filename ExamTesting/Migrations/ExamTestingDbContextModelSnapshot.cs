@@ -98,7 +98,7 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("SubjectId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("SubjectLevel");
+                    b.Property<int>("SubjectLevels");
 
                     b.Property<string>("SubjectName");
 

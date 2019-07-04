@@ -2,6 +2,34 @@
 
 <html>
 <head>
+
+    @*Head Title*@
+    <title>@ViewData["Title"] - Test Evaluation</title>
+
+    @*icon*@
+    <script src="https://kit.fontawesome.com/3273cec17f.js"></script>
+       
+    @*Clickable Table*@
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const rows = document.querySelectorAll("tr[data-href]");
+
+            rows.forEach(row => {
+                row.addEventListener("click", () => {
+                    window.location.href = row.dataset.href;
+                });
+            })
+        });
+    </script>
+
+    @* Cursor mouse *@
+    <style>
+        tr[data-href] {
+            cursor: pointer;
+        }
+    </style>
+
+
     <meta name="viewport" content="width=1266 initial-scale=1">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,7 +60,7 @@
 
     @* JSZip for client side export *@
     @*<script src="~/js/devextreme/jszip.js"></script>*@
-    
+
     <script src="~/js/devextreme/dx.all.js"></script>
     <script src="~/js/devextreme/vectormap-data/world.js"></script>
     <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
