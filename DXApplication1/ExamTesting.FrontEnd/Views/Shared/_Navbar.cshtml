@@ -1,28 +1,262 @@
-﻿
-<nav class="navbar navbar-light bg-transparent fixed-top navbar-expand-md">
-    <a class="navbar-brand" href="http://localhost:54627/"></a>
+﻿<nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
+        <a class="navbar-brand" href="http://localhost:54627/"></a>
 
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div id="navbar" class="collapse navbar-collapse">
-        <ul class="navbar-nav mr-auto ml-auto bg-transparent" style="width:1110px;">
-            <li class="nav-item pr-2 pl-2 border-right"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto ml-auto bg-transparent" style="width:1110px;">
+                <li class="nav-item pr-2 pl-2 border-right"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
 
-            <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="Subject" asp-action="Index">Subjects</a></li>
+                <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="Subject" asp-action="GetSubjects">Subjects</a></li>
 
-            <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="List" asp-action="Index">Exams</a></li>
+                <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="List" asp-action="Index">Exams</a></li>
 
-            <li class="nav-item pr-2 pl-2 border-left">
-                <a class="nav-link" asp-controller="List" asp-action="Index">Topic</a>
-            </li>
+                <li class="nav-item pr-2 pl-2 border-left">
+                    <a class="nav-link" asp-controller="List" asp-action="Index">Topic</a>
+                </li>
 
-            <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="List" asp-action="Index">Questions</a></li>
+                <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="List" asp-action="Index">Questions</a></li>
 
-            <li class="nav-item pr-2 pl-2 border-left"><a class="nav-link" asp-controller="List" asp-action="Index">Users</a></li>
+                <li class="nav-item pr-2 pl-2 border-left"><a class="nav-link" asp-controller="List" asp-action="Index">Users</a></li>
 
-            <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="List" asp-action="Index">Reports</a></li>
-        </ul>
-    </div>
-</nav>
+                <li class="nav-item pr-2 pl-2"><a class="nav-link" asp-controller="List" asp-action="Index">Reports</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+@*------------------------2--------------------------
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="page-wrapper chiller-theme toggled">
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div id="toggle-sidebar">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="sidebar-brand">
+                <a href="#">TEST EVALUATION</a>
+            </div>
+            <div class="sidebar-header">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/bootstrap4/assets/img/user.jpg" alt="User picture">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">
+                        Jhon
+                        <strong>Smith</strong>
+                    </span>
+                    <span class="user-role">Administrator</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                </div>
+            </div>
+            <!-- sidebar-header  -->
+            <div class="sidebar-search">
+                <div>
+                    <div class="input-group">
+                        <input type="text" class="form-control search-menu" placeholder="Search...">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                            <span class="badge badge-pill badge-danger">New</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Dashboard 1
+                                        <span class="badge badge-pill badge-success">Pro</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 2</a>
+                                </li>
+                                <li>
+                                    <a href="#">Dashboard 3</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span>E-commerce</span>
+                            <span class="badge badge-pill badge-primary">3</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Products
+
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">Orders</a>
+                                </li>
+                                <li>
+                                    <a href="#">Credit cart</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="far fa-gem"></i>
+                            <span>Components</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">General</a>
+                                </li>
+                                <li>
+                                    <a href="#">Panels</a>
+                                </li>
+                                <li>
+                                    <a href="#">Tables</a>
+                                </li>
+                                <li>
+                                    <a href="#">Icons</a>
+                                </li>
+                                <li>
+                                    <a href="#">Forms</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-chart-line"></i>
+                            <span>Charts</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">Pie chart</a>
+                                </li>
+                                <li>
+                                    <a href="#">Line chart</a>
+                                </li>
+                                <li>
+                                    <a href="#">Bar chart</a>
+                                </li>
+                                <li>
+                                    <a href="#">Histogram</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a href="#">
+                            <i class="fa fa-globe"></i>
+                            <span>Maps</span>
+                        </a>
+                        <div class="sidebar-submenu">
+                            <ul>
+                                <li>
+                                    <a href="#">Google maps</a>
+                                </li>
+                                <li>
+                                    <a href="#">Open street map</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="header-menu">
+                        <span>Extra</span>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-calendar"></i>
+                            <span>Calendar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-folder"></i>
+                            <span>Examples</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-book"></i>
+                            <span>Documentation</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- sidebar-menu  -->
+        </div>
+        <!-- sidebar-content  -->
+        <div class="sidebar-footer">
+            <a href="#">
+                <i class="fa fa-bell"></i>
+                <span class="badge badge-pill badge-warning notification">3</span>
+            </a>
+            <a href="#">
+                <i class="fa fa-envelope"></i>
+                <span class="badge badge-pill badge-success notification">7</span>
+            </a>
+            <a href="#">
+                <i class="fa fa-cog"></i>
+                <span class="badge-sonar"></span>
+            </a>
+        </div>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <h1>Sidebar template</h1>
+                    <p>This is a responsive sidebar template with dropdown menu based on bootstrap 4 framework.</p>
+
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <a href="https://github.com/azouaoui-med/pro-sidebar-template" class="btn btn-secondary" target="_blank">
+                        <i class="fab fa-github"></i> View source on Github
+                    </a>
+                    <a href="https://github.com/azouaoui-med/pro-sidebar-template/archive/gh-pages.zip" class="btn btn-outline-secondary" target="_blank">
+                        <i class="fa fa-download"></i> Download code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- page-content" -->
+
+</div>*@
+

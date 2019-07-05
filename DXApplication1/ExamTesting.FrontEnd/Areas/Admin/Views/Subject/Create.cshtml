@@ -1,4 +1,4 @@
-﻿@model ExamTesting.Models.Subject
+﻿@*@model ExamTesting.Models.Subject
 @using ExamTesting
 
 @{
@@ -28,7 +28,7 @@
                     <label>Level</label>
                 </div>
                 <div class="col">
-                    @*@Html.DropDownListFor(m => m.SubjectLevels, new SelectList(Enum.GetValues(typeof(EnumLevel))), "Level")*@
+                    @Html.DropDownListFor(m => m.SubjectLevels, new SelectList(Enum.GetValues(typeof(EnumLevel))), "Level")
 
                     @(Html.DevExtreme().SelectBoxFor(s => s.SubjectLevels)
                         .DataSource(Html.GetEnumSelectList<EnumLevel>()
@@ -55,5 +55,5 @@
 
     </div>
 
-</form>
+</form>*@
 

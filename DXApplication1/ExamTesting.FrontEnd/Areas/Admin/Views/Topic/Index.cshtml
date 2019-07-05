@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ExamTesting.Models.Topic>
+
+@{
+    ViewData["Title"] = "Topics List";
+}
+
+<br />
+<br />
+
+
+<body class="py-5">
+    <div class="container card p-4">
+        <div class="col">
+            <h2 class="text" style="color:#E154A2">Subjects List</h2>
+        </div>
+
+        <div class="col pt-3 pl-5 pr-5">
+
+            <div class="col pt-4">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+            </div>
+
+            <div class="col-2 pt-4 pb-4">
+                <a asp-action="Create" class="btn btn-violet">+ New Topic</a>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(t => t.TopicName)
+                    </th>
+
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                @foreach (var topic in Model)
+                {
+                    <tbody id="myTable">
+                        <tr @*data-href="@Url.Action("Detail/"+list.SubjectId)"*@>
+                            <td>
+                                @Html.DisplayFor(t => topic.TopicName)
+                            </td>
+                            <td></td>
+                            <td class="text-center">
+                                <partial name="_ButtonTable" model="topic.TopicId" />
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+
+
+        </div>
+
+    </div>
+</body>
+
+
+
+@*Search Function*@
+<script>
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

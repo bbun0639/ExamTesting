@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExamTesting
+namespace ExamTesting.Models
 {
     public enum EnumLevel
     {

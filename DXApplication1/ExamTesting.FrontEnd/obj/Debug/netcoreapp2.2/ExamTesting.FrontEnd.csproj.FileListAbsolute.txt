@@ -34,3 +34,8 @@ D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEn
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\Index.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\Create.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ButtonTable.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\Edit.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Topic\Index.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Topic\Create.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Topic\Edit.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\GetSubjects.g.cshtml.cs

@@ -1,0 +1,61 @@
+﻿@*@model ExamTesting.Models.Subject
+@using ExamTesting
+
+
+@{
+    ViewData["Title"] = "Subject Edit";
+}
+
+<form method="post" asp-action="Edit">
+
+    <div class="container card p-4">
+        <div class="col">
+            <h2 class="text" style="color:#E154A2">Edit Subject</h2>
+        </div>
+
+        <div class="col pt-4 px-5">
+
+            <div class="form-group row pt-2 px-5">
+                <div class="col-2">
+                    <label>Name</label>
+                </div>
+                <div class="col">
+                    @Html.DevExtreme().TextBoxFor(s => s.SubjectName).Placeholder("Subject Name")
+                </div>
+            </div>
+
+            <div class="form-group row pt-2 px-5">
+                <div class="col-2">
+                    <label>Level</label>
+                </div>
+                <div class="col">
+                    @Html.DropDownListFor(m => m.SubjectLevels, new SelectList(Enum.GetValues(typeof(EnumLevel))), "Level")
+
+                    @(Html.DevExtreme().SelectBoxFor(s => s.SubjectLevels)
+                        .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                        .Select(l => new { Value = int.Parse(l.Value), Text = l.Text })
+                        )
+                        .ValueExpr("Value")
+                        .DisplayExpr("Text")
+                    )
+
+                </div>
+            </div>
+
+            <div class="row py-5 px-5">
+                <div class="col text-left">
+                    <a asp-action="Index" class="btn btn-back">< Back</a>
+                </div>
+
+                <div class="col text-right">
+                    <input type="submit" class="btn btn-violet" asp-area="Admin" asp-controller="Subject" asp-action="Edit" value="Submit >" />
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</form>*@
+
+

@@ -22,36 +22,140 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db = db;
 
         }
-        public IActionResult Index()
-        {
-            var subjList = _db.Subjects.ToList();
-            return View(subjList);
-        }
 
         [HttpGet]
-        public IActionResult Create()
+        public object Get(DataSourceLoadOptions loadOptions)
         {
-            return View();
+            return DataSourceLoader.Load(_db.Subjects, loadOptions);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Subject subjects)
+        public IActionResult Post(string values)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Add(subjects);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(subjects);
+            var newSubject = new Subject();
+            newSubject.SubjectId = new Guid();
 
+            JsonConvert.PopulateObject(values, newSubject);
 
+            _db.Subjects.Add(newSubject);
+            _db.SaveChanges();
+
+            return Ok();
         }
 
-        [HttpGet]
-        public ActionResult GetLevel(DataSourceLoadOptions loadOptions)
+        [HttpPut]
+        public IActionResult Put(Guid key, string values)
         {
-            return Content(JsonConvert.SerializeObject(DataSourceLoader.Load(new SelectList(Enum.GetValues(typeof(EnumLevel))), loadOptions)));
+            var _subject = _db.Subjects.First(a => a.SubjectId == key);
+
+            JsonConvert.PopulateObject(values, _subject);
+
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public void Delete(Guid key)
+        {
+            var _subject = _db.Subjects.First(a => a.SubjectId == key);
+
+            _db.Subjects.Remove(_subject);
+            _db.SaveChanges();
+        }
+
+
+        public IActionResult GetSubjects()
+        {
+            return View();
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        public IActionResult Index()
+//        {
+//            var subjList = _db.Subjects.ToList();
+//            return View(subjList);
+//        }
+
+//        [HttpGet]
+//        public IActionResult Create()
+//        {
+//            return View();
+//        }
+
+//        [HttpPost]
+//        public async Task<IActionResult> Create(Subject subjects)
+//        {
+//            if (ModelState.IsValid)
+//            {
+//                _db.Add(subjects);
+//                await _db.SaveChangesAsync();
+//                return RedirectToAction(nameof(Index));
+//            }
+//            return View(subjects);
+
+
+//        }
+
+//        [HttpGet]
+//        public async Task<IActionResult> Edit(Guid? id)
+//        {
+//            if(id == null)
+//            {
+//                return NotFound();
+//            }
+
+//            var subject = await _db.Subjects.FindAsync(id);
+
+//            if(subject == null)
+//            {
+//                return NotFound();
+//            }
+
+//            return View(subject);
+//        }
+//        [HttpPost]
+//        public async Task<IActionResult> Edit(Guid id, Subject subject)
+//        {
+//            if (id != subject.SubjectId)
+//            {
+//                return NotFound();
+//            }
+
+//            if (ModelState.IsValid) //check that valid? for add to DB
+//            {
+//                _db.Update(subject);
+//                await _db.SaveChangesAsync();
+//                return RedirectToAction(nameof(Index));
+//            }
+//            return View(subject);
+//        }
+
+
+
+
+//        [HttpGet]
+//        public ActionResult GetLevel(DataSourceLoadOptions loadOptions)
+//        {
+//            return Content(JsonConvert.SerializeObject(DataSourceLoader.Load(new SelectList(Enum.GetValues(typeof(EnumLevel))), loadOptions)));
+//        }
+//    }
+//}
