@@ -29,6 +29,11 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             return DataSourceLoader.Load(_db.Subjects, loadOptions);
         }
 
+        public IActionResult GetSubjects()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Post(string values)
         {
@@ -63,12 +68,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db.Subjects.Remove(_subject);
             _db.SaveChanges();
         }
-
-
-        public IActionResult GetSubjects()
-        {
-            return View();
-        }
+               
     }
 }
 

@@ -12,83 +12,174 @@ using Newtonsoft.Json;
 
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
     public class TopicController : Controller
     {
         private readonly ExamTestingDbContext _db;
-
         public TopicController(ExamTestingDbContext db)
         {
             _db = db;
-
-        }
-        public IActionResult Index()
-        {
-            var topicList = _db.Topics.ToList();
-            return View(topicList);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public object Get(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(_db.Topics, loadOptions);
+        }
+
+        public IActionResult GetTopics()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Topic topic)
+        public IActionResult Post(string values)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Add(topic);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(topic);
+            var newTopic = new Topic();
+            newTopic.TopicId = new Guid();
 
+            JsonConvert.PopulateObject(values, newTopic);
 
+            _db.Topics.Add(newTopic);
+            _db.SaveChanges();
+
+            return Ok();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(Guid? id)
+        [HttpPut]
+        public IActionResult Put(Guid key, string values)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var _topic = _db.Topics.First(a => a.TopicId == key);
 
-            var topic = await _db.Topics.FindAsync(id);
+            JsonConvert.PopulateObject(values, _topic);
 
-            if (topic == null)
-            {
-                return NotFound();
-            }
+            _db.SaveChanges();
 
-            return View(topic);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, Topic topic)
-        {
-            if (id != topic.TopicId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid) //check that valid? for add to DB
-            {
-                _db.Update(topic);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(topic);
+            return Ok();
         }
 
-
-
-
-        [HttpGet]
-        public ActionResult GetLevel(DataSourceLoadOptions loadOptions)
+        [HttpDelete]
+        public void Delete(Guid key)
         {
-            return Content(JsonConvert.SerializeObject(DataSourceLoader.Load(new SelectList(Enum.GetValues(typeof(EnumLevel))), loadOptions)));
+            var _topic = _db.Topics.First(a => a.TopicId == key);
+
+            _db.Topics.Remove(_topic);
+            _db.SaveChanges();
         }
+
+                
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//{
+//    [Area("Admin")]
+//    public class TopicController : Controller
+//    {
+//        private readonly ExamTestingDbContext _db;
+
+//        public TopicController(ExamTestingDbContext db)
+//        {
+//            _db = db;
+
+//        }
+//        public IActionResult Index()
+//        {
+//            var topicList = _db.Topics.ToList();
+//            return View(topicList);
+//        }
+
+//        [HttpGet]
+//        public IActionResult Create()
+//        {
+//            return View();
+//        }
+
+//        [HttpPost]
+//        public async Task<IActionResult> Create(Topic topic)
+//        {
+//            if (ModelState.IsValid)
+//            {
+//                _db.Add(topic);
+//                await _db.SaveChangesAsync();
+//                return RedirectToAction(nameof(Index));
+//            }
+//            return View(topic);
+
+
+//        }
+
+//        [HttpGet]
+//        public async Task<IActionResult> Edit(Guid? id)
+//        {
+//            if (id == null)
+//            {
+//                return NotFound();
+//            }
+
+//            var topic = await _db.Topics.FindAsync(id);
+
+//            if (topic == null)
+//            {
+//                return NotFound();
+//            }
+
+//            return View(topic);
+//        }
+//        [HttpPost]
+//        public async Task<IActionResult> Edit(Guid id, Topic topic)
+//        {
+//            if (id != topic.TopicId)
+//            {
+//                return NotFound();
+//            }
+
+//            if (ModelState.IsValid) //check that valid? for add to DB
+//            {
+//                _db.Update(topic);
+//                await _db.SaveChangesAsync();
+//                return RedirectToAction(nameof(Index));
+//            }
+//            return View(topic);
+//        }
+
+
+
+
+//        [HttpGet]
+//        public ActionResult GetLevel(DataSourceLoadOptions loadOptions)
+//        {
+//            return Content(JsonConvert.SerializeObject(DataSourceLoader.Load(new SelectList(Enum.GetValues(typeof(EnumLevel))), loadOptions)));
+//        }
+//    }
+//}

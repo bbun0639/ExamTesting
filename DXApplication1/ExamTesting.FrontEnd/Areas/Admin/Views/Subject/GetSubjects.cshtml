@@ -1,11 +1,11 @@
-﻿@using  ExamTesting.Models
+﻿@using ExamTesting.Models
 
 @{
-    ViewData["Title"] = "Subject";
+    ViewData["Title"] = "Subjects";
 }
 
 
-@(Html.DevExtreme().DataGrid().DataSource(d => d.Mvc()
+@(Html.DevExtreme().DataGrid<ExamTesting.Models.Subject>().DataSource(d => d.Mvc()
         .Controller("Subject")
         .LoadAction("Get")
         .UpdateAction("Put")
@@ -35,20 +35,18 @@
     .Columns(columns =>
     {
         columns.Add().DataField("SubjectName").Caption("Subject Name");
-
-
-         columns.Add().DataField("SubjectLevel").Caption("Subject Level")
-        .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<EnumLevel>()
-                    .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-                .ValueExpr("Value")
-                .DisplayExpr("Text"))
-        .FormItem(i => i
-            .Editor(e => e.SelectBox()
-                .ID("SubjectLevel")
-                .DataSource(Html.GetEnumSelectList<EnumLevel>()
-                    .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-                .ValueExpr("Value")
-                .DisplayExpr("Text")));
+        columns.Add().DataField("SubjectLevels").Caption("Subject Level")
+       .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<EnumLevel>()
+                   .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+               .ValueExpr("Value")
+               .DisplayExpr("Text"))
+       .FormItem(i => i
+           .Editor(e => e.SelectBox()
+               .ID("SubjectLevels")
+               .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                   .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+               .ValueExpr("Value")
+               .DisplayExpr("Text")));
 
 
     })
