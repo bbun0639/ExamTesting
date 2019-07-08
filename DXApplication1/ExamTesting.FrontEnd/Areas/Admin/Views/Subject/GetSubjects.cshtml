@@ -5,55 +5,91 @@
 }
 
 
-@(Html.DevExtreme().DataGrid<ExamTesting.Models.Subject>().DataSource(d => d.Mvc()
-        .Controller("Subject")
-        .LoadAction("Get")
-        .UpdateAction("Put")
-        .InsertAction("Post")
-        .DeleteAction("Delete")
-        .Area("Admin")
-        .Key("SubjectId"))
+<div id="subject-grid">
 
-    .ID("gridContainer")
-     .Editing(editing =>
-     {
-         editing.Mode(GridEditMode.Form);
-         editing.AllowAdding(true);
-         editing.AllowDeleting(true);
-         editing.AllowUpdating(true);
-     })
-     .FilterRow(filterRow => filterRow
-        .Visible(true)
-        .ApplyFilter(GridApplyFilterMode.Auto)
+
+    @(Html.DevExtreme().DataGrid<ExamTesting.Models.Subject>().DataSource(d => d.Mvc()
+            .Controller("Subject")
+            .LoadAction("Get")
+            .UpdateAction("Put")
+            .InsertAction("Post")
+            .DeleteAction("Delete")
+            .Area("Admin")
+            .Key("SubjectId"))
+
+        .ID("gridContainer")
+         .Editing(editing =>
+         {
+             editing.Mode(GridEditMode.Form);
+             editing.AllowAdding(true);
+             editing.AllowDeleting(true);
+             editing.AllowUpdating(true);
+         })
+         .FilterRow(filterRow => filterRow
+            .Visible(true)
+            .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+        .SearchPanel(searchPanel => searchPanel
+            .Visible(true)
+            .Width(240)
+            .Placeholder("Search...")
+        )
+        .Selection(selection => selection.Mode(SelectionMode.Multiple))
+        .OnSelectionChanged(
+            @<script>
+                function(data) {
+                    var deleteButton = $("#gridDeleteSelected").dxButton("instance");
+                    deleteButton.option("disabled", !data.selectedRowsData.length);
+                }
+            </script>
+        )
+
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+        .Columns(columns =>
+        {
+            columns.Add().DataField("SubjectName").Caption("Subject Name");
+            columns.Add().DataField("SubjectLevels").Caption("Subject Level")
+
+           .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<EnumLevel>()
+                       .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                   .ValueExpr("Value")
+                   .DisplayExpr("Text"))
+           
+           .FormItem(i => i
+               .Editor(e => e.SelectBox()
+                   .ID("SubjectLevels")
+                   .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                       .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                   .ValueExpr("Value")
+                   .DisplayExpr("Text")));
+            
+        })
+        
+    .ShowBorders(true)
     )
-    .SearchPanel(searchPanel => searchPanel
-        .Visible(true)
-        .Width(240)
-        .Placeholder("Search...")
-    )
-    .HeaderFilter(headerFilter => headerFilter.Visible(true))
-    .Columns(columns =>
-    {
-        columns.Add().DataField("SubjectName").Caption("Subject Name");
-        columns.Add().DataField("SubjectLevels").Caption("Subject Level")
-       .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<EnumLevel>()
-                   .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-               .ValueExpr("Value")
-               .DisplayExpr("Text"))
-       .FormItem(i => i
-           .Editor(e => e.SelectBox()
-               .ID("SubjectLevels")
-               .DataSource(Html.GetEnumSelectList<EnumLevel>()
-                   .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-               .ValueExpr("Value")
-               .DisplayExpr("Text")));
+
+    
+    @(Html.DevExtreme().Button()
+        .ID("gridDeleteSelected")
+        .Text("Delete Selected Records")
+        .Height(34)
+        .Width(195)
+        .Disabled(true)
+        .OnClick(
+        
+            @<script>
+                function () {
+                    var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                    $.when.apply($, dataGrid.getSelectedRowsData().map(function(data) {
+                    return dataGrid.getDataSource().store().remove(data.SubjectId);
+                    })).done(function() {
+                    dataGrid.refresh();
+                    });
+                }
+            </script>
+            )
+        )
 
 
-    })
-
-
-.ShowBorders(true)
-)
-
-
+</div>
 

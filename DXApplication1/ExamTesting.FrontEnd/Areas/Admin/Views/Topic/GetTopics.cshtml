@@ -4,43 +4,84 @@
     ViewData["Title"] = "Topics";
 }
 
-@(Html.DevExtreme().DataGrid().DataSource(d => d.Mvc()
-        .Controller("Topic")
-        .LoadAction("Get")
-        .UpdateAction("Put")
-        .InsertAction("Post")
-        .DeleteAction("Delete")
-        .Area("Admin")
-        .Key("TopicId"))
+<div id="tree-list-topic">
+    @(Html.DevExtreme().TreeList<ExamTesting.Models.Topic>()
+            .DataSource(d => d.Mvc()
+            .Controller("Topic")
+            .LoadAction("Get")
+            .UpdateAction("Put")
+            .InsertAction("Post")
+            .DeleteAction("Delete")
+            .Area("Admin")
+            .Key("TopicId")
 
-    .ID("gridContainer")
+        )
 
-     .Editing(editing =>
-     {
-         editing.Mode(GridEditMode.Form);
-         editing.AllowAdding(true);
-         editing.AllowDeleting(true);
-         editing.AllowUpdating(true);
-     })
-     .FilterRow(filterRow => filterRow
-        .Visible(true)
-        .ApplyFilter(GridApplyFilterMode.Auto)
+        .KeyExpr("TopicId")
+        .ParentIdExpr("ParentId")
+        .ColumnAutoWidth(true)
+        .WordWrapEnabled(true)
+        .ShowBorders(true)
+
+
+        .Editing(editing =>
+        {
+            editing.Mode(GridEditMode.Row);
+            editing.AllowAdding(true);
+            editing.AllowUpdating(true);
+            editing.AllowDeleting(true);
+        })
+
+            .FilterRow(filterRow => filterRow
+            .Visible(true)
+            .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+
+        .SearchPanel(searchPanel => searchPanel
+            .Visible(true)
+            .Width(240)
+            .Placeholder("Search...")
+        )
+
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+
+
+
+
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.TopicName).Caption("Topic Name");
+
+
+            columns.AddFor(m => m.ParentId).Caption("Head")
+
+                .Lookup(lookup => lookup
+                .DataSource(d => d.Mvc().Controller("Topic").LoadAction("Get").Key("TopicId"))
+                .DisplayExpr("TopicName")
+                .ValueExpr("TopicId"))
+
+                .FormItem(i => i
+                .Editor(e => e.SelectBox()
+                .DataSource(d => d.Mvc().Controller("Topic").LoadAction("Get").Key("TopicId"))
+                .DisplayExpr("TopicName")
+                .ValueExpr("TopicId"))
+                );
+
+        })
+        .ShowBorders(true)
+        .AutoExpandAll(true)
+        .OnInitNewRow("treeList_onInitNewRow")
+        
     )
-    .SearchPanel(searchPanel => searchPanel
-        .Visible(true)
-        .Width(240)
-        .Placeholder("Search...")
-    )
-    .HeaderFilter(headerFilter => headerFilter.Visible(true))
-    .Columns(columns =>
-    {
-        columns.Add().DataField("TopicName").Caption("Topic Name");
-
-    })
 
 
-.ShowBorders(true)
-)
+</div>
 
-
-
+<script>
+    function treeList_onInitNewRow(x) {
+        if (x.data.ParentId == "") {
+            x.data.ParentId = null;
+        }
+        
+    }
+</script>

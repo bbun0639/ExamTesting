@@ -112,9 +112,9 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("TopicId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("ChildId");
+                    b.Property<Guid?>("ChildId");
 
-                    b.Property<Guid>("ParentId");
+                    b.Property<Guid?>("ParentId");
 
                     b.Property<string>("TopicName");
 
