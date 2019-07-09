@@ -4,7 +4,9 @@
     ViewData["Title"] = "Topics";
 }
 
-<div id="tree-list-topic">
+<h2 class="pb-4 text-center font-weight-light">Topics</h2>
+
+<div class="card p-5 shadow p-3 mb-5 bg-white rounded" id="tree-list-topic">
     @(Html.DevExtreme().TreeList<ExamTesting.Models.Topic>()
             .DataSource(d => d.Mvc()
             .Controller("Topic")
@@ -14,7 +16,6 @@
             .DeleteAction("Delete")
             .Area("Admin")
             .Key("TopicId")
-
         )
 
         .KeyExpr("TopicId")
@@ -72,10 +73,13 @@
         .AutoExpandAll(true)
         .OnInitNewRow("treeList_onInitNewRow")
         
+        
     )
 
 
+
 </div>
+
 
 <script>
     function treeList_onInitNewRow(x) {

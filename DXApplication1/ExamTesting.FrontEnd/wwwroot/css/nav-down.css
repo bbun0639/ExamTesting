@@ -1,0 +1,25 @@
+﻿body {
+    padding-top: 40px;
+}
+
+header {
+    background: rgba(255, 255, 255, 0.00);
+    height: 40px;
+    position: fixed;
+    top: 0;
+    transition: top 0.2s ease-in-out;
+    width: 100%;
+}
+
+.nav-up {
+    top: -40px;
+}
+
+main {
+    height: 2000px;
+}
+
+
+* {
+    color: transparent
+}

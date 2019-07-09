@@ -1,0 +1,108 @@
+﻿@using ExamTesting.Models
+
+@{
+    ViewData["Title"] = "Question Choices";
+}
+
+<h2 class="pb-4 text-center font-weight-light">Question Choices</h2>
+
+<div id="form-container" class="row">
+    
+    <div class="card p-5 shadow p-3 mb-5 bg-white rounded col" style="width:550px;">
+        @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
+            .ID("form")
+            .ColCount(1)
+            
+                    .Items(items =>
+            {
+                items.AddSimpleFor(m => m.QuestionStr)
+                .Editor(e => e
+                    .TextArea()
+                    .Height(75)
+                )
+                .ValidationRules(r => r
+                    .AddRequired()
+                    .Message("Question is required")
+                );
+
+
+                items.AddSimpleFor(m => m.Hint)
+                .Editor(e => e
+                    .TextArea()
+                    .Height(75)
+                );
+
+                items.AddSimpleFor(m => m.QuestionType)
+                .Editor(e => e
+                    .SelectBox()
+                    .DataSource(Html.GetEnumSelectList<QuestionType>()
+                                .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                .ValueExpr("Value")
+                                .DisplayExpr("Text")
+                    );
+
+
+                items.AddSimpleFor(m => m.QuestionLevel)
+                .Editor(e => e
+                    .SelectBox()
+                    .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                                .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                .ValueExpr("Value")
+                                .DisplayExpr("Text")
+                    );
+
+                
+
+
+            })
+            .OnContentReady(@<script>
+                                 function(e) {
+                                     e.component.validate();
+                                 }
+                    </script>)
+
+.FormData(Model)
+        )
+
+    </div>
+
+    <div class="col-1"></div>
+
+
+
+    <div class="card p-5 shadow p-3 mb-5 bg-white rounded col" style="width:550px;">
+    @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
+        .ID("form-point")
+        .ColCount(1)
+        .Items(items => {
+            items.AddSimpleFor(m => m.QuestionPoint)
+            .Editor(e => e
+                .NumberBox()
+                .Min(0)
+                .Max(100)
+                .ShowSpinButtons(true)
+                .Placeholder("0-100")
+            )
+            .ValidationRules(r => r
+                .AddRequired()
+                .Message("Question Point is required")
+            );
+    })
+    
+    
+    
+    )
+
+
+    </div>    
+
+</div>
+
+<div class="text-center">
+    <div class="col">
+        @(Html.DevExtreme().Button()
+            .Text("Add Choices")
+            .Type(ButtonType.Default)
+        )
+    </div>
+</div>

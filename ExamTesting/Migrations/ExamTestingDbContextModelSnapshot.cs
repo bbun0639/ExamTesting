@@ -62,11 +62,15 @@ namespace ExamTesting.Migrations
 
                     b.Property<string>("Hint");
 
+                    b.Property<int>("QuestionLevel");
+
+                    b.Property<int>("QuestionPoint");
+
                     b.Property<string>("QuestionStr");
 
                     b.Property<int>("QuestionType");
 
-                    b.Property<Guid>("TopicId");
+                    b.Property<Guid?>("TopicId");
 
                     b.HasKey("QuestionId");
 
@@ -143,8 +147,7 @@ namespace ExamTesting.Migrations
                 {
                     b.HasOne("ExamTesting.Models.Topic", "Topic")
                         .WithMany()
-                        .HasForeignKey("TopicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TopicId");
                 });
 
             modelBuilder.Entity("ExamTesting.Models.QuestionExam", b =>

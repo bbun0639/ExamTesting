@@ -67,7 +67,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db.Topics.Remove(_topic);
             _db.SaveChanges();
         }
-
+                
                 
     }
 }

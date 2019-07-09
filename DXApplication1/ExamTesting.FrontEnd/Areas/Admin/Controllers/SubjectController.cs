@@ -76,19 +76,6 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //        public IActionResult Index()
 //        {
 //            var subjList = _db.Subjects.ToList();

@@ -2,16 +2,81 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
+using ExamTesting.DAL;
+using ExamTesting.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
-namespace ExamTesting.FrontEnd.Controllers
+namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class QuestionController : Controller
     {
-        public IActionResult Index()
+
+        private readonly ExamTestingDbContext _db;
+
+        public QuestionController(ExamTestingDbContext db)
+        {
+            _db = db;
+
+        }
+
+        [HttpGet]
+        public object Get(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(_db.Questions, loadOptions);
+        }
+
+
+        [HttpPost]
+        public IActionResult Post(string values)
+        {
+            var newQuestion = new Question();
+            newQuestion.QuestionId = new Guid();
+
+            JsonConvert.PopulateObject(values, newQuestion);
+
+            _db.Questions.Add(newQuestion);
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Put(Guid key, string values)
+        {
+            var _question = _db.Questions.First(a => a.QuestionId == key);
+
+            JsonConvert.PopulateObject(values, _question);
+
+            _db.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public void Delete(Guid key)
+        {
+            var _question = _db.Questions.First(a => a.QuestionId == key);
+
+            _db.Questions.Remove(_question);
+            _db.SaveChanges();
+        }
+
+        public IActionResult GetQuestions()
         {
             return View();
         }
+
+        public IActionResult GetQuestionChoices(Guid id)
+        {
+            var _question = _db.Questions.First(a => a.QuestionId == id);
+            
+            return View(_question);
+        }
+
+
     }
 }
