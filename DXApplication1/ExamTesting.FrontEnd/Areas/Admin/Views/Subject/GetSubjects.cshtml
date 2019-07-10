@@ -49,6 +49,7 @@
             editing.AllowUpdating(true);
         })
 
+
         .FilterRow(filterRow => filterRow
             .Visible(true)
             .ApplyFilter(GridApplyFilterMode.Auto)
@@ -100,7 +101,11 @@
     .ShowBorders(true)
     )
 
-    
+    @(Html.DevExtreme().SpeedDialAction()
+    .ID("action-add")
+    .Icon("add")
+    .OnClick("addRow")
+)
 
 </div>
 

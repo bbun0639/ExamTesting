@@ -29,6 +29,12 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             return DataSourceLoader.Load(_db.Questions, loadOptions);
         }
 
+        [HttpGet]
+        public object GetTopicDropdown(DataSourceLoadOptions loadOptions)
+        {
+            return DataSourceLoader.Load(_db.Topics, loadOptions);
+        }
+
 
         [HttpPost]
         public IActionResult Post(string values)
