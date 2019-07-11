@@ -15,7 +15,7 @@ namespace ExamTesting.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -24,6 +24,8 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("ChoiceId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("ChoiceId1");
+
                     b.Property<string>("ChoiceStr");
 
                     b.Property<bool>("IsCorrect");
@@ -31,6 +33,8 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("QuestionId");
 
                     b.HasKey("ChoiceId");
+
+                    b.HasIndex("ChoiceId1");
 
                     b.HasIndex("QuestionId");
 
@@ -42,9 +46,13 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("ExamCodeId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("EndDate");
+
                     b.Property<string>("ExamName");
 
                     b.Property<int>("ExamVersion");
+
+                    b.Property<DateTime>("StartDate");
 
                     b.Property<Guid>("SubjectId");
 
@@ -116,19 +124,23 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("TopicId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ChildId");
-
                     b.Property<Guid?>("ParentId");
 
                     b.Property<string>("TopicName");
 
                     b.HasKey("TopicId");
 
+                    b.HasIndex("ParentId");
+
                     b.ToTable("Topics");
                 });
 
             modelBuilder.Entity("ExamTesting.Models.Choice", b =>
                 {
+                    b.HasOne("ExamTesting.Models.Choice")
+                        .WithMany("Choices")
+                        .HasForeignKey("ChoiceId1");
+
                     b.HasOne("ExamTesting.Models.Question", "Question")
                         .WithMany()
                         .HasForeignKey("QuestionId")
@@ -161,6 +173,13 @@ namespace ExamTesting.Migrations
                         .WithMany()
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ExamTesting.Models.Topic", b =>
+                {
+                    b.HasOne("ExamTesting.Models.Topic", "Parent")
+                        .WithMany("Childs")
+                        .HasForeignKey("ParentId");
                 });
 #pragma warning restore 612, 618
         }

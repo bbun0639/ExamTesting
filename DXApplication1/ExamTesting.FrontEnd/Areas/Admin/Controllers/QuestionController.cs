@@ -14,7 +14,6 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
     [Area("Admin")]
     public class QuestionController : Controller
     {
-
         private readonly ExamTestingDbContext _db;
 
         public QuestionController(ExamTestingDbContext db)
@@ -71,18 +70,12 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db.SaveChanges();
         }
 
-        public IActionResult GetQuestions()
-        {
-            return View();
-        }
 
-        public IActionResult GetQuestionChoices(Guid id)
+        public IActionResult Index(Guid id)
         {
             var _question = _db.Questions.First(a => a.QuestionId == id);
-            
+
             return View(_question);
         }
-
-
     }
 }

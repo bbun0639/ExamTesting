@@ -1,0 +1,111 @@
+﻿@using ExamTesting.Models
+
+@{
+    ViewData["Title"] = "Subjects";
+}
+
+<h2 class="pb-4 text-center font-weight-light">Subjects</h2>
+
+<div class="card p-5 shadow p-3 mb-5 bg-white rounded" id="subject-grid">
+
+    @(Html.DevExtreme().Button()
+    .ID("gridDeleteSelected")
+    .Text("Delete Selected Records")
+    .Height(34)
+    .Width(195)
+    .Disabled(false)
+    .Type(ButtonType.Danger)
+    .OnClick(
+        @<script>
+            function () {
+                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                $.when.apply($, dataGrid.getSelectedRowsData().map(function(data) {
+                return dataGrid.getDataSource().store().remove(data.SubjectId);
+                })).done(function() {
+                dataGrid.refresh();
+                });
+            }
+        </script>
+        )
+    )
+
+    @(Html.DevExtreme().DataGrid<ExamTesting.Models.Subject>()
+        .DataSource( d => d.Mvc()
+            .Controller("Subjects")
+            .LoadAction("Get")
+            .UpdateAction("Put")
+            .InsertAction("Post")
+            .DeleteAction("Delete")
+            .Area("Admin")
+            .Key("SubjectId")
+            )
+
+        .ID("gridContainer")
+        .Editing(editing =>
+        {
+            editing.Mode(GridEditMode.Form);
+            editing.AllowAdding(true);
+            editing.AllowDeleting(true);
+            editing.AllowUpdating(true);
+        })
+
+
+        .FilterRow(filterRow => filterRow
+            .Visible(true)
+            .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+
+        .SearchPanel(searchPanel => searchPanel
+            .Visible(true)
+            .Width(240)
+            .Placeholder("Search...")
+        )
+
+        .Selection(selection => selection
+            .Mode(SelectionMode.Multiple)
+        )
+
+        .OnSelectionChanged(
+            @<script>
+                function(data) {
+                    var deleteButton = $("#gridDeleteSelected").dxButton("instance");
+                    deleteButton.option("disabled", !data.selectedRowsData.length);
+                }
+            </script>
+        )
+
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+        .Columns(columns =>
+        {
+            columns.Add().DataField("SubjectName").Caption("Subject Name");
+            columns.Add().DataField("SubjectLevels").Caption("Subject Level")
+
+                .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<EnumLevel>()
+                            .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                            .ValueExpr("Value")
+                            .DisplayExpr("Text")
+                        )
+           
+                .FormItem(i => i
+                    .Editor(e => e.SelectBox()
+                        .ID("SubjectLevels")
+                        .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                            .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                        .ValueExpr("Value")
+                        .DisplayExpr("Text")
+                        )
+                    );
+            
+        })
+        
+    .ShowBorders(true)
+    )
+
+    @(Html.DevExtreme().SpeedDialAction()
+    .ID("action-add")
+    .Icon("add")
+    .OnClick("addRow")
+)
+
+</div>
+

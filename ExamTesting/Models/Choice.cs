@@ -20,7 +20,7 @@ namespace ExamTesting.Models
 
         public Guid QuestionId { get; set; }
         [ForeignKey("QuestionId")]
-        public Question Question { get; set; }
+        public virtual Question Question { get; set; }
         
         public virtual ICollection<Choice> Choices { get; set; }
     }

@@ -1,0 +1,278 @@
+﻿@using ExamTesting.Models
+@model  ExamTesting.Models.Question
+
+@{
+    ViewData["Title"] = "Questions";
+}
+
+<h2 class="pb-4 text-center font-weight-light">Questions</h2>
+
+<div class="card p-5 shadow p-3 mb-5 bg-white rounded" id="questions-grid">
+
+    @(Html.DevExtreme().Button()
+    .ID("gridDeleteSelected")
+    .Text("Delete Selected Records")
+    .Height(34)
+    .Width(195)
+    .Disabled(false)
+    .Type(ButtonType.Danger)
+    .OnClick(
+        
+        @<text>
+            function () {
+                var dataGrid = $("#gridContainer").dxDataGrid("instance");
+                $.when.apply($, dataGrid.getSelectedRowsData().map(function(data) {
+                return dataGrid.getDataSource().store().remove(data.SubjectId);
+                })).done(function() {
+                dataGrid.refresh();
+                });
+            }
+        </text>
+        )
+    )
+
+
+    @(Html.DevExtreme().DataGrid<ExamTesting.Models.Question>()
+        .DataSource( d => d.Mvc()
+            .Controller("Questions")
+            .LoadAction("Get")
+            .UpdateAction("Put")
+            .InsertAction("Post")
+            .DeleteAction("Delete")
+            .Area("Admin")
+            .Key("QuestionId")
+            )
+
+        .ID("gridContainer")
+        .Editing(editing => editing
+
+            .Mode(GridEditMode.Form)
+            .AllowAdding(true)
+            .AllowDeleting(true)
+            .AllowUpdating(true)
+        )
+
+        .FilterRow(filterRow => filterRow
+            .Visible(true)
+            .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+
+        .SearchPanel(searchPanel => searchPanel
+            .Visible(true)
+            .Width(240)
+            .Placeholder("Search...")
+        )
+
+        .Selection(selection => selection
+            .Mode(SelectionMode.Multiple)
+        )
+
+        .OnSelectionChanged(
+                @<text>
+                    function(data) {
+                        var deleteButton = $("#gridDeleteSelected").dxButton("instance");
+                        deleteButton.option("disabled", !data.selectedRowsData.length);
+                    }
+                </text>
+        )
+
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+            .Columns(columns =>
+            {
+                columns.Add().DataField("QuestionStr").Caption("Question")   
+                    .FormItem(i => i
+                        .Editor(e => e
+                        .TextArea()
+                        .Height(75))
+                    )               
+                    .CellTemplate(@<text>
+                                            <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
+                                    </text>
+                                    );
+
+                columns.Add().DataField("Hint").Caption("Hint").Visible(false)
+                    .FormItem(i => i
+                        .Editor(e => e
+                        .TextArea()
+                        .Height(75))
+                    );
+
+                columns.Add().DataField("QuestionType").Caption("Question Type").Visible(true)
+                    .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<QuestionType>()
+                                .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                .ValueExpr("Value")
+                                .DisplayExpr("Text")
+                            )
+                            .FormItem(i => i
+                                .Editor(e => e.SelectBox()
+                                    .ID("QuestionType")
+                                    .DataSource(Html.GetEnumSelectList<QuestionType>()
+                                        .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                    .ValueExpr("Value")
+                                    .DisplayExpr("Text")
+
+                                    )
+
+                             );
+
+                columns.Add().DataField("QuestionLevel").Caption("Question Level").Visible(false)
+                    .Lookup(lookup => lookup
+                        .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                                .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                .ValueExpr("Value")
+                                .DisplayExpr("Text")
+                            )
+                            .FormItem(i => i
+                                .Editor(e => e.SelectBox()
+                                    .ID("QuestionLevel")
+                                    .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                                        .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                    .ValueExpr("Value")
+                                    .DisplayExpr("Text")
+                                    )
+
+                                );
+
+                columns.Add().DataField("TopicId").Caption("Topic").Visible(true)
+                .Lookup(lookup => lookup
+                        .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
+                                .ValueExpr("TopicId")
+                                .DisplayExpr("TopicName")
+                            )
+                            .FormItem(i => i
+                               .Editor(e => e.DropDownBox()
+                               .ID("TopicId")
+                               .DropDownOptions(o => o.Height(250))
+                               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
+                               .DisplayExpr("Question.TopicId")
+                               .ValueExpr("Question.TopicId")
+                                       .Placeholder("Select a value...")
+                                       .ShowClearButton(true)
+                                       .OnValueChanged("treeBox_valueChanged")
+                                       .ContentTemplate(new TemplateName("EmbeddedTreeViewMultiple"))
+                               )
+
+                            );
+
+                columns.AddFor(m=>m.QuestionPoint).Caption("Point").Visible(true)
+                    .FormItem(i => i
+                        .Editor(e => e
+                            .NumberBox()
+                            .Min(0)
+                            .Max(100)
+                            .ShowSpinButtons(true)
+                            .Placeholder("0-100")
+                            )
+
+                        );
+
+            })
+            .ShowBorders(false)
+            @*.OnContentReady(
+                    @<text>
+                            function(e) {
+                                e.component.validate();
+                            }
+                    </text>)*@
+
+)
+
+    <p class="text-danger pt-3">
+        <i>/*Click any question to add choices</i>
+    </p>
+
+</div>
+
+        @using (Html.DevExtreme().NamedTemplate("EmbeddedTreeViewMultiple"))
+        {
+                @(Html.DevExtreme().TreeView()
+                .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
+                .KeyExpr("TopicId")
+               .DisplayExpr("TopicName")
+                //.ItemsExpr("Items")
+                //.ExpandedExpr("true")
+                .ParentIdExpr("ParentId")
+                .DataStructure(TreeViewDataStructure.Plain)
+                .SelectionMode(NavSelectionMode.Multiple)
+                .ShowCheckBoxesMode(TreeViewCheckBoxMode.Normal)
+                .SelectNodesRecursive(false)
+                .SelectByClick(true)
+                .Height(235)
+                .OnItemSelectionChanged(
+                    @<text>
+                            function(args) {
+                                var nodes = args.component.getNodes(),
+                                    value = getSelectedItemsKeys(nodes);
+
+                                component.option("value", value);
+                            }
+                    </text>)
+
+                .OnContentReady(
+                    @<text>
+                            function(args) {
+                                syncTreeViewSelection(args.component, component.option("value"));
+                            }
+                    </text>)
+                )
+         }
+
+
+<script>
+//Ezy dropdown
+    function innerList_selectionChanged(e) {
+        var dropDownBox = $("#dropDownBox").dxDropDownBox("instance");
+        dropDownBox.option("value", e.addedItems[0]);
+        dropDownBox.close();
+    }
+
+//Button Back
+    function Back() {
+        window.location.href = "@Url.Action("GetQuestions")";
+    }
+
+    
+//Func tree view box
+    function syncTreeViewSelection(treeView, value) {
+        if (!value) {
+            treeView.unselectAll();
+            return;
+        }
+
+        value.forEach(function (key) {
+            treeView.selectItem(key);
+        });
+    }
+
+    function getSelectedItemsKeys(items) {
+        var result = [];
+        items.forEach(function (item) {
+            if (item.selected) {
+                result.push(item.key);
+            }
+            if (item.items.length) {
+                result = result.concat(getSelectedItemsKeys(item.items));
+            }
+        });
+        return result;
+    }
+
+    function treeBox_valueChanged(e) {
+        var $treeView = e.component.content().find(".dx-treeview");
+        if($treeView.length) {
+            syncTreeViewSelection($treeView.dxTreeView("instance"), e.value);
+        }
+    }
+
+    function gridBox_valueChanged(e) {
+        var $dataGrid = $("#embedded-datagrid");
+
+        if ($dataGrid.length) {
+            var dataGrid = $dataGrid.dxDataGrid("instance");
+            dataGrid.selectRows(e.value, false);
+        }
+    }
+
+</script>
+
+

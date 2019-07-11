@@ -1,0 +1,11 @@
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\bin\x64\Debug\netcoreapp2.2\ExamTesting.deps.json
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\bin\x64\Debug\netcoreapp2.2\ExamTesting.runtimeconfig.json
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\bin\x64\Debug\netcoreapp2.2\ExamTesting.runtimeconfig.dev.json
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\bin\x64\Debug\netcoreapp2.2\ExamTesting.dll
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\bin\x64\Debug\netcoreapp2.2\ExamTesting.pdb
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\obj\x64\Debug\netcoreapp2.2\ExamTesting.csprojAssemblyReference.cache
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\obj\x64\Debug\netcoreapp2.2\ExamTesting.csproj.CoreCompileInputs.cache
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\obj\x64\Debug\netcoreapp2.2\ExamTesting.AssemblyInfoInputs.cache
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\obj\x64\Debug\netcoreapp2.2\ExamTesting.AssemblyInfo.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\obj\x64\Debug\netcoreapp2.2\ExamTesting.dll
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\ExamTesting\obj\x64\Debug\netcoreapp2.2\ExamTesting.pdb
