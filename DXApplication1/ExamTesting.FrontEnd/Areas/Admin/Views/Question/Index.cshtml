@@ -61,7 +61,7 @@
                         groupItems.AddSimpleFor(m => m.TopicId)
                         .Editor(e => e
                             .DropDownBox()
-                            .DropDownOptions(o => o.Height(350))
+                            .DropDownOptions(o => o.Height(250))
                             .DataSource(d => d.Mvc().Controller("Question").LoadAction("GetTopicDropdown").Key("TopicId"))
                             .DisplayExpr("TopicName").ValueExpr("TopicId")
                             .Placeholder("Select a value...")
@@ -94,7 +94,7 @@
 
     <div class="card p-5 shadow mb-3 bg-white rounded col" style="width:550px;">
 
-        @*@(Html.DevExtreme().Form<ExamTesting.Models.Question>()
+        @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
             .ID("form-point")
             .ColCount(1)
             .Items(items =>
@@ -103,7 +103,12 @@
                     .Caption("Select Choices")
                     .Items(groupItems =>
                     {
-                        groupItems.
+                        groupItems.AddSimpleFor(m => m.QuestionPoint)
+                        .Editor(e => e
+                            .TagBox()
+                            .DataSource(d => d.Mvc().Controller("Question").LoadAction("GetTopicDropdown").Key("TopicId"))
+                            .DisplayExpr("TopicName").ValueExpr("TopicId")
+                        );
 
 
                     });
@@ -111,7 +116,7 @@
 
             })
 
-        )*@
+        )
 
 
         @*@(Html.DevExtreme().DropDownBox()
@@ -175,7 +180,7 @@
 
     <div class="text-right col">
         @(Html.DevExtreme().Button()
-            .Type(ButtonType.Default).Icon("check").Text("Submit").OnClick("Redirect")
+            .Type(ButtonType.Default).Icon("check").Text("Submit").OnClick("Submit")
         )
     </div>
 </div>
@@ -192,11 +197,11 @@
 
 //Button Back
     function Back() {
-        window.location.href = "@Url.Action("GetQuestions")";
+        window.location.href = "@Url.Action("Index","Questions")";
     }
 
-    function Redirect() {
-        window.location.href = "@Url.Action("Put","Question")";
+    function Submit() {
+        window.location.href = "@Url.Action("Put")";
     }
          
 //Func tree view box

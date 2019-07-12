@@ -5,7 +5,7 @@
     ViewData["Title"] = "Questions";
 }
 
-<h2 class="pb-4 text-center font-weight-light">Questions</h2>
+<h2 class="pb-4 text-center font-weight-light">Questions List</h2>
 
 <div class="card p-5 shadow p-3 mb-5 bg-white rounded" id="questions-grid">
 
@@ -183,39 +183,42 @@
 
 </div>
 
-        @using (Html.DevExtreme().NamedTemplate("EmbeddedTreeViewMultiple"))
-        {
-                @(Html.DevExtreme().TreeView()
-                .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
-                .KeyExpr("TopicId")
-               .DisplayExpr("TopicName")
-                //.ItemsExpr("Items")
-                //.ExpandedExpr("true")
-                .ParentIdExpr("ParentId")
-                .DataStructure(TreeViewDataStructure.Plain)
-                .SelectionMode(NavSelectionMode.Multiple)
-                .ShowCheckBoxesMode(TreeViewCheckBoxMode.Normal)
-                .SelectNodesRecursive(false)
-                .SelectByClick(true)
-                .Height(235)
-                .OnItemSelectionChanged(
-                    @<text>
-                            function(args) {
-                                var nodes = args.component.getNodes(),
-                                    value = getSelectedItemsKeys(nodes);
 
-                                component.option("value", value);
-                            }
-                    </text>)
 
-                .OnContentReady(
-                    @<text>
-                            function(args) {
-                                syncTreeViewSelection(args.component, component.option("value"));
-                            }
-                    </text>)
-                )
-         }
+@using (Html.DevExtreme().NamedTemplate("EmbeddedTreeViewMultiple"))
+{
+        @(Html.DevExtreme().TreeView()
+        .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
+        .KeyExpr("TopicId")
+        .DisplayExpr("TopicName")
+        //.ItemsExpr("Items")
+        //.ExpandedExpr("true")
+        .ParentIdExpr("ParentId")
+        .DataStructure(TreeViewDataStructure.Plain)
+        .SelectionMode(NavSelectionMode.Multiple)
+        .ShowCheckBoxesMode(TreeViewCheckBoxMode.Normal)
+        .SelectNodesRecursive(false)
+        .SelectByClick(true)
+        .Height(235)
+        .OnItemSelectionChanged(
+            @<text>
+                    function(args) {
+                        var nodes = args.component.getNodes(),
+                            value = getSelectedItemsKeys(nodes);
+
+                        component.option("value", value);
+                    }
+            </text>)
+
+        .OnContentReady(
+            @<text>
+                    function(args) {
+                        syncTreeViewSelection(args.component, component.option("value"));
+                    }
+            </text>)
+        )
+    }
+
 
 
 <script>

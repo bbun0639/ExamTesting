@@ -43,3 +43,4 @@ D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEn
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Topics\Index.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Topics\OldIndex.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Exams\Index.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Exam\Index.g.cshtml.cs

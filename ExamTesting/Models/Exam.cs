@@ -25,6 +25,6 @@ namespace ExamTesting.Models
 
         public DateTime EndDate { get; set; }
 
-
+        public virtual ICollection<Choice> Choices { get; set; }
     }
 }

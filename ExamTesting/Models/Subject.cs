@@ -7,7 +7,7 @@ namespace ExamTesting.Models
 {
     public class Subject
     {
-        [Key]
+        [Key][Display(Name ="Subject")]
         public Guid SubjectId { get; set; }
 
         [Display(Name ="Subject")]
