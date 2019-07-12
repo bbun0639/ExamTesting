@@ -143,14 +143,15 @@
                                .Editor(e => e.DropDownBox()
                                .ID("TopicId")
                                .DropDownOptions(o => o.Height(250))
-                               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
-                               .DisplayExpr("Question.TopicId")
-                               .ValueExpr("Question.TopicId")
+                               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
+                               .DisplayExpr("TopicName")
+                               .ValueExpr("TopicId")
                                        .Placeholder("Select a value...")
                                        .ShowClearButton(true)
                                        .OnValueChanged("treeBox_valueChanged")
                                        .ContentTemplate(new TemplateName("EmbeddedTreeViewMultiple"))
                                )
+                               
 
                             );
 

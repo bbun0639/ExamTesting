@@ -22,10 +22,18 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 
         }
 
-        [HttpGet]
-        public object Get(DataSourceLoadOptions loadOptions)
+        public IActionResult Index(Guid id)
         {
-            return DataSourceLoader.Load(_db.Questions, loadOptions);
+            var _question = _db.Questions.First(a => a.QuestionId == id);
+
+            return View(_question);
+        }
+
+
+        [HttpGet]
+        public object Get(DataSourceLoadOptions loadOptions, Guid id)
+        {
+            return DataSourceLoader.Load(_db.Choices.Where(g => g.QuestionId == id), loadOptions);
         }
 
         [HttpGet]
@@ -38,12 +46,12 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Post(string values)
         {
-            var newQuestion = new Question();
-            newQuestion.QuestionId = new Guid();
+            var newChoice = new Choice();
+            newChoice.ChoiceId = new Guid();
 
-            JsonConvert.PopulateObject(values, newQuestion);
+            JsonConvert.PopulateObject(values, newChoice);
 
-            _db.Questions.Add(newQuestion);
+            _db.Choices.Add(newChoice);
             _db.SaveChanges();
 
             return Ok();
@@ -52,9 +60,9 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         [HttpPut]
         public IActionResult Put(Guid key, string values)
         {
-            var _question = _db.Questions.First(a => a.QuestionId == key);
+            var _choice = _db.Choices.First(a => a.ChoiceId == key);
 
-            JsonConvert.PopulateObject(values, _question);
+            JsonConvert.PopulateObject(values, _choice);
 
             _db.SaveChanges();
 
@@ -64,18 +72,13 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         [HttpDelete]
         public void Delete(Guid key)
         {
-            var _question = _db.Questions.First(a => a.QuestionId == key);
+            var _choice = _db.Choices.First(a => a.ChoiceId == key);
 
-            _db.Questions.Remove(_question);
+            _db.Choices.Remove(_choice);
             _db.SaveChanges();
         }
 
 
-        public IActionResult Index(Guid id)
-        {
-            var _question = _db.Questions.First(a => a.QuestionId == id);
 
-            return View(_question);
-        }
     }
 }

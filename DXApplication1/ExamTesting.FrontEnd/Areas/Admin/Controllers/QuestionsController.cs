@@ -41,7 +41,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         {
             var newQuestion = new Question();
             newQuestion.QuestionId = new Guid();
-            newQuestion.QuestionId = Guid.NewGuid();
+            //newQuestion.QuestionId = Guid.NewGuid();
             JsonConvert.PopulateObject(values, newQuestion);
 
             _db.Questions.Add(newQuestion);

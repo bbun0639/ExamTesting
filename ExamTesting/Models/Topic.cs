@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -11,7 +12,7 @@ namespace ExamTesting.Models
     public class Topic
     {
         [Key]
-        [Display(Name = "Topic")]
+        [DisplayName("Topic")]
         public Guid TopicId { get; set; }
 
         public Guid? ParentId { get; set; }

@@ -101,23 +101,17 @@
             {
                 items.AddGroup()
                     .Caption("Select Choices")
-                    .Items(groupItems =>
-                    {
-                        groupItems.AddSimpleFor(m => m.QuestionPoint)
-                        .Editor(e => e
-                            .TagBox()
-                            .DataSource(d => d.Mvc().Controller("Question").LoadAction("GetTopicDropdown").Key("TopicId"))
-                            .DisplayExpr("TopicName").ValueExpr("TopicId")
-                        );
+                    .Template(@<text>
+                                <partial name="Choices" />
+                    </text>);
 
 
-                    });
 
 
-            })
+})
 
         )
-
+        <partial name="Choices" />
 
         @*@(Html.DevExtreme().DropDownBox()
                 .DropDownOptions(o => o.Height(400))

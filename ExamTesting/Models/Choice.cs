@@ -22,6 +22,6 @@ namespace ExamTesting.Models
         [ForeignKey("QuestionId")]
         public virtual Question Question { get; set; }
         
-        public virtual ICollection<Choice> Choices { get; set; }
+        
     }
 }

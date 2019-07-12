@@ -30,7 +30,8 @@ namespace ExamTesting.Models
 
         public int QuestionPoint { get; set; }
 
-        
+        [JsonIgnore]
+        public virtual ICollection<Choice> Choices { get; set; }
 
     }
 }

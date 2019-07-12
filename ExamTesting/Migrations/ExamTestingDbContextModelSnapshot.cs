@@ -24,9 +24,9 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("ChoiceId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid?>("ChoiceId1");
-
                     b.Property<string>("ChoiceStr");
+
+                    b.Property<Guid?>("ExamCodeId");
 
                     b.Property<bool>("IsCorrect");
 
@@ -34,7 +34,7 @@ namespace ExamTesting.Migrations
 
                     b.HasKey("ChoiceId");
 
-                    b.HasIndex("ChoiceId1");
+                    b.HasIndex("ExamCodeId");
 
                     b.HasIndex("QuestionId");
 
@@ -137,12 +137,12 @@ namespace ExamTesting.Migrations
 
             modelBuilder.Entity("ExamTesting.Models.Choice", b =>
                 {
-                    b.HasOne("ExamTesting.Models.Choice")
+                    b.HasOne("ExamTesting.Models.Exam")
                         .WithMany("Choices")
-                        .HasForeignKey("ChoiceId1");
+                        .HasForeignKey("ExamCodeId");
 
                     b.HasOne("ExamTesting.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("Choices")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
