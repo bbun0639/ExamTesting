@@ -25,12 +25,23 @@
     .Key("ChoiceId")
     .LoadParams(new { id = Model.QuestionId })
     )
+    .Selection(selection => selection
+        .Mode(SelectionMode.Multiple)
+        )
 
-    .OnInitNewRow("getQuestionId")
+        .OnSelectionChanged("selection")
+
+.OnInitNewRow("getQuestionId")
 )
 
 <script>
     function getQuestionId(e) {
             e.data.QuestionId = '@Model.QuestionId.ToString()' ;
     }
+
+    function selection(data) {
+        var deleteButton = $("#gridDeleteSelected").dxButton("instance");
+        deleteButton.option("disabled", !data.selectedRowsData.length);
+    }
+
 </script>

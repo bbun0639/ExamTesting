@@ -29,6 +29,22 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             return View(_question);
         }
 
+        [HttpPost, ActionName("Index")]
+        [ValidateAntiForgeryToken]
+        public ActionResult IndexPost(Guid id, Question question)
+        {
+            var _question = _db.Questions.First(a => a.QuestionId == id);
+            _question.QuestionStr = question.QuestionStr;
+            _question.Hint = question.Hint;
+            _question.QuestionLevel = question.QuestionLevel;
+            _question.QuestionType = question.QuestionType;
+            _question.TopicId = question.TopicId;
+            _question.QuestionPoint = question.QuestionPoint;
+
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Questions");
+        }
+
 
         [HttpGet]
         public object Get(DataSourceLoadOptions loadOptions, Guid id)
