@@ -61,15 +61,25 @@
                             .DisplayExpr("SubjectName")
                             .ValueExpr("SubjectId")));
 
-        columns.AddFor(m => m.StartDate).Caption("Start Date");
+        columns.AddFor(m => m.StartDate)
+            .Caption("Start Date")
+            .Alignment(HorizontalAlignment.Center);
 
-        columns.AddFor(m => m.EndDate).Caption("End Date");
+        columns.AddFor(m => m.EndDate)
+            .Caption("End Date")
+            .Alignment(HorizontalAlignment.Center);
 
-        columns.AddFor(m => m.ExamVersion).Caption("Version");
+        columns.AddFor(m => m.ExamVersion)
+            .Caption("Version")
+            .Alignment(HorizontalAlignment.Center);
 
     })
 
     .ShowBorders(true)
     )
+
+    <p class="text-danger pt-3">
+        <i>/*Click any exam to assign question</i>
+    </p>
 
 </div>

@@ -8,62 +8,104 @@
 
 
 <div id="form-container" class="row">
+
     <div class="col-2"></div>
-    <div class="card p-5 shadow mb-3 bg-white rounded col">
-        @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
-            .ID("form")
-            .ColCount(1)
+    <div class="col">
+        <div class="card p-5 shadow mb-3 bg-white rounded col">
+            @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+                .ID("form")
+                .ColCount(1)
 
-            .Items(items => {
-                items.AddGroup()
-                    .Caption("Question Info")
+                .Items(items => {
+                    items.AddGroup()
+                        .Caption("Exam Info")
 
-                    .Items(groupItems =>
-                    {
+                        .Items(groupItems =>
+                        {
 
-                        groupItems.AddSimpleFor(m => m.ExamName)
-                        .Editor(e => e
-                            .TextBox()
-                            .Width(500)
-                        );
-
-                        groupItems.AddSimpleFor(m => m.SubjectId)
-                        .Editor(e => e.SelectBox()
-                        .DataSource(d => d.Mvc().Controller("Exam").LoadAction("GetSubjects").Key("SubjectId"))
-                            .DisplayExpr("SubjectName")
-                            .ValueExpr("SubjectId")
-                            .Width(500)
+                            groupItems.AddSimpleFor(m => m.ExamName)
+                            .Editor(e => e
+                                .TextBox()
+                                .ReadOnly(true)
                             );
 
-                        groupItems.AddSimpleFor(m => m.StartDate)
-                        .Editor(e => e
-                            .DateBox()
-                            .Width(500)
+                            groupItems.AddSimpleFor(m => m.SubjectId)
+                            .Editor(e => e.SelectBox()
+                            .DataSource(d => d.Mvc().Controller("Exam").LoadAction("GetSubjects").Key("SubjectId"))
+                                .DisplayExpr("SubjectName")
+                                .ValueExpr("SubjectId")
+                                .ReadOnly(true)
+                                );
+
+                            groupItems.AddSimpleFor(m => m.StartDate)
+                            .Editor(e => e
+                                .DateBox()
+                                .ReadOnly(true)
+                                );
+
+                            groupItems.AddSimpleFor(m => m.EndDate)
+                            .Editor(e => e
+                                .DateBox()
+                                .ReadOnly(true)
+                                );
+
+                            groupItems.AddSimpleFor(m => m.ExamVersion)
+                            .Editor(e => e
+                                .TextBox()
+                                .ReadOnly(true)
                             );
 
-                        groupItems.AddSimpleFor(m => m.EndDate)
-                        .Editor(e => e
-                            .DateBox()
-                            .Width(500)
-                            );
+                        });
+                })
 
-                        groupItems.AddSimpleFor(m => m.ExamVersion)
-                        .Editor(e => e
-                            .TextBox()
-                            .Width(500)
-                        );
-
-                    });
-            })
-
-            .FormData(Model)
+                .FormData(Model)            
+            )
             
+        </div>
 
-        )
+        <div class="card p-5 shadow mb-3 bg-white rounded col">
+            @(Html.DevExtreme().Form<ExamTesting.Models.Choice>()
+                    .ColCount(1)
+
+                        .Items(items =>
+                        {
+                            items.AddGroup()
+                            .Caption("Assign Questions")
+                            .Template(@<text>
+                                        <partial name="Questions" />
+                            </text>);
+
+                        })
+             .FormData(Model)
+            )
+            <partial name="Questions" />
+        </div>
+
+        <div class="card p-5 shadow mb-3 bg-white rounded col">
+            @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
+                    .ColCount(1)
+
+                        .Items(items =>
+                        {
+                            items.AddGroup()
+                            .Caption("Assign Users")
+                            .Template(@<text>
+                            </text>);
+
+                        })
+             .FormData(Model)
+            )
+        </div>
 
     </div>
+
     <div class="col-2"></div>     
+
+
 </div>
+
+
+
 
 <div class="row">
     <div class="col-2"></div>
@@ -76,7 +118,10 @@
 
         <div class="text-right col">
             @(Html.DevExtreme().Button()
-                .Type(ButtonType.Default).Text("Next >").OnClick("Submit")
+                .Type(ButtonType.Default)
+                .Text("Submit")
+                .Icon("check")
+                .OnClick("Next")
             )
         </div>
     </div>
@@ -90,7 +135,7 @@
         window.location.href = "@Url.Action("Index","Exams")";
     }
 
-    function Submit() {
-        window.location.href = "@Url.Action("Put")";
+    function Next() {
+        window.location.href = "@Url.Action("Next")";
     }
 </script>

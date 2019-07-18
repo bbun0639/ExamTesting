@@ -113,7 +113,9 @@
 
                                     )
 
-                             );
+                                )
+                            .Alignment(HorizontalAlignment.Center);
+
 
                 columns.Add().DataField("QuestionLevel").Caption("Question Level").Visible(false)
                     .Lookup(lookup => lookup
@@ -131,7 +133,9 @@
                                     .DisplayExpr("Text")
                                     )
 
-                                );
+                                )
+                            .Alignment(HorizontalAlignment.Center);
+
 
                 columns.Add().DataField("TopicId").Caption("Topic").Visible(true)
                 .Lookup(lookup => lookup
@@ -146,16 +150,17 @@
                                .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
                                .DisplayExpr("TopicName")
                                .ValueExpr("TopicId")
-                                       .Placeholder("Select a value...")
-                                       .ShowClearButton(true)
-                                       .OnValueChanged("treeBox_valueChanged")
-                                       .ContentTemplate(new TemplateName("EmbeddedTreeViewMultiple"))
-                               )
-                               
+                                    .Placeholder("Select a value...")
+                                    .ShowClearButton(true)
+                                    .OnValueChanged("treeBox_valueChanged")
+                                    .ContentTemplate(new TemplateName("EmbeddedTreeViewMultiple"))
+                                    )
 
-                            );
+                                )
+                            .Alignment(HorizontalAlignment.Center);
 
-                columns.AddFor(m=>m.QuestionPoint).Caption("Point").Visible(true)
+
+                columns.AddFor(m => m.QuestionPoint).Caption("Point").Visible(true)
                     .FormItem(i => i
                         .Editor(e => e
                             .NumberBox()
@@ -164,11 +169,11 @@
                             .ShowSpinButtons(true)
                             .Placeholder("0-100")
                             )
-
-                        );
+                        )
+                    .Alignment(HorizontalAlignment.Center);
 
             })
-            .ShowBorders(false)
+            .ShowBorders(true)
             @*.OnContentReady(
                     @<text>
                             function(e) {

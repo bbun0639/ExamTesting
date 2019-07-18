@@ -27,7 +27,7 @@
 
         .Editing(editing =>
         {
-            editing.Mode(GridEditMode.Row);
+            editing.Mode(GridEditMode.Form);
             editing.AllowAdding(true);
             editing.AllowUpdating(true);
             editing.AllowDeleting(true);
@@ -54,7 +54,7 @@
             columns.AddFor(m => m.TopicName).Caption("Topic Name");
 
 
-            columns.AddFor(m => m.ParentId).Caption("Head")
+            columns.AddFor(m => m.ParentId).Caption("Head").Visible(false)
 
                 .Lookup(lookup => lookup
                 .DataSource(d => d.Mvc().Controller("Topics").LoadAction("Get").Key("TopicId"))
@@ -72,8 +72,7 @@
         .ShowBorders(true)
         .OnInitNewRow("treeList_onInitNewRow")
         .AutoExpandAll(true)
-        
-        
+               
     )
 
 

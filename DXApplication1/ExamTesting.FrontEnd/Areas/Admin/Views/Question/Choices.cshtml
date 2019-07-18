@@ -1,21 +1,29 @@
 ﻿@model ExamTesting.Models.Question
 
-@(Html.DevExtreme().DataGrid<ExamTesting.Models.Choice>
-    ()
+@(Html.DevExtreme().DataGrid<ExamTesting.Models.Choice>()
     .ID("gridContainer")
     .ShowBorders(true)
 
-    .Paging(paging => paging.Enabled(false))
+    .Paging(paging => paging.Enabled(true).PageSize(5))
     .Editing(editing =>
     {
-        editing.Mode(GridEditMode.Row);
+        editing.Mode(GridEditMode.Cell);
         editing.AllowAdding(true);
         editing.AllowDeleting(true);
         editing.AllowUpdating(true);
     })
     .Columns(columns =>
     {
-        columns.AddFor(m => m.ChoiceStr).Caption("Choices");
+        columns.AddFor(m => m.IsCorrect)
+            .Width(120)
+            .Caption("Check Correct")
+            .FormItem(i => i
+                .Editor(e => e.CheckBox())
+                )
+            .AllowEditing(true);
+
+        columns.AddFor(m => m.ChoiceStr)
+            .Caption("Choices");
     })
     .DataSource(d => d.Mvc()
     .LoadAction("Get")
@@ -25,11 +33,8 @@
     .Key("ChoiceId")
     .LoadParams(new { id = Model.QuestionId })
     )
-    .Selection(selection => selection
-        .Mode(SelectionMode.Multiple)
-        )
 
-        .OnSelectionChanged("selection")
+
 
 .OnInitNewRow("getQuestionId")
 )
@@ -37,11 +42,5 @@
 <script>
     function getQuestionId(e) {
             e.data.QuestionId = '@Model.QuestionId.ToString()' ;
-    }
-
-    function selection(data) {
-        var deleteButton = $("#gridDeleteSelected").dxButton("instance");
-        deleteButton.option("disabled", !data.selectedRowsData.length);
-    }
-
+    }        
 </script>

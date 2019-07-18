@@ -20,6 +20,13 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db = db;
         }
 
+        public IActionResult Index(Guid id)
+        {
+            var _exam = _db.Exams.First(a => a.ExamCodeId == id);
+
+            return View(_exam);
+        }
+
         [HttpGet]
         public object Get(DataSourceLoadOptions loadOptions)
         {
@@ -74,11 +81,19 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db.SaveChanges();
         }
 
-        public IActionResult Index(Guid id)
+
+
+
+
+        [HttpPost]
+        public void AddQuestions(Guid id,string value ,string questionsString)
         {
             var _exam = _db.Exams.First(a => a.ExamCodeId == id);
+            List<Question> questionsList  = JsonConvert.DeserializeObject<List<Question>>(questionsString);
+            _exam.AddQuestionns(questionsList);
 
-            return View(_exam);
+            _db.SaveChanges();
         }
+
     }
 }

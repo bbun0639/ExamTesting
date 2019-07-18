@@ -5793,7 +5793,8 @@
           "Microsoft.AspNetCore.All": "2.2.6",
           "Microsoft.EntityFrameworkCore": "2.2.6",
           "Microsoft.EntityFrameworkCore.Proxies": "2.2.6",
-          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6"
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
+          "System.Collections.NonGeneric": "4.3.0"
         },
         "compile": {
           "bin/placeholder/ExamTesting.dll": {}

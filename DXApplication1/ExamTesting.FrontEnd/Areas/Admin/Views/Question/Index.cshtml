@@ -101,27 +101,15 @@
             .Items(items =>
             {
                 items.AddGroup()
-                    .Caption("Select Choices")
+                    .Caption("Add Choices")
                     .Template(@<text>
-                                <partial name="Choices" />
+                            <partial name="Choices" />
                     </text>);
-
-
-
-
             })
-
         )
         <partial name="Choices" />
 
-        @*@(Html.DevExtreme().DropDownBox()
-                .DropDownOptions(o => o.Height(400))
-                .DataSource(d => d.Mvc().Controller("Question").LoadAction("GetTopicDropdown").Key("TopicId")).DisplayExpr("TopicName").ValueExpr("TopicId")
-                .Placeholder("Select a value...")
-                .ShowClearButton(true)
-                .OnValueChanged("treeBox_valueChanged")
-                .ContentTemplate(new TemplateName("EmbeddedTreeViewMultiple"))
-        )*@
+
     </div>
 
 </div>
@@ -171,9 +159,9 @@
 
     <div class="text-right col">
         @(Html.DevExtreme().Button()
-            .Type(ButtonType.Default)
-            .Icon("check")
+            .Type(ButtonType.Default)            
             .Text("Submit")
+            .Icon("check")
             .OnClick("Submit")
             .UseSubmitBehavior(true)
         )
@@ -198,7 +186,7 @@
 
     function Submit() {
         window.location.href = "@Url.Action("Index")";
-        alert("Already Update!")
+        //alert("Already Update!")
     }
 
 
