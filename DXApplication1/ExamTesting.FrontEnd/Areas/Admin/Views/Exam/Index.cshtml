@@ -72,29 +72,12 @@
                             items.AddGroup()
                             .Caption("Assign Questions")
                             .Template(@<text>
-                                        <partial name="Questions" />
                             </text>);
 
                         })
              .FormData(Model)
             )
             <partial name="Questions" />
-        </div>
-
-        <div class="card p-5 shadow mb-3 bg-white rounded col">
-            @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
-                    .ColCount(1)
-
-                        .Items(items =>
-                        {
-                            items.AddGroup()
-                            .Caption("Assign Users")
-                            .Template(@<text>
-                            </text>);
-
-                        })
-             .FormData(Model)
-            )
         </div>
 
     </div>

@@ -1,12 +1,12 @@
 ﻿@using ExamTesting.Models
-@model  ExamTesting.Models.Exam
+@model ExamTesting.Models.Exam
 
 @(Html.DevExtreme().DataGrid<ExamTesting.Models.Question>()
 .ID("gridContainer")
 .DataSource(d => d.Mvc()
-    .Controller("Questions")
-    .LoadAction("Get")
-    .Key("QuestionId")
+.Controller("Questions")
+.LoadAction("Get")
+.Key("QuestionId")
 )
 
 .FilterRow(filterRow => filterRow
@@ -24,42 +24,42 @@
 .HeaderFilter(headerFilter => headerFilter.Visible(true))
 .Columns(columns =>
 {
-    //columns.AddFor(m => m.QuestionId)
-    //    .Width(120)
-    //    .Caption("Select")
-    //    .FormItem(i => i
-    //        .Editor(e => e.CheckBox())
-    //        )
-    //    .AllowEditing(true)
-    //    .Alignment(HorizontalAlignment.Center);
+//columns.AddFor(m => m.QuestionId)
+//    .Width(120)
+//    .Caption("Select")
+//    .FormItem(i => i
+//        .Editor(e => e.CheckBox())
+//        )
+//    .AllowEditing(true)
+//    .Alignment(HorizontalAlignment.Center);
 
-    columns.AddFor(m => m.QuestionStr).Caption("Question")
-        .CellTemplate
-            (@<text>
-                        <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
-            </text>);
+columns.AddFor(m => m.QuestionStr).Caption("Question")
+    .CellTemplate
+        (@<text>
+        <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
+        </text>);
 
 columns.AddFor(m => m.QuestionType).Caption("Question Type").Visible(false)
- .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<QuestionType>()
-             .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-             .ValueExpr("Value")
-             .DisplayExpr("Text")
-         );
+.Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<QuestionType>()
+.Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+.ValueExpr("Value")
+.DisplayExpr("Text")
+);
 
 columns.AddFor(m => m.QuestionLevel).Caption("Question Level").Visible(false)
- .Lookup(lookup => lookup
-     .DataSource(Html.GetEnumSelectList<EnumLevel>()
-             .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-             .ValueExpr("Value")
-             .DisplayExpr("Text")
-         );
+.Lookup(lookup => lookup
+.DataSource(Html.GetEnumSelectList<EnumLevel>()
+.Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+.ValueExpr("Value")
+.DisplayExpr("Text")
+);
 
 columns.AddFor(m => m.TopicId).Caption("Topic")
 .Lookup(lookup => lookup
-     .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
-             .ValueExpr("TopicId")
-             .DisplayExpr("TopicName")
-         )
+.DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
+.ValueExpr("TopicId")
+.DisplayExpr("TopicName")
+)
 .Width(150)
 .Alignment(HorizontalAlignment.Center);
 
@@ -74,15 +74,14 @@ columns.AddFor(m => m.QuestionPoint).Caption("Point")
 .OnSelectionChanged("selection_changed")
 
 )
-
-<form asp-action="AddQuestions" asp-route-id="@Model.ExamCodeId">
-    <input type="submit" />
-    <textarea type="text" id="questionsString" rows="10" cols="100"></textarea>
-    <script>
-        function selection_changed(selectedItems) {
-            var data = selectedItems.selectedRowsData;
-            document.getElementById("questionsString").value = JSON.stringify(data);
-
-        }
-    </script>
-</form>
+    <form asp-action="AddQuestions" asp-route-id="@Model.ExamCodeId" >
+        <textarea type="text" name="questionsString" id="questionsString" rows="10" cols="80"></textarea>
+ 
+        <input type="submit" />
+        <script>
+            function selection_changed(selectedItems) {
+                var data = selectedItems.selectedRowsData;
+                document.getElementById("questionsString").innerHTML = JSON.stringify(data);
+            }
+        </script>
+    </form>

@@ -86,13 +86,16 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public void AddQuestions(Guid id,string value ,string questionsString)
+        public IActionResult AddQuestions(Guid id, string questionsString)
         {
             var _exam = _db.Exams.First(a => a.ExamCodeId == id);
-            List<Question> questionsList  = JsonConvert.DeserializeObject<List<Question>>(questionsString);
+            List<Question> questionsList = JsonConvert.DeserializeObject<List<Question>>(questionsString);
             _exam.AddQuestionns(questionsList);
 
             _db.SaveChanges();
+
+
+            return RedirectToAction("Index", "Exam", new { id = id });
         }
 
     }

@@ -4,15 +4,14 @@
 
 .sidenav {
     height: 100%;
-    width: 0;
+    width: 180px;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
     background-color: white;
-    overflow-x: hidden;
     transition: 0.8s;
-    padding-top: 60px;
+    padding-top: 50px;
     border: 3px;
 }
 
@@ -20,9 +19,10 @@
         padding: 8px 8px 8px 32px;
         text-decoration: none;
         font-size: 20px;
-        color: #808080;
+        color: #3e3e3e;
         display: block;
         transition: 0.3s;
+        overflow-x: hidden;
     }
 
         .sidenav a:hover {
@@ -35,8 +35,8 @@
 
     .sidenav .closebtn {
         position: absolute;
-        top: 40px;
+        /*top: 40px;*/
         right: 5px;
-        font-size: 28px;
+        font-size: 24px;
         margin-left: 50px;
     }

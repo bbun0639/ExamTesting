@@ -1,13 +1,13 @@
 ﻿<nav class="navbar navbar-light bg-white fixed-top navbar-expand-md row">
 
     <div id="navbar" class="collapse navbar-collapse col-2">
-        <span class="ml-4" style="font-size:22px; cursor:pointer" onclick="openNav()">&#9776;</span>
-        <a class="navbar-brand mr-auto ml-auto" href="@Url.Action("Index","Home")">TEST EVALUATION</a>
+        @*<span class="ml-4" style="font-size:22px; cursor:pointer" onclick="openNav()">&#9776;</span>*@
+        <a class="navbar-brand mr-auto ml-4" href="@Url.Action("Index","Home")">TEST EVALUATION</a>
     </div>
 
-    @*<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="sidenav">
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="sidenav">
         <span class="navbar-toggler-icon"></span>
-    </button>*@
+    </button>
 
     <div id="navbar" class="collapse navbar-collapse col">
         <ul class="navbar-nav mr-auto ml-auto bg-transparent" style="width:900px;">
@@ -57,7 +57,7 @@
 
 
 <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    @*
     <div class="pt-4">
         <a class="nav-link" asp-controller="Home" asp-action="Index"><i class="fas fa-home pr-3"></i>Home</a>
 
@@ -73,14 +73,49 @@
 
         <a class="nav-link" asp-controller="List" asp-action="Index"><i class="far fa-copy pr-3"></i>Reports</a>
     </div>
+    
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&lt;&lt;</a>*@
 </div>
 
+<div id="mySidenav" class="sidenav">
 
+    <div class="pt-4">
+        <a class="nav-link" asp-controller="Home" asp-action="Index">
+            <img src="~/logo/home-solid.svg" width="40" height="20" class="pr-3" />Home
+        </a>
+
+        <a class="nav-link" asp-controller="Topics" asp-action="Index">
+            <img src="~/logo/puzzle-piece-solid.svg" width="40" height="20" class="pr-3" />Topics
+        </a>
+
+        <a class="nav-link" asp-controller="Questions" asp-action="Index">
+            <img src="~/logo/question-circle-regular.svg" width="40" height="20" class="pr-3" />Questions
+        </a>
+
+        <a class="nav-link" asp-controller="Subjects" asp-action="Index">
+            <img src="~/logo/book-solid.svg" width="40" height="20" class="pr-3" />Subjects
+        </a>
+
+        <a class="nav-link" asp-controller="Exams" asp-action="Index">
+            <img src="~/logo/edit-regular.svg" width="40" height="20" class="pr-3" />Exams
+        </a>
+
+        <a class="nav-link" asp-controller="Users" asp-action="Index">
+            <img src="~/logo/user-friends-solid.svg" width="40" height="20" class="pr-3" />Users
+        </a>
+
+        <a class="nav-link" asp-controller="Reports" asp-action="Index">
+            <img src="~/logo/copy-regular.svg" width="40" height="20" class="pr-3" />Reports
+        </a>
+    </div>
+
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&lt;&lt;</a>
+</div>
 
 
 <script>
     function openNav() {
-        document.getElementById("mySidenav").style.width = "200px";
+        document.getElementById("mySidenav").style.width = "180px";
 
     }
 
