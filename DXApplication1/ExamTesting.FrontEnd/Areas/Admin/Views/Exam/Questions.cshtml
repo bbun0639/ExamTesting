@@ -19,20 +19,12 @@
 .Width(240)
 .Placeholder("Search...")
 )
+.Paging(paging => paging.Enabled(true).PageSize(5))
 
 
 .HeaderFilter(headerFilter => headerFilter.Visible(true))
 .Columns(columns =>
 {
-//columns.AddFor(m => m.QuestionId)
-//    .Width(120)
-//    .Caption("Select")
-//    .FormItem(i => i
-//        .Editor(e => e.CheckBox())
-//        )
-//    .AllowEditing(true)
-//    .Alignment(HorizontalAlignment.Center);
-
 columns.AddFor(m => m.QuestionStr).Caption("Question")
     .CellTemplate
         (@<text>
@@ -75,13 +67,13 @@ columns.AddFor(m => m.QuestionPoint).Caption("Point")
 
 )
     <form asp-action="AddQuestions" asp-route-id="@Model.ExamCodeId" >
-        <textarea type="text" name="questionsString" id="questionsString" rows="10" cols="80"></textarea>
+        <input type="hidden" name="questionsString" id="questionsString" rows="10" cols="80">
  
         <input type="submit" />
         <script>
             function selection_changed(selectedItems) {
                 var data = selectedItems.selectedRowsData;
-                document.getElementById("questionsString").innerHTML = JSON.stringify(data);
+                document.getElementById("questionsString").value = JSON.stringify(data);
             }
         </script>
     </form>

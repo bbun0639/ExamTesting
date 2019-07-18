@@ -27,6 +27,10 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             return View(_exam);
         }
 
+        public IActionResult AssignQuestions(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
+
+
+
         [HttpGet]
         public object Get(DataSourceLoadOptions loadOptions)
         {

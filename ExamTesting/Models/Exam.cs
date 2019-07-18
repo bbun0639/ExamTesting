@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,6 +20,7 @@ namespace ExamTesting.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<QuestionExam> QuestionsExams { get; set; }
 
 
