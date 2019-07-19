@@ -76,19 +76,22 @@
 
 </head>
 
-<body>    
+<body>
     <main role="main" class="container mb-5">
-        <partial name="_Navbar">
 
-            <div class="row">
-                <div class="col-2">
-                    <partial name="_SideNav" />
-                </div>
-                <div class="col">
-                    @RenderBody()
-                </div>
+        <div class="px-2">
+            <partial name="_HeadNavbar">
+        </div>
+
+        <div class="row">
+            <div class="col-2">
+                <partial name="_SideNav" />
             </div>
-</main>
+            <div class="col">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>

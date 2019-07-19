@@ -2,84 +2,100 @@
 @model ExamTesting.Models.Exam
 
 @(Html.DevExtreme().DataGrid<ExamTesting.Models.Question>()
-.ID("gridContainer")
-.DataSource(d => d.Mvc()
-.Controller("Questions")
-.LoadAction("Get")
-.Key("QuestionId")
+    .ID("gridContainer")
+    .DataSource(d => d.Mvc()
+    .Controller("Questions")
+    .LoadAction("Get")
+    .Key("QuestionId")
+    )
+
+    .FilterRow(filterRow => filterRow
+    .Visible(false)
+    .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+
+    .SearchPanel(searchPanel => searchPanel
+    .Visible(true)
+    .Width(240)
+    .Placeholder("Search...")
+    )
+    .Paging(paging => paging.Enabled(true).PageSize(10))
+    .Pager(pager =>
+    {
+        pager.ShowPageSizeSelector(true);
+        pager.AllowedPageSizes(new List<int> { 5, 10, 20 });
+        pager.ShowInfo(true);
+    })
+
+
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.QuestionStr).Caption("Question")
+            .CellTemplate
+                (@<text>
+                <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
+                </text>);
+
+        columns.AddFor(m => m.QuestionType).Caption("Question Type").Visible(false)
+            .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<QuestionType>()
+            .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+            .ValueExpr("Value")
+            .DisplayExpr("Text")
+            );
+
+        columns.AddFor(m => m.QuestionLevel).Caption("Question Level").Visible(false)
+            .Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<EnumLevel>()
+            .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+            .ValueExpr("Value")
+            .DisplayExpr("Text")
+            );
+
+        columns.AddFor(m => m.TopicId).Caption("Topic")
+            .Lookup(lookup => lookup
+            .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
+            .ValueExpr("TopicId")
+            .DisplayExpr("TopicName")
+            )
+            .Width(150)
+            .Alignment(HorizontalAlignment.Center);
+
+
+        columns.AddFor(m => m.QuestionPoint).Caption("Point")
+            .Width(100)
+            .Alignment(HorizontalAlignment.Center);
+
+    })
+    .ShowBorders(true)
+    .Selection(s => s.Mode(SelectionMode.Multiple))
+    .OnSelectionChanged("selection_changed")
+
 )
 
-.FilterRow(filterRow => filterRow
-.Visible(false)
-.ApplyFilter(GridApplyFilterMode.Auto)
-)
+<div class="row pt-4">
+    <div class="text-left col">
+        @(Html.DevExtreme().Button()
+            .Type(ButtonType.Back).Icon("back").OnClick("Back")
+        )
+    </div>
 
-.SearchPanel(searchPanel => searchPanel
-.Visible(true)
-.Width(240)
-.Placeholder("Search...")
-)
-.Paging(paging => paging.Enabled(true).PageSize(10))
-.Pager(pager =>
-{
-    pager.ShowPageSizeSelector(true);
-    pager.AllowedPageSizes(new List<int> { 5, 10, 20 });
-    pager.ShowInfo(true);
-})
+    <div class="text-right col">
+        <form asp-action="AddQuestions" asp-route-id="@Model.ExamCodeId">
+            <input type="hidden" name="questionsString" id="questionsString" rows="10" cols="80">
 
-
-.HeaderFilter(headerFilter => headerFilter.Visible(true))
-.Columns(columns =>
-{
-columns.AddFor(m => m.QuestionStr).Caption("Question")
-    .CellTemplate
-        (@<text>
-        <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
-        </text>);
-
-columns.AddFor(m => m.QuestionType).Caption("Question Type").Visible(false)
-.Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<QuestionType>()
-.Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-.ValueExpr("Value")
-.DisplayExpr("Text")
-);
-
-columns.AddFor(m => m.QuestionLevel).Caption("Question Level").Visible(false)
-.Lookup(lookup => lookup
-.DataSource(Html.GetEnumSelectList<EnumLevel>()
-.Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-.ValueExpr("Value")
-.DisplayExpr("Text")
-);
-
-columns.AddFor(m => m.TopicId).Caption("Topic")
-.Lookup(lookup => lookup
-.DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("TopicId"))
-.ValueExpr("TopicId")
-.DisplayExpr("TopicName")
-)
-.Width(150)
-.Alignment(HorizontalAlignment.Center);
-
-
-columns.AddFor(m => m.QuestionPoint).Caption("Point")
-.Width(100)
-.Alignment(HorizontalAlignment.Center);
-
-})
-.ShowBorders(true)
-.Selection(s => s.Mode(SelectionMode.Multiple))
-.OnSelectionChanged("selection_changed")
-
-)
-    <form asp-action="AddQuestions" asp-route-id="@Model.ExamCodeId" >
-        <input type="hidden" name="questionsString" id="questionsString" rows="10" cols="80">
- 
-        <input type="submit" />
-        <script>
-            function selection_changed(selectedItems) {
-                var data = selectedItems.selectedRowsData;
-                document.getElementById("questionsString").value = JSON.stringify(data);
-            }
-        </script>
-    </form>
+        @(Html.DevExtreme().Button()
+            .Type(ButtonType.Default)            
+            .Text("Submit")
+            .Icon("check")
+            .UseSubmitBehavior(true)
+        )
+            <script>
+                function selection_changed(selectedItems) {
+                    var data = selectedItems.selectedRowsData;
+                    document.getElementById("questionsString").value = JSON.stringify(data);
+                }
+            </script>
+        </form>
+    </div>
+</div>

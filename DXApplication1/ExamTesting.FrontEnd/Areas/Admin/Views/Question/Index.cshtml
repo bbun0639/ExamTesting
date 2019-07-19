@@ -11,7 +11,7 @@
     <div id="form-container" class="row">
         <div class="col">
 
-            <div class="card p-5 shadow bg-white rounded">
+            <div class="p-5 bg-light rounded">
             @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
                 .ID("form")
                 .ColCount(1)
@@ -91,7 +91,7 @@
 
         <br />
 
-            <div class="card p-5 shadow bg-white rounded">
+            <div class="p-5 bg-light rounded">
                 @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
                     .ID("form-point")
                     .ColCount(1)
@@ -128,7 +128,7 @@
             </div>
         </div>
     
-        <div class="col-2"></div>
+        <div id="col-light" class="col-3"></div>
 
     </div>
 
