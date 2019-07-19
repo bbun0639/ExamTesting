@@ -33,5 +33,10 @@ namespace ExamTesting.Models
         [JsonIgnore]
         public virtual ICollection<Choice> Choices { get; set; }
 
+
+        [JsonIgnore]
+        public virtual ICollection<QuestionExam> QuestionExams { get; set; }
+
+
     }
 }

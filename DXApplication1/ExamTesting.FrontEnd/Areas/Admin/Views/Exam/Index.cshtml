@@ -1,22 +1,18 @@
 ﻿@using ExamTesting.Models
+@model  ExamTesting.Models.Exam
 
 @{
     ViewData["Title"] = "Exam";
 }
 
-
-@model  ExamTesting.Models.Exam
-
-<h2 class="pb-4 text-center font-weight-light">Exam</h2>
-
-
 <div id="form-container" class="row">
 
-    <div class="col-2">
-    </div>
     <div class="col">
         <div class="card p-5 shadow mb-3 bg-white rounded col">
-            @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+
+        @*<h2 class="pb-4 text-center font-weight-light">Exam</h2>*@
+
+        @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
         .ID("form")
         .ColCount(1)
         .Items(items => {
@@ -27,36 +23,36 @@
                 {
 
                     groupItems.AddSimpleFor(m => m.ExamName)
-        .Editor(e => e
-            .TextBox()
-            .ReadOnly(true)
-        );
+                        .Editor(e => e
+                            .TextBox()
+                            .ReadOnly(true)
+                        );
 
                     groupItems.AddSimpleFor(m => m.SubjectId)
-        .Editor(e => e.SelectBox()
-        .DataSource(d => d.Mvc().Controller("Exam").LoadAction("GetSubjects").Key("SubjectId"))
-            .DisplayExpr("SubjectName")
-            .ValueExpr("SubjectId")
-            .ReadOnly(true)
-            );
+                        .Editor(e => e.SelectBox()
+                        .DataSource(d => d.Mvc().Controller("Exam").LoadAction("GetSubjects").Key("SubjectId"))
+                            .DisplayExpr("SubjectName")
+                            .ValueExpr("SubjectId")
+                            .ReadOnly(true)
+                            );
 
                     groupItems.AddSimpleFor(m => m.StartDate)
-        .Editor(e => e
-            .DateBox()
-            .ReadOnly(true)
-            );
+                        .Editor(e => e
+                            .DateBox()
+                            .ReadOnly(true)
+                            );
 
                     groupItems.AddSimpleFor(m => m.EndDate)
-        .Editor(e => e
-            .DateBox()
-            .ReadOnly(true)
-            );
+                        .Editor(e => e
+                            .DateBox()
+                            .ReadOnly(true)
+                            );
 
                     groupItems.AddSimpleFor(m => m.ExamVersion)
-        .Editor(e => e
-            .TextBox()
-            .ReadOnly(true)
-        );
+                        .Editor(e => e
+                            .TextBox()
+                            .ReadOnly(true)
+                        );
 
                 });
         })
@@ -66,13 +62,18 @@
             
         </div>
 
-        <div class="shadow mb-3 bg-white rounded col">
-
-          
-
-
-
-            <a asp-action="AssignQuestions" asp-route-id="@Model.ExamCodeId"> Assign New Questions</a>
+        <div class="row">
+            <div class="text-left col">
+                @(Html.DevExtreme().Button()
+                    .Type(ButtonType.Back).Icon("back").OnClick("Back")
+                )
+            </div>        
+        
+            <div class="col text-right">
+                <h5>
+                    <a asp-action="AssignQuestions" asp-route-id="@Model.ExamCodeId"> Assign New Questions</a>
+                </h5>
+            </div>
         </div>
 
     </div>
@@ -82,50 +83,21 @@
         @foreach (var eq in Model.QuestionsExams)
         {
             <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
-                <span>@eq.Question.QuestionStr</span><br />
+                <span>@eq.Question.QuestionStr (@eq.Question.QuestionExams.Count)</span><br />
             </a>
         }
 
         <a asp-action="Questions" asp-route-id="@Model.ExamCodeId">
             <h5>@Model.QuestionsExams.Count</h5> More Questions<br />
         </a>
-    </div>     
-
-
-</div>
-
-
-
-
-<div class="row">
-    <div class="col-2"></div>
-    <div class="col row pb-5">
-        <div class="text-left col">
-            @(Html.DevExtreme().Button()
-                .Type(ButtonType.Back).Icon("back").OnClick("Back")
-            )
-        </div>
-
-        <div class="text-right col">
-            @(Html.DevExtreme().Button()
-                .Type(ButtonType.Default)
-                .Text("Submit")
-                .Icon("check")
-                .OnClick("Next")
-            )
-        </div>
     </div>
-    <div class="col-2"></div>
 </div>
+
 
 
 
 <script>
     function Back() {
         window.location.href = "@Url.Action("Index","Exams")";
-    }
-
-    function Next() {
-        window.location.href = "@Url.Action("Next")";
     }
 </script>

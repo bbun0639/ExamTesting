@@ -19,7 +19,13 @@
 .Width(240)
 .Placeholder("Search...")
 )
-.Paging(paging => paging.Enabled(true).PageSize(5))
+.Paging(paging => paging.Enabled(true).PageSize(10))
+.Pager(pager =>
+{
+    pager.ShowPageSizeSelector(true);
+    pager.AllowedPageSizes(new List<int> { 5, 10, 20 });
+    pager.ShowInfo(true);
+})
 
 
 .HeaderFilter(headerFilter => headerFilter.Visible(true))

@@ -5,113 +5,132 @@
     ViewData["Title"] = "Question Choices";
 }
 
-<h2 class="pb-4 text-center font-weight-light">Add Question Choices</h2>
+@*<h2 class="pb-4 text-center font-weight-light">Add Question Choices</h2>*@
 
 <form method="post">
-<div id="form-container" class="row">
+    <div id="form-container" class="row">
+        <div class="col">
 
-    <div class="card p-5 shadow mb-3 bg-white rounded col" style="width:550px;">
-        @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
-            .ID("form")
-            .ColCount(1)
+            <div class="card p-5 shadow bg-white rounded">
+            @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
+                .ID("form")
+                .ColCount(1)
                        
 
-            .Items(items => {
-                items.AddGroup()
-                    .Caption("Question Info")
+                .Items(items => {
+                    items.AddGroup()
+                        .Caption("Question Info")
 
-                    .Items(groupItems =>
-                    {
+                        .Items(groupItems =>
+                        {
 
-                        groupItems.AddSimpleFor(m => m.QuestionStr)
-                        .Editor(e => e
-                            .TextArea()
-                            .Height(75)
-                        )
-                        .ValidationRules(r => r
-                            .AddRequired()
-                            .Message("Question is required")
-                        );
-
-
-                        groupItems.AddSimpleFor(m => m.Hint)
-                        .Editor(e => e
-                            .TextArea()
-                            .Height(75)
-                        );
-
-                        groupItems.AddSimpleFor(m => m.QuestionType)
-                        .Editor(e => e
-                            .SelectBox()
-                            .DataSource(Html.GetEnumSelectList<QuestionType>()
-                                        .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-                                        .ValueExpr("Value")
-                                        .DisplayExpr("Text")
-                            );
-
-
-                        groupItems.AddSimpleFor(m => m.QuestionLevel)
-                        .Editor(e => e
-                            .SelectBox()
-                            .DataSource(Html.GetEnumSelectList<EnumLevel>()
-                                        .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
-                                        .ValueExpr("Value")
-                                        .DisplayExpr("Text")
-                            );
-
-                        groupItems.AddSimpleFor(m => m.TopicId)
-                        .Editor(e => e
-                            .DropDownBox()
-                            .DropDownOptions(o => o.Height(250))
-                            .DataSource(d => d.Mvc().Controller("Question").LoadAction("GetTopicDropdown").Key("TopicId"))
-                            .DisplayExpr("TopicName").ValueExpr("TopicId")
-                            .Placeholder("Select a value...")
-                            .ShowClearButton(true)
-                            .OnValueChanged("treeBox_valueChanged")
-                            .ContentTemplate(new TemplateName("EmbeddedTreeViewMultiple"))
-                        );
-
-
-                        groupItems.AddSimpleFor(m => m.QuestionPoint)
+                            groupItems.AddSimpleFor(m => m.QuestionStr)
                             .Editor(e => e
-                            .NumberBox()
-                            .Min(0)
-                            .Max(100)
-                            .ShowSpinButtons(true)
-                            .Placeholder("0-100")
-                        );
+                                .TextArea()
+                                .Height(75)
+                            )
+                            .ValidationRules(r => r
+                                .AddRequired()
+                                .Message("Question is required")
+                            );
+
+
+                            groupItems.AddSimpleFor(m => m.Hint)
+                            .Editor(e => e
+                                .TextArea()
+                                .Height(75)
+                            );
+
+                            groupItems.AddSimpleFor(m => m.QuestionType)
+                            .Editor(e => e
+                                .SelectBox()
+                                .DataSource(Html.GetEnumSelectList<QuestionType>()
+                                            .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                            .ValueExpr("Value")
+                                            .DisplayExpr("Text")
+                                );
+
+
+                            groupItems.AddSimpleFor(m => m.QuestionLevel)
+                            .Editor(e => e
+                                .SelectBox()
+                                .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                                            .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                                            .ValueExpr("Value")
+                                            .DisplayExpr("Text")
+                                );
+
+                            groupItems.AddSimpleFor(m => m.TopicId)
+                            .Editor(e => e
+                                .DropDownBox()
+                                .DropDownOptions(o => o.Height(250))
+                                .DataSource(d => d.Mvc().Controller("Question").LoadAction("GetTopicDropdown").Key("TopicId"))
+                                .DisplayExpr("TopicName").ValueExpr("TopicId")
+                                .Placeholder("Select a value...")
+                                .ShowClearButton(true)
+                                .OnValueChanged("treeBox_valueChanged")
+                                .ContentTemplate(new TemplateName("EmbeddedTreeViewMultiple"))
+                            );
+
+
+                            groupItems.AddSimpleFor(m => m.QuestionPoint)
+                                .Editor(e => e
+                                .NumberBox()
+                                .Min(0)
+                                .Max(100)
+                                .ShowSpinButtons(true)
+                                .Placeholder("0-100")
+                            );
                             
-                    });
-            })
+                        });
+                })
 
-            .FormData(Model)
-        )
+                .FormData(Model)
+            )
+            </div>
+
+        <br />
+
+            <div class="card p-5 shadow bg-white rounded">
+                @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
+                    .ID("form-point")
+                    .ColCount(1)
+                    .Items(items =>
+                    {
+                        items.AddGroup()
+                            .Caption("Add Choices");
+                    })
+
+                )
+
+                <partial name="Choices" />
+
+                <div class="row pt-4">
+                    <div class="text-left col">
+                        @(Html.DevExtreme().Button()
+                            .Type(ButtonType.Back)
+                            .Icon("back")
+                            .OnClick("Back")
+                        )
+                    </div>
+
+                    <div class="text-right col">
+                        @(Html.DevExtreme().Button()
+                            .Type(ButtonType.Default)            
+                            .Text("Submit")
+                            .Icon("check")
+                            .OnClick("Submit")
+                            .UseSubmitBehavior(true)
+                        )
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    
+        <div class="col-2"></div>
 
     </div>
-    
-    
-    <div class="col-1"></div>
-
-
-    <div class="card p-5 shadow mb-3 bg-white rounded col" style="width:550px;">
-
-        @(Html.DevExtreme().Form<ExamTesting.Models.Question>()
-            .ID("form-point")
-            .ColCount(1)
-            .Items(items =>
-            {
-                items.AddGroup()
-                    .Caption("Add Choices")
-                    .Template(@<text>
-                    </text>);
-            })
-        )
-        <partial name="Choices" />
-
-
-    </div>
-
-</div>
 
     @using (Html.DevExtreme().NamedTemplate("EmbeddedTreeViewMultiple"))
         {
@@ -147,25 +166,6 @@
                 )
             }
 
-<div class="row pb-5">
-    <div class="text-left col">
-        @(Html.DevExtreme().Button()
-            .Type(ButtonType.Back)
-            .Icon("back")
-            .OnClick("Back")
-        )
-    </div>
-
-    <div class="text-right col">
-        @(Html.DevExtreme().Button()
-            .Type(ButtonType.Default)            
-            .Text("Submit")
-            .Icon("check")
-            .OnClick("Submit")
-            .UseSubmitBehavior(true)
-        )
-    </div>
-</div>
 
 </form>
 
