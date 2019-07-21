@@ -5,12 +5,17 @@
     ViewData["Title"] = "Exam";
 }
 
+
+
 <div id="form-container" class="row">
 
-    <div class="col">
-        <div class="p-5 bg-light rounded col">
+    
 
-        @*<h2 class="pb-4 text-center font-weight-light">Exam</h2>*@
+    <div class="col">
+        <div>
+            <partial name="_ExamHeader" />
+        </div>
+        <div class="p-5 bg-light rounded col">
 
         @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
         .ID("form")
@@ -68,9 +73,7 @@
                 </div>        
         
                 <div class="col text-right">
-                    <h5>
-                        <a asp-action="AssignQuestions" asp-route-id="@Model.ExamCodeId"> Assign New Questions</a>
-                    </h5>
+  
                 </div>
             </div>
             

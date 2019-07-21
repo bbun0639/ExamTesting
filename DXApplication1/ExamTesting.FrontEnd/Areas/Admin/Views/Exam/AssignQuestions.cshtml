@@ -4,12 +4,10 @@
     ViewData["Title"] = "Exam";
 }
 
-
+<partial name="_ExamHeader" />
 <div id="form-container" class="row">
-
     <div class="col">
-
-        <div class="p-5 bg-light rounded col">
+        <div class="p-4 bg-light rounded col">
 
             @(Html.DevExtreme().Form()
                 .ID("form-point")
@@ -21,18 +19,15 @@
 
                 })
             )
-            <partial name="Questions" />
+            <partial name="_AssignableQuestions" />
 
         </div>
-
-
-        <div class="col-2"></div>
     </div>
 </div>
 
 
 <script>
     function Back() {
-        window.location.href = "@Url.Action("Index","Questions")";
+        window.location.href = "@Url.Action("Index","Exams")";
     }
 </script>

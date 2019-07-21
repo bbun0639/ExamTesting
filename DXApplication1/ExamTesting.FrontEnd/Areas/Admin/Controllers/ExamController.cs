@@ -20,14 +20,10 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db = db;
         }
 
-        public IActionResult Index(Guid id)
-        {
-            var _exam = _db.Exams.First(a => a.ExamCodeId == id);
-
-            return View(_exam);
-        }
-
+        public IActionResult Index(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
         public IActionResult AssignQuestions(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
+        public IActionResult Questions(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
+
 
 
 

@@ -1,0 +1,23 @@
+﻿@using ExamTesting.Models
+@model ExamTesting.Models.Exam
+
+<div class="mb-2 bg-light">
+    <div class="col h5">
+        @Model.ExamName
+    </div>
+</div>
+
+    <div class="col row mb-2">
+        <div class="col-2 bg-light border p-2 m-0">
+            <a asp-action="Index" asp-route-id="@Model.ExamCodeId"> Detail </a>
+        </div>
+        <div class="col-2 bg-light border p-2 m-0">
+            <a asp-action="Questions" asp-route-id="@Model.ExamCodeId">@Model.QuestionsExams.Count Questions</a>
+        </div>
+        <div class="col-2 bg-light border p-2 m-0">
+
+        </div>
+        <div class="col-2 bg-light border p-2 m-0">
+
+        </div>
+    </div>
