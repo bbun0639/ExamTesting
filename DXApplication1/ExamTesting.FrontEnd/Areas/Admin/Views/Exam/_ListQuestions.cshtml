@@ -1,102 +1,80 @@
 ﻿@using ExamTesting.Models
-
-@{
-    ViewData["Title"] = "_ListQuestions";
-}
-
-
-
-<div class="row">
-    <div class="col-sm">
         
-        @(Html.DevExtreme().DataGrid<ExamTesting.Models.QuestionExam>()
-                .DataSource(d => d.Mvc()
-                .Controller("Questions")
-                .LoadAction("GetExam")
-                .DeleteAction("DeleteExam")
-                .Area("Admin")
-                .Key("QuestionId")
+@(Html.DevExtreme().DataGrid<ExamTesting.Models.QuestionExam>()
+    .ID("gridContainer")
+        .DataSource(d => d.Mvc()
+        .Controller("Questions")
+        .LoadAction("GetExam")
+        .DeleteAction("DeleteExam")
+        .Area("Admin")
+        .Key("QuestionId")
 
-                .LoadParams(new { id = Model.ExamId })
-
-                )
-
-           .ID("gridContainer")
-
-           .Editing(editing =>
-           {
-               editing.Mode(GridEditMode.Cell);
-               editing.AllowDeleting(true).UseIcons(true);
-           })
-
-           .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
-           .SearchPanel(searchPanel => searchPanel.Visible(true).Width(240).Placeholder("Search..."))
-
-           .Paging(paging => paging.Enabled(true).PageSize(10))
-
-           .ShowBorders(true)
-           .HeaderFilter(headerFilter => headerFilter.Visible(true))
-           .Selection(s => s.Mode(SelectionMode.Single))
-           .HoverStateEnabled(true)
-
-
-           .Columns(columns =>
-           {
-               columns.AddFor(m => m.QuestionId).Caption("Questions")
-               .Lookup(lookup => lookup
-               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
-               .DisplayExpr("QuestionStr")
-               .ValueExpr("QuestionId"))
-               ;
-
-               columns.AddFor(m => m.QuestionId).Visible(true).Caption("Points")
-               .Lookup(lookup => lookup
-               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
-               .DisplayExpr("QuestionPoint")
-               .ValueExpr("QuestionPoint"))
-               ;
-
-               columns.AddFor(m => m.QuestionId).Visible(true).Caption("Topic Name")
-               .Lookup(lookup => lookup
-               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
-               .DisplayExpr("TopicId")
-               .ValueExpr("TopicId"))
-               ;
-
-               columns.AddFor(m => m.QuestionId).Visible(true).Caption("Question Type")
-               .Lookup(lookup => lookup
-               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
-               .DisplayExpr("QuestionType")
-               .ValueExpr("QuestionId"))
-               ;
-
-               columns.AddFor(m => m.QuestionId).Visible(true).Caption("Question Level")
-               .Lookup(lookup => lookup
-               .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
-               .DisplayExpr("QuestionLevel")
-               .ValueExpr("QuestionId"))
-               ;
-
-
-           }
-
-)
-        @*.OnCellDblClick("selection_changed")*@
+        .LoadParams(new { id = Model.ExamCodeId })
 
         )
 
 
+    .Editing(editing =>
+    {
+        editing.Mode(GridEditMode.Cell);
+        editing.AllowDeleting(true).UseIcons(true);
+    })
+
+    .FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+    .SearchPanel(searchPanel => searchPanel.Visible(true).Width(240).Placeholder("Search..."))
+
+    .Paging(paging => paging.Enabled(true).PageSize(10))
+
+    .ShowBorders(true)
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .Selection(s => s.Mode(SelectionMode.Single))
+    .HoverStateEnabled(true)
 
 
-        @*<script>
-                function selection_changed(e) {
-                    if (e.data.QuestionId != null) {
-                        window.location.href = "/Admin/Question/Index/" + e.data.QuestionId;
-                    }
-                }
-            </script>*@
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.QuestionId).Caption("Questions")
+        .Lookup(lookup => lookup
+            .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
+            .ValueExpr("QuestionId")
+            .DisplayExpr("QuestionStr")
+        );
 
-    </div>
 
-</div>
+        columns.AddFor(m => m.Question.TopicId).Visible(true).Caption("Topic Name")
+        .Lookup(lookup => lookup
+            .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("QuestionId"))
+            .ValueExpr("TopicId")
+            .DisplayExpr("TopicName")
+            )
+        .Alignment(HorizontalAlignment.Center);
+
+
+        columns.AddFor(m => m.Question.QuestionType).Visible(true).Caption("Question Type")
+        .Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<QuestionType>()
+                .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                .ValueExpr("Value")
+                .DisplayExpr("Text")
+            )
+        .Alignment(HorizontalAlignment.Center);
+
+
+        columns.AddFor(m => m.Question.QuestionLevel).Visible(true).Caption("Question Level")
+        .Lookup(lookup => lookup
+            .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                    .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                    .ValueExpr("Value")
+                    .DisplayExpr("Text")
+                )
+        .Alignment(HorizontalAlignment.Center);
+       
+
+         columns.AddFor(m => m.Question.QuestionPoint).Visible(true).Caption("Points")
+            .Alignment(HorizontalAlignment.Center);
+
+    })
+
+)
+
 

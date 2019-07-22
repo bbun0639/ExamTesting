@@ -29,20 +29,21 @@
                             </div>
 
                             <div class="h6 font-weight-normal">
-                                Due : @Model.StartDate - @Model.EndDate
-                            </div>
-                            
-                            <div class="h6 font-weight-normal">
-                                Remaining Day : @Model.RemainingDay
-                            </div>
-
-
-                            <div class="h6 font-weight-normal">
                                 Version : @Model.ExamVersion
                             </div>
 
+                            <div class="h6 font-weight-normal">
+                                Start Date : @Model.StartDate
+                            </div>
+                            
+                            <div class="h6 font-weight-normal text-danger">
+                                Remaining Day : @Model.RemainingDay
+                            </div>
+                            
+
                             <div class="row pt-4">
-                                <div class="text-left col">
+                                <div class="text-le
+                                     ft col">
                                     @(Html.DevExtreme().Button()
                                         .Icon("back")
                                         .Text("Exams List")
@@ -52,7 +53,6 @@
                             </div>
 
                         </text>);
-
 
                  })
 

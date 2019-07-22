@@ -6,9 +6,9 @@
 
 
 
-<div class="p-5 bg-light rounded" id="tree-list-topic">
+<div id="tree-list-topic">
 
-    <h2 class="pb-4 text-center font-weight-light">Topics List</h2>
+    @*<h2 class="pb-4 text-center font-weight-light">Topics List</h2>*@
 
     @(Html.DevExtreme().TreeList<ExamTesting.Models.Topic>()
             .DataSource(d => d.Mvc()

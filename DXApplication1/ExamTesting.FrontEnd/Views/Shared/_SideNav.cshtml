@@ -5,10 +5,11 @@
             <img src="~/logo/home-solid.svg" width="40" height="20" />Home
         </a>
 
-        <a class="nav-link" asp-controller="Topics" asp-action="Index">
-            <img src="~/logo/puzzle-piece-solid.svg" width="40" height="20" />Topics
-        </a>
-
+        <div class="active">
+            <a class="nav-link" asp-controller="Topics" asp-action="Index">
+                <img src="~/logo/puzzle-piece-solid.svg" width="40" height="20" />Topics
+            </a>
+        </div>
         <a class="nav-link" asp-controller="Questions" asp-action="Index">
             <img src="~/logo/question-circle-regular.svg" width="40" height="20" />Questions
         </a>
@@ -22,15 +23,17 @@
         </a>
 
 
-        @*<a class="nav-link" asp-controller="Users" asp-action="Index">
+        <a @*class="nav-link" asp-controller="#" asp-action="#"*@>
             <img src="~/logo/user-friends-solid.svg" width="40" height="20" />Users
         </a>
 
-        <a class="nav-link" asp-controller="Reports" asp-action="Index">
+        <a @*class="nav-link" asp-controller="#" asp-action="#"*@>
             <img src="~/logo/copy-regular.svg" width="40" height="20" />Reports
-        </a>*@
+        </a>
     </div>
 
 </div>
+
+
 
 

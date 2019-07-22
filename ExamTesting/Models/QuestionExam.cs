@@ -20,6 +20,6 @@ namespace ExamTesting.Models
         public Guid ExamId { get; set; }
         [ForeignKey("ExamId")]
         public virtual Exam Exam { get; set; }
-        
+
     }
 }

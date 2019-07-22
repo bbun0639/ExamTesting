@@ -7,9 +7,9 @@
 
 
 
-<div class="p-5 bg-light rounded" id="questions-grid">
+<div id="questions-grid">
 
-    <h2 class="pb-4 text-center font-weight-light">Exams List</h2>
+    @*<h2 class="pb-4 text-center font-weight-light">Exams List</h2>*@
 
     @(Html.DevExtreme().DataGrid<ExamTesting.Models.Exam>().DataSource(d => d.Mvc()
         .Controller("Exams")
@@ -46,7 +46,7 @@
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .Columns(columns =>
     {
-        columns.AddFor(m => m.ExamName).Caption("Exam Name")
+        columns.AddFor(m => m.ExamName).Caption("Exam Name").SortOrder(SortOrder.Asc)
             .CellTemplate
             (@<text>
                 <a  href ="/Admin/Exam/<%= data.ExamCodeId %>/Details"><%= data.ExamName %></a>
@@ -70,6 +70,8 @@
          .FormItem(i => i
              .Editor(e => e
                  .DateBox()
+                 .Placeholder("d/MMM/y")
+                 .DisplayFormat("dd MMM yyyy")
                      .Type(DateBoxType.Date)
                  )
          );
@@ -81,6 +83,7 @@
          .FormItem(i => i
              .Editor(e => e
                  .NumberBox()
+                 .Placeholder("Amount of Days")
                     .ShowSpinButtons(true)
                     .ShowClearButton(true)
                  )
@@ -88,15 +91,18 @@
 
      columns.AddFor(m => m.ExamVersion)
          .Caption("Version")
-         .Alignment(HorizontalAlignment.Center);
+         .Alignment(HorizontalAlignment.Center)
+         .FormItem(i => i
+             .Editor(e => e
+                 .TextBox()
+                 .Placeholder("Ex. 2019")
+                 )
+             );
 
  })
 
  .ShowBorders(true)
                 )
 
-                <p class="text-danger pt-3">
-                    <i>/*Click any exam to assign question</i>
-                </p>
 
 </div>

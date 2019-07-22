@@ -6,30 +6,10 @@
 
 
 
-<div class="p-5 bg-light rounded" id="subject-grid">
+<div id="subject-grid">
 
-    <h2 class="pb-4 text-center font-weight-light">Subjects List</h2>
+    @*<h2 class="pb-4 text-center font-weight-light">Subjects List</h2>*@
 
-    @*@(Html.DevExtreme().Button()
-    .ID("gridDeleteSelected")
-    .Text("Delete Selected Records")
-    .Height(34)
-    .Width(195)
-    .Disabled(false)
-    .Type(ButtonType.Danger)
-    .OnClick(
-        @<script>
-            function () {
-                var dataGrid = $("#gridContainer").dxDataGrid("instance");
-                $.when.apply($, dataGrid.getSelectedRowsData().map(function(data) {
-                return dataGrid.getDataSource().store().remove(data.SubjectId);
-                })).done(function() {
-                dataGrid.refresh();
-                });
-            }
-        </script>
-        )
-    )*@
 
     @(Html.DevExtreme().DataGrid<ExamTesting.Models.Subject>()
         .DataSource( d => d.Mvc()
