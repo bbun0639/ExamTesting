@@ -1,0 +1,65 @@
+﻿@using ExamTesting.Models
+@{
+    ViewData["Title"] = "TestedBy";
+}
+
+<div id="form-container" class="row">
+
+    <div class="col">
+        
+        <partial name="_ExamHeader" />
+
+        <div class="p-4 bg-light rounded col">
+        
+            <div>
+                @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+                .ID("form")
+                .ColCount(1)
+                .Items(items =>
+                        {
+                    items.AddGroup()
+                        .Caption("Tested By")
+                        .Template(@<text>
+                            
+                        </text>);
+
+
+                 })
+
+                )
+
+                    <div class="row pt-4">
+                        <div class="text-left col">
+                            @(Html.DevExtreme().Button()
+                                .Icon("back")
+                                .Text("Exams List")
+                                .OnClick("Back")
+                            )
+                        </div>
+                    </div>
+            </div>
+                                            
+        </div>
+               
+    </div>
+
+    <div class="p-3 col-3 bg-light">
+        
+        @foreach (var eq in Model.QuestionsExams)
+        {            
+            <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
+                <span>&#9900; @eq.Question.QuestionStr (@eq.Question.QuestionExams.Count)</span><br />
+            </a>
+        }
+        <br />
+        <a asp-action="Questions" asp-route-id="@Model.ExamCodeId">
+            <h5>@Model.QuestionsExams.Count</h5>More Questions<br />
+        </a>
+    </div>
+</div>
+
+<script>
+    function Back() {
+        window.location.href = "@Url.Action("Index","Exams")";
+    }
+</script>

@@ -1,0 +1,48 @@
+﻿@model ExamTesting.Models.Question
+
+@(Html.DevExtreme().DataGrid<ExamTesting.Models.Choice>()
+    .ID("gridContainer")
+    .ShowBorders(true)
+
+    .Paging(paging => paging.Enabled(true).PageSize(5))
+    .Editing(editing =>
+    {
+        editing.Mode(GridEditMode.Cell);
+        editing.AllowAdding(true);
+        editing.AllowDeleting(true);
+        editing.AllowUpdating(true);
+        editing.UseIcons(true);
+    })
+    .Columns(columns =>
+    {
+
+        columns.AddFor(m => m.IsCorrect)
+            .Width(120)
+            .Caption("Check Correct")
+            .FormItem(i => i
+                .Editor(e => e.RadioGroup())
+                )
+            .AllowEditing(true);
+
+        columns.AddFor(m => m.ChoiceStr)
+            .Caption("Choices");
+    })
+    .DataSource(d => d.Mvc()
+    .LoadAction("Get")
+    .UpdateAction("Put")
+    .InsertAction("Post")
+    .DeleteAction("Delete")
+    .Key("ChoiceId")
+    .LoadParams(new { id = Model.QuestionId })
+    )
+
+
+
+.OnInitNewRow("getQuestionId")
+)
+
+<script>
+    function getQuestionId(e) {
+            e.data.QuestionId = '@Model.QuestionId.ToString()' ;
+    }        
+</script>

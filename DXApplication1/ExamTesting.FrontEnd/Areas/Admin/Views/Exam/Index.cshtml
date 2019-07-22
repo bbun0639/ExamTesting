@@ -9,90 +9,88 @@
 
 <div id="form-container" class="row">
 
-    
-
     <div class="col">
-        <div>
-            <partial name="_ExamHeader" />
-        </div>
-        <div class="p-5 bg-light rounded col">
-
-        @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
-        .ID("form")
-        .ColCount(1)
-        .Items(items => {
-            items.AddGroup()
-                .Caption("Exam Info")
-
-                .Items(groupItems =>
-                {
-
-                    groupItems.AddSimpleFor(m => m.ExamName)
-                        .Editor(e => e
-                            .TextBox()
-                            .ReadOnly(true)
-                        );
-
-                    groupItems.AddSimpleFor(m => m.SubjectId)
-                        .Editor(e => e.SelectBox()
-                        .DataSource(d => d.Mvc().Controller("Exam").LoadAction("GetSubjects").Key("SubjectId"))
-                            .DisplayExpr("SubjectName")
-                            .ValueExpr("SubjectId")
-                            .ReadOnly(true)
-                            );
-
-                    groupItems.AddSimpleFor(m => m.StartDate)
-                        .Editor(e => e
-                            .DateBox()
-                            .ReadOnly(true)
-                            );
-
-                    groupItems.AddSimpleFor(m => m.EndDate)
-                        .Editor(e => e
-                            .DateBox()
-                            .ReadOnly(true)
-                            );
-
-                    groupItems.AddSimpleFor(m => m.ExamVersion)
-                        .Editor(e => e
-                            .TextBox()
-                            .ReadOnly(true)
-                        );
-
-                });
-        })
-
-        .FormData(Model)
-    )
-
-            <div class="row">
-                <div class="text-left col">
-                    @(Html.DevExtreme().Button()
-                        .Type(ButtonType.Back).Icon("back").OnClick("Back")
-                    )
-                </div>        
         
-                <div class="col text-right">
-  
-                </div>
+        <partial name="_ExamHeader" />
+
+        <div class="p-4 bg-light rounded col">
+        
+            <div class="">
+                @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+                .ID("form")
+                .ColCount(1)
+                .Items(items =>
+                        {
+                    items.AddGroup()
+                        .Caption("Exam Info")
+                        .Template(@<text>
+                            <div class="h6 font-weight-normal">
+                                Subject : @Model.Subject.SubjectName
+                            </div>
+
+                            <div class="h6 font-weight-normal">
+                                Due : @Model.StartDate - @Model.EndDate
+                            </div>
+                            
+                            <div class="h6 font-weight-normal">
+                                Remaining Day : @Model.RemainingDay
+                            </div>
+
+
+                            <div class="h6 font-weight-normal">
+                                Version : @Model.ExamVersion
+                            </div>
+
+                            <div class="row pt-4">
+                                <div class="text-left col">
+                                    @(Html.DevExtreme().Button()
+                                        .Icon("back")
+                                        .Text("Exams List")
+                                        .OnClick("Back")
+                                    )
+                                </div>
+                            </div>
+
+                        </text>);
+
+
+                 })
+
+                )
             </div>
-            
+                                            
         </div>
                
     </div>
 
     <div class="p-3 col-3 bg-light">
-        
+
         @foreach (var eq in Model.QuestionsExams)
-        {            
+        {
             <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
                 <span>&#9900; @eq.Question.QuestionStr (@eq.Question.QuestionExams.Count)</span><br />
             </a>
         }
         <br />
-        <a asp-action="Questions" asp-route-id="@Model.ExamCodeId">
-            <h5>@Model.QuestionsExams.Count</h5>More Questions<br />
-        </a>
+
+        <div class="row">
+            <div class="text-center col">
+
+                <a asp-action="Questions" asp-route-id="@Model.ExamCodeId">
+                    <h5>@Model.QuestionsExams.Count</h5>
+                    More Questions<br />
+                </a>
+            </div>
+
+            <div class="text-center col">
+
+                <a asp-action="TestedBy" asp-route-id="@Model.ExamCodeId">
+                    <h5>0</h5>
+                    Tested By<br />
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>
 

@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    [Route("Admin/Exam/{id}")]
     public class ExamController : Controller
     {
         private readonly ExamTestingDbContext _db;
@@ -20,13 +22,20 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db = db;
         }
 
+        [Route("")]
+        [Route("Details")]
         public IActionResult Index(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
+
+        [Route("AssignQuestions")]
         public IActionResult AssignQuestions(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
+
+        [Route("Questions")]
         public IActionResult Questions(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
 
+        [Route("TestedBy")]
+        public IActionResult TestedBy(Guid id) => View(_db.Exams.First(a => a.ExamCodeId == id));
 
-
-
+               
         [HttpGet]
         public object Get(DataSourceLoadOptions loadOptions)
         {
@@ -45,46 +54,9 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             return DataSourceLoader.Load(_db.Choices, loadOptions);
         }
 
-        [HttpPost]
-        public IActionResult Post(string values)
-        {
-            var newExam = new Exam();
-            newExam.ExamCodeId = new Guid();
-            newExam.ExamCodeId = Guid.NewGuid();
-
-            JsonConvert.PopulateObject(values, newExam);
-
-            _db.Exams.Add(newExam);
-            _db.SaveChanges();
-
-            return Ok();
-        }
-
-        [HttpPut]
-        public IActionResult Put(Guid key, string values)
-        {
-            var _exam = _db.Exams.First(a => a.ExamCodeId == key);
-
-            JsonConvert.PopulateObject(values, _exam);
-
-            _db.SaveChanges();
-
-            return Ok();
-        }
-
-        [HttpDelete]
-        public void Delete(Guid key)
-        {
-            var _exam = _db.Exams.First(a => a.ExamCodeId == key);
-
-            _db.Exams.Remove(_exam);
-            _db.SaveChanges();
-        }
 
 
-
-
-
+        //[Route("AddQuestions")]
         [HttpPost]
         public IActionResult AddQuestions(Guid id, string questionsString)
         {

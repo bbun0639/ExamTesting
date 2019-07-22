@@ -12,6 +12,8 @@ using Newtonsoft.Json;
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
+    //[Route("Admin/Question/{id}")]
     public class QuestionController : Controller
     {
         private readonly ExamTestingDbContext _db;
@@ -22,6 +24,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 
         }
 
+        //[Route("Details")]
         public IActionResult Index(Guid id)
         {
             var _question = _db.Questions.First(a => a.QuestionId == id);

@@ -1,23 +1,23 @@
 ﻿@using ExamTesting.Models
 @model ExamTesting.Models.Exam
 
-<div class="mb-2 bg-light">
-    <div class="col h5">
-        @Model.ExamName
+<div class="mb-2 bg-white">
+    <div class="col h2 font-weight-normal">
+        @Model.ExamName 
     </div>
 </div>
 
-    <div class="col row mb-2">
-        <div class="col-2 bg-light border p-2 m-0">
-            <a asp-action="Index" asp-route-id="@Model.ExamCodeId"> Detail </a>
+<div class="px-3 row mb-2 text-center">
+        <div class="col bg-light border p-1 m-0">
+            <a class="btn btn-block" asp-action="Index" asp-route-id="@Model.ExamCodeId">Details</a>
         </div>
-        <div class="col-2 bg-light border p-2 m-0">
-            <a asp-action="Questions" asp-route-id="@Model.ExamCodeId">@Model.QuestionsExams.Count Questions</a>
+        <div class="col bg-light border p-1 m-0">
+            <a class="btn btn-block" asp-action="Questions" asp-route-id="@Model.ExamCodeId">Questions (@Model.QuestionsExams.Count)</a>
         </div>
-        <div class="col-2 bg-light border p-2 m-0">
+        <div class="col bg-light border p-1 m-0">
+            <a class="btn btn-block" asp-action="TestedBy" asp-route-id="@Model.ExamCodeId">Tested by (0)</a>
+        </div>
+        <div class="col bg-light border p-1 m-0">
 
         </div>
-        <div class="col-2 bg-light border p-2 m-0">
-
-        </div>
-    </div>
+</div>

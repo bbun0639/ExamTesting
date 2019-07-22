@@ -42,7 +42,7 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("ExamCodeId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<int>("ExamDuration");
 
                     b.Property<string>("ExamName");
 
@@ -162,7 +162,7 @@ namespace ExamTesting.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ExamTesting.Models.Question", "Question")
-                        .WithMany()
+                        .WithMany("QuestionExams")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

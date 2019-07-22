@@ -91,12 +91,20 @@
             .Icon("check")
             .UseSubmitBehavior(true)
         )
-            <script>
-                function selection_changed(selectedItems) {
-                    var data = selectedItems.selectedRowsData;
-                    document.getElementById("questionsString").value = JSON.stringify(data);
-                }
-            </script>
+
         </form>
     </div>
 </div>
+
+
+
+<script>
+    function selection_changed(selectedItems) {
+        var data = selectedItems.selectedRowsData;
+        document.getElementById("questionsString").value = JSON.stringify(data);
+    }
+
+    function Back(e) {
+        window.location.href = "@Url.Action("Index","Exams")" + e.data.ExamCodeId;
+    }
+</script>

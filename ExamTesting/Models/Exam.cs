@@ -17,8 +17,15 @@ namespace ExamTesting.Models
         public Guid SubjectId { get; set; }
         [ForeignKey("SubjectId")]
         public virtual Subject Subject { get; set; }
+
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public int ExamDuration { get; set; }
+
+        [NotMapped]
+        public DateTime EndDate => StartDate.AddDays(ExamDuration);
+
+        [NotMapped]
+        public int RemainingDay => (EndDate - DateTime.Today).Days;
 
         [JsonIgnore]
         public virtual ICollection<QuestionExam> QuestionsExams { get; set; }

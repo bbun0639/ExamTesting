@@ -11,7 +11,7 @@
 
     <h2 class="pb-4 text-center font-weight-light">Questions List</h2>
 
-    @(Html.DevExtreme().Button()
+    @*@(Html.DevExtreme().Button()
     .ID("gridDeleteSelected")
     .Text("Delete Selected Records")
     .Height(34)
@@ -30,7 +30,7 @@
             }
         </script>
         )
-    )
+    )*@
     
     @(Html.DevExtreme().DataGrid<ExamTesting.Models.Question>()
         .DataSource( d => d.Mvc()
@@ -50,6 +50,7 @@
             .AllowAdding(true)
             .AllowDeleting(true)
             .AllowUpdating(true)
+            .UseIcons(true)
         )
 
         .FilterRow(filterRow => filterRow
@@ -63,7 +64,7 @@
             .Placeholder("Search...")
         )
 
-        .Selection(selection => selection
+        @*.Selection(selection => selection
         .Mode(SelectionMode.Multiple)
         )
 
@@ -74,7 +75,7 @@
                     deleteButton.option("disabled", !data.selectedRowsData.length);
                 }
             </script>
-        )
+        )*@
 
         
 

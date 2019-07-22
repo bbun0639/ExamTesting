@@ -35,6 +35,20 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             return DataSourceLoader.Load(_db.Topics, loadOptions);
         }
 
+        [HttpGet]
+        public object GetExam(DataSourceLoadOptions loadOptions, Guid id)
+        {
+            return DataSourceLoader.Load(_db.QuestionExams.Where(m => m.ExamId == id), loadOptions);
+        }
+
+        [HttpDelete]
+        public void DeleteExam(Guid key)
+        {
+            var question = _db.QuestionExams.First(a => a.QuestionId == key);
+
+            _db.QuestionExams.Remove(question);
+            _db.SaveChanges();
+        }
 
         [HttpPost]
         public IActionResult Post(string values)

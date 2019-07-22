@@ -6,24 +6,78 @@
 }
 
 
-<partial name="_ExamHeader" />
 
-<div id="form-container" class="col row">
 
-    <div class="p-3 col-12 bg-light">
+<div id="form-container" class="row">
 
-        @foreach (var eq in Model.QuestionsExams)
-        {
-        <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
-            <span>&#9900; @eq.Question.QuestionStr (@eq.Question.QuestionExams.Count)</span><br />
-        </a>
-        }
+    <div class="col">
 
-    <h5>
-        <a asp-action="AssignQuestions" asp-route-id="@Model.ExamCodeId">Assign Questions</a>
-    </h5>
+        <partial name="_ExamHeader" />
 
+
+        <div class="p-4 col bg-light">
+
+        @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+              .Items(items => {
+                  items.AddGroup()
+                  .Caption("Questions (" + Model.QuestionsExams.Count + ")")
+                  .Template(@<text>
+
+                        @foreach (var eq in Model.QuestionsExams)
+                        {
+                            <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
+                                <span>&#9900; @eq.Question.QuestionStr (@eq.Question.QuestionExams.Count)</span><br />
+                            </a>
+                        }
+
+                        <div class="row mt-4">
+
+                            <div class="text-left col">
+                                @(Html.DevExtreme().Button()
+                                 .Icon("back")
+                                 .Text("Exams List")
+                                 .OnClick("Back")
+                                )
+                            </div>
+
+                            <div class="text-right col">
+                                <a asp-action="AssignQuestions" asp-route-id="@Model.ExamCodeId">Assign Questions</a>
+
+                                @(Html.DevExtreme().Button()
+                                  .Type(ButtonType.Default)
+                                  .Icon("plus")
+                                  .Text("Assign Questions")
+                                  .OnClick("AssignQuestions")
+                                )
+                            </div>
+                        </div>    
+                        
+              </text>);
+
+              })
+
+        )
+
+        @*<partial name="_ListQuestions">*@
+
+        </div>
+              
     </div>
-    
+
+    @*<div class="col-3"></div>*@
+
 </div>
 
+
+
+<script>
+    function Back() {
+        window.location.href = "@Url.Action("Index","Exams")";
+    }
+
+    function AssignQuestions(e) {
+        window.location.href = "/Admin/Exam/AssignQuestions/" + e.data.ExamCodeId;
+
+        window.location.href = "@Url.Action("AssignQuestions")";
+    }
+</script>
