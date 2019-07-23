@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ExamTesting.DAL;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,11 @@ namespace ExamTesting_FrontEnd
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
             // Add framework services.
             services
                 .AddMvc()
@@ -47,15 +53,24 @@ namespace ExamTesting_FrontEnd
             }
 
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                   name: "areas",
-                  template: "{area=Admin}/{controller=Home}/{action=Index}/{id?}"
+                  template: "admin/{controller=Home}/{action=Index}/{id?}",
+                  new { area = "admin" }
                 );
             });
 
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                  name: "Default",
+                  template: "{controller=Home}/{action=Index}/{id?}"
+                );
+            });
         }
     }
 }

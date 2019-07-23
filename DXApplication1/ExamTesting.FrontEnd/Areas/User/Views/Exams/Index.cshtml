@@ -1,0 +1,21 @@
+﻿@model  List<ExamTesting.Models.Exam>
+
+    <div class="col">
+        <div class="row">
+            @{
+                var examlists = Model
+                    .GroupBy(m => m.ExamCodeId)
+                    .Select(g => new { g.Key, examlists = g.ToList() })
+                        .ToList();
+
+                @foreach (var examlist in examlists.OrderBy(c => c.Key))
+                {
+                    <partial name="_ExamList"/>
+                }
+                
+            }
+            
+        </div>
+
+    </div>
+

@@ -20,8 +20,6 @@
     <ProjectReference Include="..\..\ExamTesting\ExamTesting.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\User\Controllers\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ProjectExtensions><VisualStudio><UserProperties TemplateFeatures="NETCORE CS BASELINE" /></VisualStudio></ProjectExtensions>

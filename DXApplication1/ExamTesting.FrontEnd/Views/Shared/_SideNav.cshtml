@@ -2,26 +2,26 @@
 
 
 
-<div id="mySidenav" class="sidenav bg-light">
-    
+<div id="mySidenav" class="sidenav bg-light font-weight-normal">
+
     <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
 
     <div class="active">
-        <a class="nav-link" asp-controller="Topics" asp-action="Index">Topics</a>
+        <a class="nav-link" asp-controller="Topics" asp-action="Index" asp-area="Admin">Topics</a>
     </div>
-    <a class="nav-link" asp-controller="Questions" asp-action="Index">Questions</a>
+    <a class="nav-link" asp-controller="Questions" asp-action="Index" asp-area="Admin">Questions</a>
 
-    <a class="nav-link" asp-controller="Subjects" asp-action="Index">Subjects</a>
+    <a class="nav-link" asp-controller="Subjects" asp-action="Index" asp-area="Admin">Subjects</a>
 
-    <a class="nav-link" asp-controller="Exams" asp-action="Index">Exams</a>
+    <a class="nav-link" asp-controller="Exams" asp-action="Index" asp-area="Admin">Exams</a>
 
+    @*<a @*class="nav-link" asp-controller="#" asp-action="#">Users</a>*@
 
-    <a @*class="nav-link" asp-controller="#" asp-action="#"*@>Users</a>
+    @*<a @*class="nav-link" asp-controller="#" asp-action="#">Reports</a>*@
 
-    <a @*class="nav-link" asp-controller="#" asp-action="#"*@>Reports</a>
+    <a class="nav-link" asp-controller="Exams" asp-action="Index" asp-area="User">Student Exams</a>
 
 </div>
-
 
 
 

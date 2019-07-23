@@ -1,0 +1,29 @@
+﻿@model  ExamTesting.Models.Exam
+
+
+<div class="col-3 card-deck border-0 w-100 h-100">
+    <div class="h6 font-weight-normal">
+        Code : @Model.ExamCode
+    </div>
+
+    <div class="h6 font-weight-normal">
+        Subject : @Model.ExamName
+    </div>
+
+    <div class="h6 font-weight-normal">
+        Version : @Model.ExamVersion
+    </div>
+
+    <div class="h6 font-weight-normal">
+        Strat Date : @String.Format("{0:d MMMM yyyy}", @Model.StartDate)
+    </div>
+
+    <div class="h6 font-weight-normal">
+        End Date: @String.Format("{0:d MMMM yyyy}", @Model.EndDate)
+    </div>
+
+    <div class="h6 font-weight-normal text-danger">
+        Remaining Day : @Model.RemainingDay
+    </div>
+
+</div>
