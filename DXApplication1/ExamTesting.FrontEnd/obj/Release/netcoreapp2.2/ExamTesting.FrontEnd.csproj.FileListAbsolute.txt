@@ -52,3 +52,4 @@ D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEn
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\Razor\Areas\Admin\Views\Topics\OldIndex.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\Razor\Views\Shared\_HeadNavbar.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\Razor\Views\Shared\_SideNav.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Release\netcoreapp2.2\Razor\Areas\Admin\Views\Exam\_SuggestQuestion.g.cshtml.cs

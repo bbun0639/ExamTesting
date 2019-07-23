@@ -46,58 +46,60 @@
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .Columns(columns =>
     {
-        columns.AddFor(m => m.ExamName).Caption("Exam Name").SortOrder(SortOrder.Asc)
+        columns.AddFor(m => m.ExamCode).Caption("Exam Code")
             .CellTemplate
-            (@<text>
-                <a  href ="/Admin/Exam/<%= data.ExamCodeId %>/Details"><%= data.ExamName %></a>
-                </text>);
+                (@<text>
+                    <a  href ="/Admin/Exam/<%= data.ExamCodeId %>/Details"><%= data.ExamCode %></a>
+                    </text>);
+
+        columns.AddFor(m => m.ExamName).Caption("Exam Name").SortOrder(SortOrder.Asc);
 
 
+        columns.AddFor(m => m.SubjectId).Caption("Subject Name")
+        .Lookup(lookup => lookup.DataSource(d => d.Mvc().Controller("Exams").LoadAction("GetSubjects").Key("SubjectId"))
+            .DisplayExpr("SubjectName")
+            .ValueExpr("SubjectId"))
+            .Alignment(HorizontalAlignment.Center)
+                .FormItem(i => i
+                    .Editor(e => e.SelectBox()
+                        .DataSource(d => d.Mvc().Controller("Exams").LoadAction("GetSubjects").Key("SubjectId"))
+                            .DisplayExpr("SubjectName")
+                            .ValueExpr("SubjectId")));
 
-     columns.AddFor(m => m.SubjectId).Caption("Subject Name")
-     .Lookup(lookup => lookup.DataSource(d => d.Mvc().Controller("Exams").LoadAction("GetSubjects").Key("SubjectId"))
-         .DisplayExpr("SubjectName")
-         .ValueExpr("SubjectId"))
-             .FormItem(i => i
-                 .Editor(e => e.SelectBox()
-                     .DataSource(d => d.Mvc().Controller("Exams").LoadAction("GetSubjects").Key("SubjectId"))
-                         .DisplayExpr("SubjectName")
-                         .ValueExpr("SubjectId")));
-
-     columns.AddFor(m => m.StartDate)
-         .Caption("Start Date")
-         .Alignment(HorizontalAlignment.Center)
-         .FormItem(i => i
-             .Editor(e => e
-                 .DateBox()
-                 .Placeholder("d/MMM/y")
-                 .DisplayFormat("dd MMM yyyy")
-                     .Type(DateBoxType.Date)
-                 )
-         );
+        columns.AddFor(m => m.StartDate)
+            .Caption("Start Date")
+            .Alignment(HorizontalAlignment.Center)
+            .FormItem(i => i
+                .Editor(e => e
+                    .DateBox()
+                    .Placeholder("d/MMM/y")
+                    .DisplayFormat("dd MMM yyyy")
+                        .Type(DateBoxType.Date)
+                    )
+            );
 
 
-     columns.AddFor(m => m.ExamDuration)
-         .Caption("Duration")
-         .Alignment(HorizontalAlignment.Center)
-         .FormItem(i => i
-             .Editor(e => e
-                 .NumberBox()
-                 .Placeholder("Amount of Days")
+        columns.AddFor(m => m.ExamDuration)
+            .Caption("Duration")
+            .Alignment(HorizontalAlignment.Center)
+            .FormItem(i => i
+                .Editor(e => e
+                    .NumberBox()
+                    .Placeholder("Amount of Days")
                     .ShowSpinButtons(true)
                     .ShowClearButton(true)
-                 )
-             );
+                    )
+                );
 
-     columns.AddFor(m => m.ExamVersion)
-         .Caption("Version")
-         .Alignment(HorizontalAlignment.Center)
-         .FormItem(i => i
-             .Editor(e => e
-                 .TextBox()
-                 .Placeholder("Ex. 2019")
-                 )
-             );
+        columns.AddFor(m => m.ExamVersion)
+            .Caption("Version")
+            .Alignment(HorizontalAlignment.Center)
+            .FormItem(i => i
+                .Editor(e => e
+                    .TextBox()
+                    .Placeholder("Ex. 2019")
+                    )
+                );
 
  })
 

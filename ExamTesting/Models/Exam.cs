@@ -30,6 +30,8 @@ namespace ExamTesting.Models
         [JsonIgnore]
         public virtual ICollection<QuestionExam> QuestionsExams { get; set; }
 
+        public string ExamCode { get; set; }
+
 
         public void AddQuestionns(List<Question> questionsList)
         {

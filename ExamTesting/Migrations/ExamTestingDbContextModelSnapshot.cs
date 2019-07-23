@@ -42,6 +42,8 @@ namespace ExamTesting.Migrations
                     b.Property<Guid>("ExamCodeId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ExamCode");
+
                     b.Property<int>("ExamDuration");
 
                     b.Property<string>("ExamName");
@@ -92,15 +94,11 @@ namespace ExamTesting.Migrations
 
                     b.Property<Guid>("QuestionId");
 
-                    b.Property<Guid>("TopicId");
-
                     b.HasKey("QuestionExamId");
 
                     b.HasIndex("ExamId");
 
                     b.HasIndex("QuestionId");
-
-                    b.HasIndex("TopicId");
 
                     b.ToTable("QuestionExams");
                 });
@@ -168,11 +166,6 @@ namespace ExamTesting.Migrations
                     b.HasOne("ExamTesting.Models.Question", "Question")
                         .WithMany("QuestionExams")
                         .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ExamTesting.Models.Topic", "Topic")
-                        .WithMany()
-                        .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

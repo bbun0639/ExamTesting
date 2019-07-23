@@ -1,0 +1,50 @@
+﻿<div class="p-3 col-3 bg-light">
+
+    <div class="col text-center pb-2">
+        <b>Suggestion Question</b>
+    </div>
+
+    <div class="col">
+
+        @foreach (var eq in Model.QuestionsExams)
+        {
+            <div class="row">
+
+                <div class="col pl-0 text-left">
+                    <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
+                        <span>&#9900; @eq.Question.QuestionStr</span>
+                    </a>
+
+                </div>
+
+                <div class="col-1 text-right">
+                    <span> (@eq.Question.QuestionExams.Count)</span>
+                </div>
+
+            </div>
+        }
+        <br />
+
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="text-center col">
+
+            <a asp-action="Questions" asp-route-id="@Model.ExamCodeId">
+                <h5>@Model.QuestionsExams.Count</h5>
+                More Questions<br />
+            </a>
+        </div>
+
+        <div class="text-center col">
+
+            <a asp-action="TestedBy" asp-route-id="@Model.ExamCodeId">
+                <h5>0</h5>
+                Tested by<br />
+            </a>
+        </div>
+    </div>
+
+</div>
