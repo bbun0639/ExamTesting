@@ -31,7 +31,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
         public async Task<IActionResult> SignIn()
         {
 
-            if (CheckUser("pa@paa.com", "password"))
+            if (CheckUser("pa@pa.com", "password"))
             {
                 await ProcessSignIn("pPAP", "pa@pa.com", true);
                 return RedirectToAction("Index","Home", new { area = "Admin"});

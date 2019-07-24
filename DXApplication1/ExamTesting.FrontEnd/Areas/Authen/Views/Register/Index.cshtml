@@ -15,36 +15,48 @@
                 </div>
 
                 <div class="p-4">
-                                                         
-                    @(Html.DevExtreme().Form<ExamTesting.FrontEnd.Areas.Authen.Models.LoginViewModel>()
-                        .ColCount(1)
-                        .ShowColonAfterLabel(true)
-                        .Items(item =>
+
+                    <h4 class="font-weight-light pb-4">Create an account</h4>
+
+
+                    @using (Html.BeginForm())
+                    {
+                        using (Html.DevExtreme().ValidationGroup())
                         {
-                            item.AddSimpleFor(m => m.Name)
-                                .Editor(e => e.TextBox());
+                            @(Html.DevExtreme().Form<ExamTesting.FrontEnd.Areas.Authen.Models.LoginViewModel>()
+                               .ColCount(1)
+                               .ShowColonAfterLabel(true)
+                               .Items(item =>
+                               {
+                                   item.AddSimpleFor(m => m.Name)
+                                       .Editor(e => e.TextBox());
 
-                            item.AddSimpleFor(m => m.Email)
-                                .Editor(e => e.TextBox());
+                                   item.AddSimpleFor(m => m.Email)
+                                       .Editor(e => e.TextBox());
 
-                            item.AddSimpleFor(m => m.Password)
-                                .Editor(e => e.TextBox());
+                                   item.AddSimpleFor(m => m.Password)
+                                       .Editor(e => e.TextBox());
 
-                            item.AddSimpleFor(m => m.ComfirmPassword)
-                                .Editor(e => e.TextBox());
+                                   item.AddSimpleFor(m => m.ComfirmPassword)
+                                       .Editor(e => e.TextBox());
 
-                            item.AddButton()
-                                .ButtonOptions(b => b.Text("Register")
-                                    .Type(ButtonType.Normal)
-                                    .UseSubmitBehavior(true).Width(150)
-                                )
-                                .HorizontalAlignment(HorizontalAlignment.Center);
-                        }).FormData(Model)
-                    )
+                                   item.AddButton()
+                                       .ButtonOptions(b => b.Text("Register")
+                                           .Type(ButtonType.Normal)
+                                           .UseSubmitBehavior(true)
+                                       )
+                                       .HorizontalAlignment(HorizontalAlignment.Center);
+                               })
+                           //.FormData(Model)
 
+                            )
+
+                        }
+                     }
+                                        
                 </div>
 
-                @*<button type="submit" class="btn btn-outline-primary">Login</button>*@
+                <a style="font-size:14px;" href="/Authen/SignIn">< Back</a>
 
             </div>
         </div>

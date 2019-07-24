@@ -16,28 +16,39 @@
 
                 <div class="p-4">
 
+                    <h4 class="font-weight-light pb-4">Sign In</h4>
 
-
-
-                    @(Html.DevExtreme().Form<ExamTesting.Models.User>()
-                        .ColCount(1)
-                        .ShowColonAfterLabel(true)
-                        .Items(item =>
+                    @using (Html.BeginForm())
+                    {
+                        using (Html.DevExtreme().ValidationGroup())
                         {
-                            item.AddSimpleFor(m => m.Email)
-                            .Editor(e => e.TextBox());
 
-                            item.AddSimpleFor(m => m.Password)
-                            .Editor(e => e.TextBox());
+                            @Html.AntiForgeryToken()
 
-                            item.AddButton()
-                                .ButtonOptions(b => b.Text("Login")
-                                    .Type(ButtonType.Normal)
-                                    .UseSubmitBehavior(true).Width(150)                                    
-                                )
-                                .HorizontalAlignment(HorizontalAlignment.Center);                            
-                        })
-                    )
+                            @(Html.DevExtreme().Form<ExamTesting.FrontEnd.Areas.Authen.Models.LoginViewModel>()
+                            .ColCount(1)
+                            .ShowColonAfterLabel(true)
+                            .Items(item =>
+                            {
+                                item.AddSimpleFor(m => m.Email)
+                                .Editor(e => e.TextBox());
+
+                                item.AddSimpleFor(m => m.Password)
+                                .Editor(e => e.TextBox());
+
+                                item.AddButton()
+                                    .ButtonOptions(b => b.Text("Login")
+                                        .Type(ButtonType.Normal)
+                                        .UseSubmitBehavior(true)
+                                    )
+                                    .HorizontalAlignment(HorizontalAlignment.Center);
+                            })
+
+                            )
+                        }
+                    }
+
+
 
                 </div>
                 

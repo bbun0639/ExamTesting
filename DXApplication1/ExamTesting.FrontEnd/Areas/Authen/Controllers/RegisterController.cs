@@ -24,12 +24,13 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
         {
 
             var loginViewModel = new LoginViewModel();
-            loginViewModel.Name = "I'm bun";
+            //loginViewModel.Name = "I'm bun";
 
             return View(loginViewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Process(LoginViewModel model)
         {
             if (model.PasswordCheck)
@@ -46,7 +47,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
             }
             else
             {
-                return Content("Worng");
+                return View("Index");
             }
 
             return RedirectToAction("Index", "SignIn", null);
