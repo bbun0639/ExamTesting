@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ExamTesting.DAL;
+using ExamTesting.FrontEnd.Areas.Authen.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -27,46 +28,45 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
             return View();
         }
 
-        [HttpPost,ActionName("Index")]
-        public async Task<IActionResult> SignIn()
+        [HttpPost, ActionName("Index")]
+        public async Task<IActionResult> SignIn(LoginViewModel model)
         {
+            var user = _db.Users
+                .Where(u => u.Email == model.Email && u.Password == model.Password)
+                .FirstOrDefault();
 
-            if (CheckUser("pa@pa.com", "password"))
+            if (user != null)
             {
-                await ProcessSignIn("pPAP", "pa@pa.com", true);
-                return RedirectToAction("Index","Home", new { area = "Admin"});
+                await ProcessSignIn(user);
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
             }
             else
             {
                 return Content("SignIn not Complete");
             }
-          
+
         }
 
-        private bool CheckUser(string email, string password)
-        {
-            if (email == "pa@pa.com" && password == "password")
-            {
-                return true;
-            }
-            return false;
-        }
 
-        private async Task ProcessSignIn(string name, string email,bool isAdmin)
+
+        private async Task ProcessSignIn(ExamTesting.Models.User user)
         {
             var claims = new List<Claim> {
-                    new Claim(ClaimTypes.Name,name ),
-                     new Claim(ClaimTypes.Email,email ),
+                     new Claim(ClaimTypes.Name,user.Name ),
+                     new Claim(ClaimTypes.Email,user.Email ),
+                     new Claim(ClaimTypes.NameIdentifier,user.Id.ToString() 
+                     ),
                 };
 
-            //if (isAdmin)
-            //    claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
+            if (user.isAdmin)
+                claims.Add(new Claim(ClaimTypes.Role, "Admin"));
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var authProperties = new AuthenticationProperties
             {
-
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1),
+                IsPersistent = false
             };
 
             await HttpContext.SignInAsync(

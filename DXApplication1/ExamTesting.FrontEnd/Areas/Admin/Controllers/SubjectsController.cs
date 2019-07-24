@@ -14,7 +14,8 @@ using Newtonsoft.Json;
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+
     public class SubjectsController : Controller
     {
         private readonly ExamTestingDbContext _db;

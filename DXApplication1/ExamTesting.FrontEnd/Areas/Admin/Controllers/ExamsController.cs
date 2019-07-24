@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ExamsController : Controller
     {
         private readonly ExamTestingDbContext _db;

@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExamTesting_FrontEnd.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+
     public class HomeController : Controller
     {
         private readonly ExamTestingDbContext _db;

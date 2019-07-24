@@ -7,6 +7,8 @@ namespace ExamTesting.Models
 {
     public class User
     {
+   
+
         [Key]
         public Guid Id { get; set; }
 
@@ -15,6 +17,8 @@ namespace ExamTesting.Models
         public string Email { get; set; }
 
         public string Password { get; set; }
+
+        public bool isAdmin { get; set; }
 
 
     }

@@ -144,6 +144,8 @@ namespace ExamTesting.Migrations
 
                     b.Property<string>("Password");
 
+                    b.Property<bool>("isAdmin");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");

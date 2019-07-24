@@ -10,12 +10,10 @@
 
         </div>
 
-        <div id="" class="text-center col-2">
+        <div id="" class="text-center col-2 row">
             @if (User.Identity.IsAuthenticated)
             {
-                @User.Identity.Name
-                @*@User.Claims*@
-                <a href="/Authen/SignIn">Logout</a>
+                <partial name="_AuthenticatedUser" />
             }
             else
             {

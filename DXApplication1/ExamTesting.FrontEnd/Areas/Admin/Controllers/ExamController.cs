@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
 
     [Route("Admin/Exam/{id}")]
     public class ExamController : Controller

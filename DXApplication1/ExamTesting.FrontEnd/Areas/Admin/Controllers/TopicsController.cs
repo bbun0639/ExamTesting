@@ -15,7 +15,8 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
 
     [Area("Admin")]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
+
     public class TopicsController : Controller
     {
         private readonly ExamTestingDbContext _db;

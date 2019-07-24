@@ -12,6 +12,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Models
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
+        //[RegularExpression(@"^[\d\w\._\-]+@([\d\w\._\-]+\.)+[\w]+$", ErrorMessage = "Email should be 'example@gmail.com'")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
