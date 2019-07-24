@@ -52,3 +52,13 @@ D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEn
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Question\_QuestionChoices.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Exam\_ListQuestions.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Exam\TestedBy.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Exam\_SuggestQuestion.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Authen\Views\SignIn\Index.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Authen\_ViewImports.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Authen\_ViewStart.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Exams\Index.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Exams\_ExamList.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Home\Index.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_ScriptPartial.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Views\Shared\_LayoutUnAuthen.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Authen\Views\Register\Index.g.cshtml.cs

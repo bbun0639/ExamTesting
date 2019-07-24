@@ -3,23 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ExamTesting.DAL;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ExamTesting.FrontEnd.Controllers
+namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
 {
-
-    public class AuthenController : Controller
+    [Area("Authen")]
+    public class SignInController : Controller
     {
 
+        private readonly ExamTestingDbContext _db;
+
+        public SignInController(ExamTestingDbContext db)
+        {
+            _db = db;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost,ActionName("Index")]
         public async Task<IActionResult> SignIn()
         {
 
-            if (CheckUser("pa@pa.com", "password"))
+            if (CheckUser("pa@paa.com", "password"))
             {
-                await ProcessSignIn("pPAP", "pa@pa.com");
-                return Content("SignIn Complete");
+                await ProcessSignIn("pPAP", "pa@pa.com", true);
+                return RedirectToAction("Index","Home", new { area = "Admin"});
             }
             else
             {
@@ -44,8 +59,8 @@ namespace ExamTesting.FrontEnd.Controllers
                      new Claim(ClaimTypes.Email,email ),
                 };
 
-            if(isAdmin)
-                claims.Add(new Claim(ClaimTypes.Role, "Administrator")),
+            //if (isAdmin)
+            //    claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -63,7 +78,7 @@ namespace ExamTesting.FrontEnd.Controllers
         public async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Content("Sign Out Complete");
+            return RedirectToAction("Index", "Admin");
 
         }
 

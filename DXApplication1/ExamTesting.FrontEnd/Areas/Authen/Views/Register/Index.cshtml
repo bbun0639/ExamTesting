@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUnAuthen.cshtml";
+}
+
+
+<div class="col"></div>
+
+<form method="post" asp-action="Process">
+
+    <div class="col">
+        <div class="card p-4 text-center">
+            <div class="card-body">
+                <div class="text-center">
+                    <img style="width:50%;" src="~/images/logo.png" />
+                </div>
+
+                <div class="p-4">
+                                                         
+                    @(Html.DevExtreme().Form<ExamTesting.FrontEnd.Areas.Authen.Models.LoginViewModel>()
+                        .ColCount(1)
+                        .ShowColonAfterLabel(true)
+                        .Items(item =>
+                        {
+                            item.AddSimpleFor(m => m.Name)
+                                .Editor(e => e.TextBox());
+
+                            item.AddSimpleFor(m => m.Email)
+                                .Editor(e => e.TextBox());
+
+                            item.AddSimpleFor(m => m.Password)
+                                .Editor(e => e.TextBox());
+
+                            item.AddSimpleFor(m => m.ComfirmPassword)
+                                .Editor(e => e.TextBox());
+
+                            item.AddButton()
+                                .ButtonOptions(b => b.Text("Register")
+                                    .Type(ButtonType.Normal)
+                                    .UseSubmitBehavior(true).Width(150)
+                                )
+                                .HorizontalAlignment(HorizontalAlignment.Center);
+                        }).FormData(Model)
+                    )
+
+                </div>
+
+                @*<button type="submit" class="btn btn-outline-primary">Login</button>*@
+
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+<div class="col"></div>
+
+
+

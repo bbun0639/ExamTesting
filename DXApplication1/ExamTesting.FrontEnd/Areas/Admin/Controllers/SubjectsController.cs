@@ -6,6 +6,7 @@ using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using ExamTesting.DAL;
 using ExamTesting.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ using Newtonsoft.Json;
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class SubjectsController : Controller
     {
         private readonly ExamTestingDbContext _db;

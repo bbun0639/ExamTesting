@@ -9,7 +9,7 @@
             <a class="navbar-brand" href="@Url.Action("Index","Home")">TEST EVALUATION</a>
         </div>
 
-        <div id="" class=" col">
+        <div id="" class="col">
 
         </div>
 
@@ -17,8 +17,8 @@
             @if (User.Identity.IsAuthenticated)
             {
                 @User.Identity.Name
-                @User.Claims
-                <a href="/Authen/SignOut">Logout</a>
+                @*@User.Claims*@
+                <a href="/Authen/SignIn">Logout</a>
             }
             else
             {

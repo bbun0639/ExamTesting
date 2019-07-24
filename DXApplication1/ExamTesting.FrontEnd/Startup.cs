@@ -27,7 +27,13 @@ namespace ExamTesting_FrontEnd
 
 
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options =>
+                {
+                    options.LoginPath = "/Authen/SignIn/Index";
+                    options.LogoutPath = "/Authen/SignOut/";
+                }
+                );
 
             // Add framework services.
             services
@@ -58,19 +64,19 @@ namespace ExamTesting_FrontEnd
             {
                 routes.MapRoute(
                   name: "areas",
-                  template: "admin/{controller=Home}/{action=Index}/{id?}",
-                  new { area = "admin" }
+                  template: "{area=Admin}/{controller=Home}/{action=Index}/{id?}"
+               
                 );
             });
 
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                  name: "Default",
-                  template: "{controller=Home}/{action=Index}/{id?}"
-                );
-            });
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //      name: "Default",
+            //      template: "{controller=Home}/{action=Index}/{id?}"
+            //    );
+            //});
         }
     }
 }

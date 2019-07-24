@@ -133,6 +133,24 @@ namespace ExamTesting.Migrations
                     b.ToTable("Topics");
                 });
 
+            modelBuilder.Entity("ExamTesting.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("ExamTesting.Models.Choice", b =>
                 {
                     b.HasOne("ExamTesting.Models.Question", "Question")

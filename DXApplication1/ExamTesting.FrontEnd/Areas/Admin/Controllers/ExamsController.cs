@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ExamTesting.DAL;
 using ExamTesting.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class ExamsController : Controller
     {
         private readonly ExamTestingDbContext _db;

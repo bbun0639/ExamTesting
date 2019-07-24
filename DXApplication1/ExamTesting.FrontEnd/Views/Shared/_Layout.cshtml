@@ -3,77 +3,9 @@
 <html>
 <head>
 
-    @*Head Title*@
     <title>@ViewData["Title"] - Test Evaluation</title>
-
-    @*icon*@
-    <script src="https://kit.fontawesome.com/3273cec17f.js"></script>
-
-    @*Clickable Table*@
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const rows = document.querySelectorAll("tr[data-href]");
-
-            rows.forEach(row => {
-                row.addEventListener("click", () => {
-                    window.location.href = row.dataset.href;
-                });
-            })
-        });
-    </script>
-
-    @* Cursor mouse *@
-    <style>
-        tr[data-href] {
-            cursor: pointer;
-        }
-    </style>
-
-
-    <meta name="viewport" content="width=1266 initial-scale=1">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>ExamTesting_FrontEnd</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
-    <link href="~/css/devextreme/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" />
-
-    <link rel="stylesheet" href="~/css/sidenav.css" />
-
-    <link href="~/css/devextreme/dx.common.css" rel="stylesheet" />
-    <link href="~/css/devextreme/dx.light.css" rel="stylesheet" />
-
-    <script src="~/js/devextreme/jquery.js"></script>
-    <script src="~/js/devextreme/bootstrap.js"></script>
-
-    <script src="~/js/devextreme/cldr.js"></script>
-    <script src="~/js/devextreme/cldr/event.js"></script>
-    <script src="~/js/devextreme/cldr/supplemental.js"></script>
-    <script src="~/js/devextreme/cldr/unresolved.js"></script>
-
-    <script src="~/js/devextreme/globalize.js"></script>
-    <script src="~/js/devextreme/globalize/message.js"></script>
-    <script src="~/js/devextreme/globalize/number.js"></script>
-    <script src="~/js/devextreme/globalize/currency.js"></script>
-    <script src="~/js/devextreme/globalize/date.js"></script>
-
-    @* JSZip for client side export *@
-    @*<script src="~/js/devextreme/jszip.js"></script>*@
-
-    <script src="~/js/devextreme/dx.all.js"></script>
-    <script src="~/js/devextreme/vectormap-data/world.js"></script>
-    <script src="~/js/devextreme/aspnet/dx.aspnet.data.js"></script>
-    <script src="~/js/devextreme/aspnet/dx.aspnet.mvc.js"></script>
-
-    <script src="~/js/sidebar.js"></script>
-
-
-
-
+    <partial name="_ScriptPartial">
+                   
 </head>
 
 <body>
