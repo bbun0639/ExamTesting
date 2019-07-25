@@ -1,0 +1,86 @@
+﻿@model ExamTesting.Models.UserExam
+        
+    <div class="col">
+
+
+        @(Html.DevExtreme().DataGrid<ExamTesting.Models.Exam>()
+            .DataSource(d => d.Mvc()
+            .Controller("Exams")
+            .LoadAction("Get")
+            .Area("User")
+            .Key("ExamCodeId")
+        )
+
+            .ID("gridContainer")
+
+            .Paging(paging => paging.Enabled(true).PageSize(10))
+
+            .FilterRow(filterRow => filterRow
+                .Visible(true)
+                .ApplyFilter(GridApplyFilterMode.Auto)
+            )
+            .SearchPanel(searchPanel => searchPanel
+                .Visible(true)
+                .Width(240)
+                .Placeholder("Search...")
+            )
+            .HeaderFilter(headerFilter => headerFilter.Visible(true))
+            .HoverStateEnabled(true)
+            .Selection(s => s.Mode(SelectionMode.Single))
+
+
+            .Columns(columns =>
+            {
+                columns.AddFor(m => m.ExamCode).Caption("Code");
+
+                columns.AddFor(m => m.ExamName).Caption("Exam");
+
+                columns.AddFor(m => m.SubjectId).Caption("Subject")
+                    .Lookup(lookup => lookup
+                    .DataSource(d => d.Mvc().Controller("Exams").LoadAction("GetSubjects").Key("SubjectId"))
+                    .DisplayExpr("SubjectName")
+                    .ValueExpr("SubjectId")
+                )
+                .Alignment(HorizontalAlignment.Center);
+
+                columns.AddFor(m => m.StartDate).Caption("Start Date")
+                    .Alignment(HorizontalAlignment.Center);
+
+                columns.AddFor(m => m.ExamDuration).Caption("Duration (Days)")
+                .Alignment(HorizontalAlignment.Center)
+                .Width(80);
+
+                columns.AddFor(m => m.ExamVersion).Caption("Version")
+                .Alignment(HorizontalAlignment.Center)
+                .Width(80);
+            })
+
+            .ShowBorders(true)
+            .Selection(s => s.Mode(SelectionMode.Multiple))
+            //.OnSelectionChanged("selection_changed")
+            //.OnCellDblClick("selection_changed")
+        )
+
+        <br />
+
+        @(Html.DevExtreme().Button()
+            .Type(ButtonType.Normal)
+            .Icon("back")
+            .OnClick("Back")
+        )
+
+    </div>      
+  
+
+
+<script>
+    function selection_changed(e) {
+        if (e.data.ExamCodeId != null) {
+            window.location.href = "/Admin/Exam/" + e.data.ExamId + "/Detail";
+        }
+    }
+
+    function Back() {
+        window.location.href = "@Url.Action("Index","Exams")";
+    }
+</script>

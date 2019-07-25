@@ -10,47 +10,47 @@
 <div id="questions-grid">
     
     @(Html.DevExtreme().DataGrid<ExamTesting.Models.Question>()
-        .DataSource( d => d.Mvc()
-            .Controller("Questions")
-            .LoadAction("Get")
-            .UpdateAction("Put")
-            .InsertAction("Post")
-            .DeleteAction("Delete")
-            .Area("Admin")
-            .Key("QuestionId")
-            )
-
-        .ID("gridContainer")
-        .Editing(editing => editing
-
-            .Mode(GridEditMode.Form)
-            .AllowAdding(true)
-            .AllowDeleting(true)
-            .AllowUpdating(true)
-            .UseIcons(true)
+    .DataSource( d => d.Mvc()
+        .Controller("Questions")
+        .LoadAction("Get")
+        .UpdateAction("Put")
+        .InsertAction("Post")
+        .DeleteAction("Delete")
+        .Area("Admin")
+        .Key("QuestionId")
         )
 
-        .FilterRow(filterRow => filterRow
-            .Visible(true)
-            .ApplyFilter(GridApplyFilterMode.Auto)
-        )
+    .ID("gridContainer")
+    .Editing(editing => editing
 
-        .SearchPanel(searchPanel => searchPanel
-            .Visible(true)
-            .Width(240)
-            .Placeholder("Search...")
-        )      
+        .Mode(GridEditMode.Form)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+    //.UseIcons(true)
+    )
 
-        .HeaderFilter(headerFilter => headerFilter.Visible(true))
-            .Columns(columns =>
-            {
-                columns.Add().DataField("QuestionStr").Caption("Question")   
-                    .FormItem(i => i
-                        .Editor(e => e
-                        .TextArea()
-                        .Height(75))
-                    )               
-                    .CellTemplate(@<text>
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+
+    .SearchPanel(searchPanel => searchPanel
+        .Visible(true)
+        .Width(240)
+        .Placeholder("Search...")
+    )
+
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+        .Columns(columns =>
+        {
+        columns.Add().DataField("QuestionStr").Caption("Question")
+                .FormItem(i => i
+                    .Editor(e => e
+                    .TextArea()
+                    .Height(75))
+                )
+                .CellTemplate(@<text>
                                             <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
                                     </text>
                                     );

@@ -26,15 +26,15 @@
     }
 
         .sidenav a:hover {
-            color: tomato;
+            color: #007bff;
         }
 
         .sidenav a:active {
-            color: #cfcfcf;
+            color: #ffffff;
         }
 
         .sidenav a.active {
-            color: tomato;
+            color: #007bff;
         }
 
     .sidenav .closebtn {

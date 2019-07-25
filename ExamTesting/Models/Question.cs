@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace ExamTesting.Models
@@ -11,17 +12,17 @@ namespace ExamTesting.Models
     {
         [Key]
         public Guid QuestionId { get; set; }
-        
-        [Display(Name ="Question")]
+
+        [Display(Name = "Question")]
         public string QuestionStr { get; set; }
-        
+
         public string Hint { get; set; }
 
 
         public Guid? TopicId { get; set; }
         [ForeignKey("TopicId")]
         public virtual Topic Topic { get; set; }
-        
+
 
         public QuestionType QuestionType { get; set; }
 
@@ -34,9 +35,15 @@ namespace ExamTesting.Models
         public virtual ICollection<Choice> Choices { get; set; }
 
 
+
         [JsonIgnore]
         public virtual ICollection<QuestionExam> QuestionExams { get; set; }
 
 
+
+        public Guid? GetCorectChoiceId()
+        {
+            return Choices.Where(m => m.IsCorrect).FirstOrDefault()?.ChoiceId;
+        }
     }
 }

@@ -22,6 +22,8 @@ namespace ExamTesting.DAL
 
         public DbSet<User> Users { get; set; }
 
+        public DbSet<UserExam> UserExams { get; set; }
+
 
 
 

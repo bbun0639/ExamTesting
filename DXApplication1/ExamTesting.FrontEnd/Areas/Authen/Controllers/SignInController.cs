@@ -41,11 +41,11 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
 
                 if (user.isAdmin)
                 {
-                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home", new { area = "User" });
+                    return RedirectToAction("Index", "Dashboard", new { area = "User" });
                 }
               
             }
@@ -71,7 +71,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
                 claims.Add(new Claim(ClaimTypes.Role, "Admin"));
             }
 
-                
+            claims.Add(new Claim(ClaimTypes.Role, "User"));
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -90,7 +90,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
         public async Task<IActionResult> SignOut()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index","SignIn");
 
         }
 

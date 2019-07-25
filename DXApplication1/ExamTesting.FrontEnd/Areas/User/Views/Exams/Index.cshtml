@@ -1,21 +1,64 @@
-﻿@model  List<ExamTesting.Models.Exam>
+﻿@model ExamTesting.Models.UserExam
 
-    <div class="col">
-        <div class="row">
-            @{
-                var examlists = Model
-                    .GroupBy(m => m.ExamCodeId)
-                    .Select(g => new { g.Key, examlists = g.ToList() })
-                        .ToList();
+<div class="row">
+    <div class="col-sm">
+    @(Html.DevExtreme().DataGrid<ExamTesting.Models.UserExam>()
+        .DataSource(d => d.Mvc()
+        .Controller("Exams")
+        .LoadAction("GetUserExam")
+        .Area("User")
+        .Key("ExamCodeId")
+    )
 
-                @foreach (var examlist in examlists.OrderBy(c => c.Key))
-                {
-                    <partial name="_ExamList"/>
-                }
-                
-            }
-            
-        </div>
+    .ID("gridContainer")
 
+    .Paging(paging => paging.Enabled(true).PageSize(10))
+
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+        )
+    .SearchPanel(searchPanel => searchPanel
+        .Visible(true)
+        .Width(240)
+        .Placeholder("Search...")
+        )
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .HoverStateEnabled(true)
+    .Selection(s => s.Mode(SelectionMode.Single))
+
+
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.Exam.ExamName)
+        .Caption("Exam Name").Width(200);
+
+        columns.AddFor(m => m.Exam.SubjectId)
+        .Caption("Subject Name");
+        
+        columns.AddFor(m => m.Exam.StartDate)
+        .Caption("Start Date");
+
+        columns.AddFor(m => m.Exam.ExamDuration)
+            .Caption("Amount of Day");
+
+        columns.AddFor(m => m.Exam.ExamVersion)
+            .Caption("Version");
+
+    })
+
+    .ShowBorders(true)
+
+        )
+
+        @(Html.DevExtreme().Button()
+            .Type(ButtonType.Default)
+            .Text("Enroll More Exams")
+            .Icon("back")
+            .OnClick("Back")
+        )
+        
+        <a asp-controller="Exams" asp-action="EnrollExams">Enroll More Exams</a>
+        
     </div>
-
+</div>

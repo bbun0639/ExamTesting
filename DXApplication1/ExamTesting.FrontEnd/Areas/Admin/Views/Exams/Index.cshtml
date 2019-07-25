@@ -11,7 +11,8 @@
 
     @*<h2 class="pb-4 text-center font-weight-light">Exams List</h2>*@
 
-    @(Html.DevExtreme().DataGrid<ExamTesting.Models.Exam>().DataSource(d => d.Mvc()
+    @(Html.DevExtreme().DataGrid<ExamTesting.Models.Exam>()
+        .DataSource(d => d.Mvc()
         .Controller("Exams")
         .LoadAction("Get")
         .UpdateAction("Put")
@@ -31,7 +32,7 @@
          editing.AllowAdding(true);
          editing.AllowDeleting(true);
          editing.AllowUpdating(true);
-         editing.UseIcons(true);
+         //editing.UseIcons(true);
 
      })
      .FilterRow(filterRow => filterRow
@@ -46,16 +47,16 @@
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .Columns(columns =>
     {
-        columns.AddFor(m => m.ExamCode).Caption("Exam Code")
+        columns.AddFor(m => m.ExamCode).Caption("Code")
             .CellTemplate
                 (@<text>
                     <a  href ="/Admin/Exam/<%= data.ExamCodeId %>/Details"><%= data.ExamCode %></a>
                     </text>);
 
-        columns.AddFor(m => m.ExamName).Caption("Exam Name").SortOrder(SortOrder.Asc);
+        columns.AddFor(m => m.ExamName).Caption("Exam").SortOrder(SortOrder.Asc);
 
 
-        columns.AddFor(m => m.SubjectId).Caption("Subject Name")
+        columns.AddFor(m => m.SubjectId).Caption("Subject")
         .Lookup(lookup => lookup.DataSource(d => d.Mvc().Controller("Exams").LoadAction("GetSubjects").Key("SubjectId"))
             .DisplayExpr("SubjectName")
             .ValueExpr("SubjectId"))

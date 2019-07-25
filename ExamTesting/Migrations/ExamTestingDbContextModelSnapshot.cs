@@ -151,6 +151,24 @@ namespace ExamTesting.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ExamTesting.Models.UserExam", b =>
+                {
+                    b.Property<Guid>("UserExamId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ExamId");
+
+                    b.Property<Guid>("UserId");
+
+                    b.HasKey("UserExamId");
+
+                    b.HasIndex("ExamId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserExams");
+                });
+
             modelBuilder.Entity("ExamTesting.Models.Choice", b =>
                 {
                     b.HasOne("ExamTesting.Models.Question", "Question")
@@ -192,6 +210,19 @@ namespace ExamTesting.Migrations
                     b.HasOne("ExamTesting.Models.Topic", "Parent")
                         .WithMany("Childs")
                         .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("ExamTesting.Models.UserExam", b =>
+                {
+                    b.HasOne("ExamTesting.Models.Exam", "Exam")
+                        .WithMany()
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ExamTesting.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

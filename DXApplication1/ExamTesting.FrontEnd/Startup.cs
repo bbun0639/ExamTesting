@@ -55,7 +55,7 @@ namespace ExamTesting_FrontEnd
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Dashboard/Error");
             }
 
             app.UseStaticFiles();
