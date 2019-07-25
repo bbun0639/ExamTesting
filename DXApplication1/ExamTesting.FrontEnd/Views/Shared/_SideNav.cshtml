@@ -4,32 +4,47 @@
 
 <div id="mySidenav" class="sidenav bg-light font-weight-normal">
 
-    <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+    <a class="nav-link @checkCurrentController("Home")" asp-controller="Home" asp-action="Index">Home</a>
 
 
     @{
         if (User.IsInRole("Admin"))
         {
 
-            <div class="active">
-                <a class="nav-link" asp-controller="Topics" asp-action="Index" asp-area="Admin">Topics</a>
-            </div>
-            <a class="nav-link" asp-controller="Questions" asp-action="Index" asp-area="Admin">Questions</a>
+            <a class="nav-link @checkCurrentController("Topics") @checkCurrentController("Topic")" asp-area="Admin" asp-controller="Topics" asp-action="Index">Topics</a>
 
-            <a class="nav-link" asp-controller="Subjects" asp-action="Index" asp-area="Admin">Subjects</a>
+            <a class="nav-link @checkCurrentController("Questions") @checkCurrentController("Question")" asp-area="Admin" asp-controller="Questions" asp-action="Index">Questions</a>
 
-            <a class="nav-link" asp-controller="Exams" asp-action="Index" asp-area="Admin">Exams</a>
+            <a class="nav-link @checkCurrentController("Subjects") @checkCurrentController("Subject")" asp-area="Admin" asp-controller="Subjects" asp-action="Index">Subjects</a>
 
-            <a class="nav-link" asp-controller="#" asp-action="#">Users</a>
+            <a class="nav-link @checkCurrentController("Exams") @checkCurrentController("Exam")" asp-area="Admin" asp-controller="Exams" asp-action="Index">Exams</a>
 
-            <a class="nav-link" asp-controller="#" asp-action="#">Reports</a>
+            <a class="nav-link @checkCurrentController("Users")" asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a>
+
+            @*<a class="nav-link @checkCurrentController("Topics") @checkCurrentController("Topic")" asp-area="Admin" asp-controller="#" asp-action="#">Reports</a>*@
 
 
         }
+        else
+        {
+            <a class="nav-link @checkCurrentController("Exams") @checkCurrentController("Exam")" asp-controller="Exams" asp-action="Index" asp-area="User">Student Exams</a>
+        }
+
     }
-    <a class="nav-link" asp-controller="Exams" asp-action="Index" asp-area="User">Student Exams</a>
 
 </div>
 
+
+
+@functions {
+
+    public string checkCurrentController(string nameController)
+    {
+        var currentController = this.ViewContext.RouteData.Values["controller"].ToString();
+        if (currentController == nameController)
+            return "active";
+        return "";
+    }
+}
 
 

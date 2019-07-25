@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExamTesting_FrontEnd.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
 
     public class HomeController : Controller
     {

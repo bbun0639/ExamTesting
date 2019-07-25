@@ -76,3 +76,11 @@ a:active {
     color: #4c4c4c;
 }
 
+
+.logout a:hover {
+    color: tomato;
+}
+
+.logout a:active {
+    color: #cfcfcf;
+}

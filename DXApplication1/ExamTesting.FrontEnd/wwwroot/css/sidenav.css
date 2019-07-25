@@ -29,8 +29,12 @@
             color: tomato;
         }
 
-        .sidenav a:active{
+        .sidenav a:active {
             color: #cfcfcf;
+        }
+
+        .sidenav a.active {
+            color: tomato;
         }
 
     .sidenav .closebtn {
@@ -40,3 +44,6 @@
         font-size: 24px;
         margin-left: 50px;
     }
+
+
+

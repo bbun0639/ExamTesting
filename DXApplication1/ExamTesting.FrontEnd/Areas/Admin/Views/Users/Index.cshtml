@@ -1,0 +1,60 @@
+﻿@using ExamTesting.Models
+
+
+
+@(Html.DevExtreme().DataGrid<ExamTesting.Models.User>()
+    .DataSource(d => d.Mvc()
+    .Controller("Users")
+    .LoadAction("Get")
+    .UpdateAction("Put")
+    .InsertAction("Post")
+    .DeleteAction("Delete")
+    .Area("Admin")
+
+    .Key("Id"))
+
+
+    .ID("gridContainer")
+        .Paging(paging => paging
+            .Enabled(true)
+            .PageSize(10))
+
+        .Editing(editing =>
+        {
+            editing.Mode(GridEditMode.Form).UseIcons(true);
+            editing.AllowAdding(true);
+            editing.AllowDeleting(true);
+            editing.AllowUpdating(true);
+        })
+
+
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+
+    .SearchPanel(searchPanel => searchPanel
+        .Visible(true)
+        .Width(240)
+        .Placeholder("Search...")
+    )
+
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+    .HoverStateEnabled(true)
+
+
+
+    .Columns(columns =>
+    {
+
+        columns.AddFor(m => m.Name).SortOrder(SortOrder.Asc);
+        columns.AddFor(m => m.Email);
+        columns.AddFor(m => m.isAdmin);
+        columns.AddFor(m => m.Password).Visible(false);
+
+    })
+
+
+    )
+
+

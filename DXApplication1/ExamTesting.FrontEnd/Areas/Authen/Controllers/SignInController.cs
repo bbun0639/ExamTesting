@@ -38,7 +38,16 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
             if (user != null)
             {
                 await ProcessSignIn(user);
-                return RedirectToAction("Index", "Home", new { area = "Admin" });
+
+                if (user.isAdmin)
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home", new { area = "User" });
+                }
+              
             }
             else
             {
@@ -46,8 +55,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
             }
 
         }
-
-
+        
 
         private async Task ProcessSignIn(ExamTesting.Models.User user)
         {
@@ -59,14 +67,18 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
                 };
 
             if (user.isAdmin)
+            {
                 claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            }
+
+                
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             var authProperties = new AuthenticationProperties
             {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1),
-                IsPersistent = false
+                //ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60), //Time Limit 
+                //IsPersistent = true //Stay Always 
             };
 
             await HttpContext.SignInAsync(

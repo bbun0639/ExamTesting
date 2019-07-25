@@ -6,11 +6,11 @@
             <a class="navbar-brand" href="@Url.Action("Index","Home")">TEST EVALUATION</a>
         </div>
 
-        <div id="" class="col">
+        <div id="emptyNav" class="col">
 
         </div>
 
-        <div id="" class="text-center col-2 row">
+        <div id="" class="nav-link col-3">
             @if (User.Identity.IsAuthenticated)
             {
                 <partial name="_AuthenticatedUser" />
