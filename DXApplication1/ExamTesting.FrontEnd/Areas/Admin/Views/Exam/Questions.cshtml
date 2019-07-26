@@ -54,7 +54,7 @@
 
                 <div class="text-right col">
 
-                    <a asp-action="AssignQuestions" asp-route-id="@Model.ExamCodeId">Assign Questions</a>
+                    @*<a asp-action="AssignQuestions" asp-route-id="@Model.ExamCodeId">Assign Questions</a>*@
 
                     @(Html.DevExtreme().Button()
                       .Type(ButtonType.Default)
@@ -65,11 +65,10 @@
                 </div>
             </div>
 
-</div>
+        </div>
               
     </div>
 
-    @*<div class="col-3"></div>*@
 
 </div>
 
@@ -81,8 +80,10 @@
     }
 
     function AssignQuestions(e) {
-        window.location.href = "/Admin/Exam/AssignQuestions/" + e.data.ExamCodeId;
 
         window.location.href = "@Url.Action("AssignQuestions")";
+
+        //var myJs = JSON.stringify(e.data);
+        //alert(myJs);
     }
 </script>

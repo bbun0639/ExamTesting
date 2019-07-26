@@ -33,7 +33,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         {
             var newUser = new ExamTesting.Models.User()
             {
-                Id = new Guid()
+                UserId = new Guid()
             };
 
             JsonConvert.PopulateObject(values, newUser);
@@ -47,7 +47,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         [HttpPut]
         public IActionResult Put(Guid key, string values)
         {
-            var _user = _db.Users.First(a => a.Id == key);
+            var _user = _db.Users.First(a => a.UserId == key);
 
             JsonConvert.PopulateObject(values, _user);
 
@@ -59,7 +59,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         [HttpDelete]
         public void Delete(Guid key)
         {
-            var _user = _db.Users.First(a => a.Id == key);
+            var _user = _db.Users.First(a => a.UserId == key);
 
             _db.Users.Remove(_user);
             _db.SaveChanges();

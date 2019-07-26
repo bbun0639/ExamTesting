@@ -7,74 +7,71 @@
 
 
 
-<div id="form-container" class="row">
+    <div id="form-container" class="row">
 
-    <div class="col">
-        
-        <partial name="_ExamHeader" />
+        <div class="col">
 
-        <div class="p-4 bg-light rounded col">
-        
-            <div class="">
-                @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
-                .ID("form")
-                .ColCount(1)
-                .Items(items =>
-                        {
-                    items.AddGroup()
-                        .Caption("Exam Info")
-                        .Template(@<text>
-                            <div class="h6 font-weight-normal">
-                                Code : @Model.ExamCode
-                            </div>
-                
-                            <div class="h6 font-weight-normal">
-                                Subject : @Model.ExamName
-                            </div>
+            <partial name="_ExamHeader" />
 
-                            <div class="h6 font-weight-normal">
-                                Version : @Model.ExamVersion
-                            </div>
+            <div class="p-4 bg-light rounded col">
 
-                            <div class="h6 font-weight-normal">
-                                Strat Date : @String.Format("{0:d MMMM yyyy}" ,@Model.StartDate)
-                            </div>
-
-                            <div class="h6 font-weight-normal">
-                                End Date: @String.Format("{0:d MMMM yyyy}", @Model.EndDate)
-                            </div>
-                            
-                            <div class="h6 font-weight-normal text-danger">
-                                Remaining Day : @Model.RemainingDay
-                            </div>
-                            
-
-                            <div class="row pt-4">
-                                <div class="text-le
-                                     ft col">
-                                    @(Html.DevExtreme().Button()
-                                        .Icon("back")
-                                        .Text("Exams List")
-                                        .OnClick("Back")
-                                    )
+                    @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+                    .ID("form")
+                    .ColCount(1)
+                    .Items(items =>
+                            {
+                        items.AddGroup()
+                            .Caption("Exam Info")
+                            .Template(@<text>
+                                <div class="h6 font-weight-normal">
+                                    Code : @Model.ExamCode
                                 </div>
-                            </div>
 
-                        </text>);
+                                <div class="h6 font-weight-normal">
+                                    Subject : @Model.Subject.SubjectName
+                                </div>
 
-                 })
+                                <div class="h6 font-weight-normal">
+                                    Version : @Model.ExamVersion
+                                </div>
 
-                )
+                                <div class="h6 font-weight-normal">
+                                    Strat Date : @String.Format("{0:d MMMM yyyy}", @Model.StartDate)
+                                </div>
+
+                                <div class="h6 font-weight-normal">
+                                    End Date: @String.Format("{0:d MMMM yyyy}", @Model.EndDate)
+                                </div>
+
+                                <div class="h6 font-weight-normal text-danger">
+                                    Remaining Day : @Model.RemainingDay
+                                </div>
+
+
+                                <div class="row pt-4">
+                                    <div class="text-left col">
+                                        @(Html.DevExtreme().Button()
+                                            .Icon("back")
+                                            .Text("Exams List")
+                                            .OnClick("Back")
+                                        )
+                                    </div>
+                                </div>
+
+                            </text>);
+
+              })
+
+                    )
+
+
             </div>
-                                            
-        </div>
-               
-    </div>
-    
-            <partial name="_SuggestQuestion" />
-    
-</div>
 
+        </div>
+
+        <partial name="_SuggestQuestion" />
+
+    </div>
 
 
 

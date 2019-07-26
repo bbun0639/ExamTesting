@@ -69,7 +69,7 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
             _db.SaveChanges();
 
 
-            return RedirectToAction("Index", "Exam", new { id = id });
+            return RedirectToAction("Questions", "Exam", new { id = id });
         }
 
     }

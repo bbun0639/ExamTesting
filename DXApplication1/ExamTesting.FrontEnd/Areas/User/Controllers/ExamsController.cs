@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using ExamTesting.DAL;
+using ExamTesting.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace ExamTesting.FrontEnd.Areas.User.Controllers
 {
@@ -35,7 +37,7 @@ namespace ExamTesting.FrontEnd.Areas.User.Controllers
         [HttpGet]
         public object GetUserExam(DataSourceLoadOptions loadOptions)
         {
-            return DataSourceLoader.Load(_db.UserExams, loadOptions);
+            return DataSourceLoader.Load(_db.UserExams.Where(u => u.UserId == CurrentUserId), loadOptions);
         }
 
         [HttpGet]
@@ -57,6 +59,23 @@ namespace ExamTesting.FrontEnd.Areas.User.Controllers
         public IActionResult EnrollExams()
         {
             return View();
+        }
+
+
+        
+        [HttpPost]
+        public IActionResult AddExams(string examsString)
+        {
+            var _user = _db.Users.First(a => a.UserId == CurrentUserId);
+
+            List<Exam> examList = JsonConvert.DeserializeObject<List<Exam>>(examsString);
+
+            _user.AddExams(examList);
+
+            _db.SaveChanges();
+
+
+            return RedirectToAction("Index", "Exams");
         }
 
 

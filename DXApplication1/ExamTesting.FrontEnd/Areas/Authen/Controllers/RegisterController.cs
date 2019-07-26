@@ -37,7 +37,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
             {
                 var newUser = new ExamTesting.Models.User()
                 {
-                    Id = Guid.NewGuid(),
+                    UserId = Guid.NewGuid(),
                     Email = model.Email,
                     Name = model.Name,
                     Password = model.Password

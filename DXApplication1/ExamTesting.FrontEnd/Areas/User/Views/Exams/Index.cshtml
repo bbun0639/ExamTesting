@@ -1,64 +1,112 @@
-﻿@model ExamTesting.Models.UserExam
+﻿@model ExamTesting.Models.Exam
 
 <div class="row">
     <div class="col-sm">
-    @(Html.DevExtreme().DataGrid<ExamTesting.Models.UserExam>()
-        .DataSource(d => d.Mvc()
-        .Controller("Exams")
-        .LoadAction("GetUserExam")
-        .Area("User")
-        .Key("ExamCodeId")
-    )
-
-    .ID("gridContainer")
-
-    .Paging(paging => paging.Enabled(true).PageSize(10))
-
-    .FilterRow(filterRow => filterRow
-        .Visible(true)
-        .ApplyFilter(GridApplyFilterMode.Auto)
+        @(Html.DevExtreme().DataGrid<ExamTesting.Models.UserExam>()
+            .DataSource(d => d.Mvc()
+            .Controller("Exams")
+            .LoadAction("GetUserExam")
+            .Area("User")
         )
-    .SearchPanel(searchPanel => searchPanel
-        .Visible(true)
-        .Width(240)
-        .Placeholder("Search...")
+
+        .ID("gridContainer")
+
+        .Paging(paging => paging.Enabled(true).PageSize(10))
+
+        .FilterRow(filterRow => filterRow
+            .Visible(true)
+            .ApplyFilter(GridApplyFilterMode.Auto)
+            )
+        .SearchPanel(searchPanel => searchPanel
+            .Visible(true)
+            .Width(240)
+            .Placeholder("Search...")
+            )
+        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+
+
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.Exam.ExamCode)
+            .Caption("Exam Name");
+            @*.CellTemplate
+                (@<text>
+                        <a href="/User/Exam/Details/<%= data.ExamCodeId %>"><%= data.Exam.ExamCode %></a>
+                </text>);*@
+
+            columns.AddFor(m => m.Exam.ExamName)
+            .Caption("Exam Name");
+
+            columns.AddFor(m => m.Exam.SubjectId)
+            .Caption("Subject Name")
+            .Lookup(lookup => lookup
+            .DataSource(d => d.Mvc().Controller("Exams").LoadAction("GetSubjects").Key("SubjectId"))
+            .DisplayExpr("SubjectName")
+            .ValueExpr("SubjectId")
+            );
+
+            columns.AddFor(m => m.Exam.StartDate)
+            .Caption("Start Date")
+            .Alignment(HorizontalAlignment.Center);
+
+            columns.AddFor(m => m.Exam.EndDate)
+            .Caption("End Date")
+            .Alignment(HorizontalAlignment.Center);
+
+
+            columns.AddFor(m => m.Exam.ExamDuration)
+            .Caption("Day Left")
+            .Alignment(HorizontalAlignment.Center);
+
+
+            columns.AddFor(m => m.Exam.ExamVersion)
+            .Caption("Version")
+            .Alignment(HorizontalAlignment.Center);
+
+            })
+
+            .ShowBorders(true)
+
+            .Selection(s => s.Mode(SelectionMode.Single))
+            .OnCellClick("ExamDetails")
+            .HoverStateEnabled(true)
+
         )
-    .HeaderFilter(headerFilter => headerFilter.Visible(true))
-    .HoverStateEnabled(true)
-    .Selection(s => s.Mode(SelectionMode.Single))
 
-
-    .Columns(columns =>
-    {
-        columns.AddFor(m => m.Exam.ExamName)
-        .Caption("Exam Name").Width(200);
-
-        columns.AddFor(m => m.Exam.SubjectId)
-        .Caption("Subject Name");
-        
-        columns.AddFor(m => m.Exam.StartDate)
-        .Caption("Start Date");
-
-        columns.AddFor(m => m.Exam.ExamDuration)
-            .Caption("Amount of Day");
-
-        columns.AddFor(m => m.Exam.ExamVersion)
-            .Caption("Version");
-
-    })
-
-    .ShowBorders(true)
-
-        )
+        <br />
 
         @(Html.DevExtreme().Button()
             .Type(ButtonType.Default)
             .Text("Enroll More Exams")
-            .Icon("back")
-            .OnClick("Back")
+            .Icon("plus")
+            .OnClick("EnrollExams")
         )
-        
-        <a asp-controller="Exams" asp-action="EnrollExams">Enroll More Exams</a>
-        
+
+
     </div>
 </div>
+
+<script>
+    function EnrollExams() {
+        window.location.href = "@Url.Action("EnrollExams")";
+
+    }
+
+    function ExamDetails(e) {
+
+        if (e.key.Exam.ExamCodeId != null) {
+            window.location.href = "/User/Exam/Details/" + e.key.Exam.ExamCodeId;
+        }
+
+        //var myJs = JSON.stringify(e.key.Exam.ExamCodeId);
+        //alert(myJs);
+    }
+
+
+</script>
+
+<style>
+    tr[data-href] {
+        cursor : pointer;
+    }
+</style>

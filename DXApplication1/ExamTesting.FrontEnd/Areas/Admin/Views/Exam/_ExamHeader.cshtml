@@ -2,7 +2,7 @@
 @model ExamTesting.Models.Exam
 
 <div class="mb-4 bg-white">
-    <div class="col h2 font-weight-normal">
+    <div class="col h3 font-weight-normal">
         @Model.ExamCode: @Model.ExamName
     </div>
 </div>
@@ -12,7 +12,7 @@
         <a class="nav-link @checkCurrentAction("Index")" asp-action="Index" asp-route-id="@Model.ExamCodeId">Details</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link @checkCurrentAction("Questions")" asp-action="Questions" asp-route-id="@Model.ExamCodeId">
+        <a class="nav-link @checkCurrentAction("Questions") @checkCurrentAction("AssignQuestions")" asp-action="Questions" asp-route-id="@Model.ExamCodeId">
         Questions <span class="badge badge-danger">@Model.QuestionsExams.Count</span>
         </a>
     </li>

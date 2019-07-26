@@ -9,7 +9,7 @@ namespace ExamTesting.Models
     public class UserExamQuestion
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid UserExamQuestionId { get; set; }
 
         public Guid UserExamId { get; set; }
         [ForeignKey("UserExamId")]

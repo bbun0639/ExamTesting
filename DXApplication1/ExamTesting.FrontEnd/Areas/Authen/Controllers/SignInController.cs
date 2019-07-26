@@ -51,7 +51,8 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
             }
             else
             {
-                return Content("SignIn not Complete");
+                return RedirectToAction("Index");        
+                
             }
 
         }
@@ -62,7 +63,7 @@ namespace ExamTesting.FrontEnd.Areas.Authen.Controllers
             var claims = new List<Claim> {
                      new Claim(ClaimTypes.Name,user.Name ),
                      new Claim(ClaimTypes.Email,user.Email ),
-                     new Claim(ClaimTypes.NameIdentifier,user.Id.ToString() 
+                     new Claim(ClaimTypes.NameIdentifier,user.UserId.ToString() 
                      ),
                 };
 

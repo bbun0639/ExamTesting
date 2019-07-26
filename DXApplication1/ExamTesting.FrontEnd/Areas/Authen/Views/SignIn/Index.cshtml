@@ -34,7 +34,7 @@
                                 .Editor(e => e.TextBox());
 
                                 item.AddSimpleFor(m => m.Password)
-                                .Editor(e => e.TextBox());
+                                .Editor(e => e.TextBox().Mode(TextBoxMode.Password));
 
                                 item.AddButton()
                                     .ButtonOptions(b => b.Text("Login")

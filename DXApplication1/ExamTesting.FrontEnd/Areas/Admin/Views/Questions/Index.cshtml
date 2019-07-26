@@ -49,11 +49,12 @@
                     .Editor(e => e
                     .TextArea()
                     .Height(75))
-                )
-                .CellTemplate(@<text>
-                                            <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
-                                    </text>
-                                    );
+            )
+            .Width(400)
+            .CellTemplate(@<text>
+                                        <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
+                                </text>
+                                );
 
                 columns.Add().DataField("Hint").Caption("Hint").Visible(false)
                     .FormItem(i => i

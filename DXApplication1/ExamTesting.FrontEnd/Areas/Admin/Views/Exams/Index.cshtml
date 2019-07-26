@@ -47,11 +47,11 @@
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .Columns(columns =>
     {
-        columns.AddFor(m => m.ExamCode).Caption("Code")
-            .CellTemplate
+    columns.AddFor(m => m.ExamCode).Caption("Code");
+            @*.CellTemplate
                 (@<text>
                     <a  href ="/Admin/Exam/<%= data.ExamCodeId %>/Details"><%= data.ExamCode %></a>
-                    </text>);
+                    </text>);*@
 
         columns.AddFor(m => m.ExamName).Caption("Exam").SortOrder(SortOrder.Asc);
 
@@ -92,7 +92,7 @@
                     )
                 );
 
-        columns.AddFor(m => m.ExamVersion)
+        columns.AddFor(m => m.ExamVersion).Visible(false)
             .Caption("Version")
             .Alignment(HorizontalAlignment.Center)
             .FormItem(i => i
@@ -102,10 +102,22 @@
                     )
                 );
 
- })
+    })
 
- .ShowBorders(true)
-                )
+    .ShowBorders(true)
+    .OnCellClick("ExamDetails").HoverStateEnabled(true)
+
+    )
 
 
 </div>
+
+<script>
+    function ExamDetails(e) {
+
+        if (e.data.ExamCodeId != null) {
+            window.location.href = "/Admin/Exam/" + e.data.ExamCodeId + "/Details";
+        }
+
+    }
+</script>

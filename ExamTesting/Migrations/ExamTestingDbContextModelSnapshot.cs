@@ -135,7 +135,7 @@ namespace ExamTesting.Migrations
 
             modelBuilder.Entity("ExamTesting.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Email");
@@ -146,7 +146,7 @@ namespace ExamTesting.Migrations
 
                     b.Property<bool>("isAdmin");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
@@ -158,6 +158,10 @@ namespace ExamTesting.Migrations
 
                     b.Property<Guid>("ExamId");
 
+                    b.Property<int>("TotalEarnScore");
+
+                    b.Property<int>("TotalQuestionScore");
+
                     b.Property<Guid>("UserId");
 
                     b.HasKey("UserExamId");
@@ -167,6 +171,30 @@ namespace ExamTesting.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserExams");
+                });
+
+            modelBuilder.Entity("ExamTesting.Models.UserExamQuestion", b =>
+                {
+                    b.Property<Guid>("UserExamQuestionId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("EarnScore");
+
+                    b.Property<bool>("IsCorrect");
+
+                    b.Property<Guid>("QuestionId");
+
+                    b.Property<Guid?>("SelectChoiceId");
+
+                    b.Property<Guid>("UserExamId");
+
+                    b.HasKey("UserExamQuestionId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.HasIndex("UserExamId");
+
+                    b.ToTable("UserExamQuestions");
                 });
 
             modelBuilder.Entity("ExamTesting.Models.Choice", b =>
@@ -220,8 +248,21 @@ namespace ExamTesting.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ExamTesting.Models.User", "User")
-                        .WithMany()
+                        .WithMany("UserExams")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ExamTesting.Models.UserExamQuestion", b =>
+                {
+                    b.HasOne("ExamTesting.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ExamTesting.Models.UserExam", "UserExam")
+                        .WithMany("UserExamQuestions")
+                        .HasForeignKey("UserExamId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

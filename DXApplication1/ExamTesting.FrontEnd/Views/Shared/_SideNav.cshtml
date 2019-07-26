@@ -1,51 +1,54 @@
 ﻿
 
-    <div id="mySidenav" class="sidenav bg-light font-weight-normal">
+<div id="mySidenav" class="sidenav bg-light font-weight-normal">
 
-        @{
-            if (User.IsInRole("Admin"))
-            {
+    @{
+        if (User.IsInRole("Admin"))
+        {
 
-                <a class="nav-link @checkCurrentController("Dashboard")" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+            <a class="nav-link @checkCurrentController("Dashboard")" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
 
-                <a class="nav-link @checkCurrentController("Topics") @checkCurrentController("Topic")" asp-area="Admin" asp-controller="Topics" asp-action="Index">
-                    Topics
-                    <span class="badge badge-danger">3</span>
-                </a>
+            <a class="nav-link @checkCurrentController("Topics") @checkCurrentController("Topic")" asp-area="Admin" asp-controller="Topics" asp-action="Index">
+                Topics
+                <span class="badge badge-danger">3</span>
+            </a>
 
-                <a class="nav-link @checkCurrentController("Questions") @checkCurrentController("Question")" asp-area="Admin" asp-controller="Questions" asp-action="Index">
-                    Questions
-                    <span class="badge badge-danger">15</span>
-                </a>
+            <a class="nav-link @checkCurrentController("Questions") @checkCurrentController("Question")" asp-area="Admin" asp-controller="Questions" asp-action="Index">
+                Questions
+                <span class="badge badge-danger">10</span>
+            </a>
 
-                <a class="nav-link @checkCurrentController("Subjects") @checkCurrentController("Subject")" asp-area="Admin" asp-controller="Subjects" asp-action="Index">
-                    Subjects
-                    <span class="badge badge-danger">3</span>
-                </a>
+            <a class="nav-link @checkCurrentController("Subjects") @checkCurrentController("Subject")" asp-area="Admin" asp-controller="Subjects" asp-action="Index">
+                Subjects
+                <span class="badge badge-danger">3</span>
+            </a>
 
-                <a class="nav-link @checkCurrentController("Exams") @checkCurrentController("Exam")" asp-area="Admin" asp-controller="Exams" asp-action="Index">
-                    Exams
-                    <span class="badge badge-danger">5</span>
-                </a>
+            <a class="nav-link @checkCurrentController("Exams") @checkCurrentController("Exam")" asp-area="Admin" asp-controller="Exams" asp-action="Index">
+                Exams
+                <span class="badge badge-danger">5</span>
+            </a>
 
-                <a class="nav-link @checkCurrentController("Users")" asp-area="Admin" asp-controller="Users" asp-action="Index">
-                    Users
-                    <span class="badge badge-danger">4</span>
-                </a>
+            <a class="nav-link @checkCurrentController("Users")" asp-area="Admin" asp-controller="Users" asp-action="Index">
+                Users
+                <span class="badge badge-danger">4</span>
+            </a>
 
-                @*<a class="nav-link @checkCurrentController("Topics") @checkCurrentController("Topic")" asp-area="Admin" asp-controller="#" asp-action="#">Reports</a>*@
-
-            }
-            else
-            {
-                <a class="nav-link @checkCurrentController("Dashboard")" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-
-                <a class="nav-link @checkCurrentController("Exams") @checkCurrentController("Exam")" asp-controller="Exams" asp-action="Index" asp-area="User">Student Exams</a>
-            }
+            @*<a class="nav-link @checkCurrentController("Topics") @checkCurrentController("Topic")" asp-area="Admin" asp-controller="#" asp-action="#">Reports</a>*@
 
         }
+        else
+        {
+            <a class="nav-link @checkCurrentController("Dashboard")" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
 
-    </div>
+            <a class="nav-link @checkCurrentController("Exams") @checkCurrentController("Exam")" asp-controller="Exams" asp-action="Index" asp-area="User">
+                Exams
+                <span class="badge badge-danger">2</span>
+            </a>
+        }
+
+    }
+
+</div>
 
 
 
@@ -59,5 +62,4 @@
         return "";
     }
 }
-
 

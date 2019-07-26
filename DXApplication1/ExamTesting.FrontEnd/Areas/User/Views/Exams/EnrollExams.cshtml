@@ -46,38 +46,56 @@
                 columns.AddFor(m => m.StartDate).Caption("Start Date")
                     .Alignment(HorizontalAlignment.Center);
 
-                columns.AddFor(m => m.ExamDuration).Caption("Duration (Days)")
-                .Alignment(HorizontalAlignment.Center)
-                .Width(80);
+                columns.AddFor(m => m.ExamDuration).Caption("Duration")
+                    .Alignment(HorizontalAlignment.Center);
 
                 columns.AddFor(m => m.ExamVersion).Caption("Version")
-                .Alignment(HorizontalAlignment.Center)
-                .Width(80);
+                    .Alignment(HorizontalAlignment.Center);
             })
 
             .ShowBorders(true)
             .Selection(s => s.Mode(SelectionMode.Multiple))
-            //.OnSelectionChanged("selection_changed")
+            .OnSelectionChanged("selection_changed")
             //.OnCellDblClick("selection_changed")
         )
 
         <br />
 
-        @(Html.DevExtreme().Button()
-            .Type(ButtonType.Normal)
-            .Icon("back")
-            .OnClick("Back")
-        )
+
+
+        <div class="row pt-4">
+            <div class="text-left col">
+                @(Html.DevExtreme().Button()
+                    .Type(ButtonType.Normal)
+                    .Icon("back")
+                    .OnClick("Back")
+                )
+            </div>
+
+            <form asp-action="AddExams">
+                <input type="hidden" name="examsString" id="examsString" rows="10" cols="100">
+
+                <div class="text-right col">
+                    @(Html.DevExtreme().Button()
+                        .Type(ButtonType.Default)
+                        .Text("Submit")
+                        .Icon("check")
+                        .UseSubmitBehavior(true)
+                    )
+                </div>
+
+            </form>
+
+        </div>
 
     </div>      
   
 
 
 <script>
-    function selection_changed(e) {
-        if (e.data.ExamCodeId != null) {
-            window.location.href = "/Admin/Exam/" + e.data.ExamId + "/Detail";
-        }
+    function selection_changed(selectedItems) {
+        var data = selectedItems.selectedRowsData;
+        document.getElementById("examsString").value = JSON.stringify(data);
     }
 
     function Back() {

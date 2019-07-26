@@ -40,7 +40,6 @@ namespace ExamTesting.Models
         public virtual ICollection<QuestionExam> QuestionExams { get; set; }
 
 
-
         public Guid? GetCorectChoiceId()
         {
             return Choices.Where(m => m.IsCorrect).FirstOrDefault()?.ChoiceId;

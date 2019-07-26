@@ -10,7 +10,7 @@ namespace ExamTesting.Models
     public class UserExam
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid UserExamId { get; set; }
 
         public Guid ExamId { get; set; }
         [ForeignKey("ExamId")]
@@ -31,7 +31,7 @@ namespace ExamTesting.Models
         public void UpdateScore()
         {
 
-            TotalEarnScore = UserExamQuestions?.Sum(m => m.EarnScore) ?? 0;
+            TotalEarnScore = UserExamQuestions?.Sum(m => m.EarnScore) ?? 0;  //if null return value=0
 
             TotalQuestionScore = UserExamQuestions?.Sum(m => m.QuestionScore) ?? 0;
 

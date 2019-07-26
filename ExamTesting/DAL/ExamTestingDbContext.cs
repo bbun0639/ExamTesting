@@ -24,11 +24,13 @@ namespace ExamTesting.DAL
 
         public DbSet<UserExam> UserExams { get; set; }
 
+        public DbSet<UserExamQuestion> UserExamQuestions { get; set; }
+
 
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {//
+        {
             optionsBuilder.UseSqlServer(@"Server=(LocalDb)\MSSQLLocalDB;Database=ExamTesting;Trusted_Connection=True;").UseLazyLoadingProxies();
         }
     }
