@@ -38,9 +38,10 @@
                    .DataSource(d => d.Mvc()
                        .Controller("Exam")
                        .LoadAction("GetChoice")
-                   //.LoadParams(new { id = new JS("data.ID") })
+                   //.LoadParams(new { id = Model.ChoiceId })
                    )
                 )
         </text>);
 })
 )
+

@@ -1,0 +1,92 @@
+﻿@using ExamTesting.Models
+@model ExamTesting.Models.UserExam
+@{
+    ViewData["Title"] = "Test";
+}
+
+<div class="h3">
+    Test : @Model.Exam.ExamName
+</div>
+<br />
+
+@(Html.DevExtreme().DataGrid<ExamTesting.Models.UserExamQuestion>()
+.ID("gridContainer")
+    .DataSource(d => d.Mvc()
+    .Controller("Exam")
+    .LoadAction("GetExamQuestion")
+
+    .Area("User")
+
+    .Key("QuestionId")
+
+    .LoadParams(new { id = Model.ExamId })
+
+    )
+
+
+.FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+.SearchPanel(searchPanel => searchPanel.Visible(true).Width(240).Placeholder("Search..."))
+
+.Paging(paging => paging.Enabled(true).PageSize(10))
+
+.ShowBorders(true)
+//.HeaderFilter(headerFilter => headerFilter.Visible(true))
+//.Selection(s => s.Mode(SelectionMode.Single))
+.HoverStateEnabled(true)
+
+.Editing(editing =>
+{
+    editing.Mode(GridEditMode.Form).UseIcons(true);
+    editing.AllowUpdating(true);
+})
+
+.Columns(columns =>
+{
+columns.AddFor(m => m.Question.QuestionStr).Caption("Questions")
+    .CellTemplate(@<text>
+                <a href="/User/Exam/QuestionAnswer/<%= data.Question.QuestionId %>"><%= data.Question.QuestionStr %></a>
+        </text>
+ );
+
+
+ columns.AddFor(m => m.Question.QuestionPoint).Visible(true).Caption("Point").Alignment(HorizontalAlignment.Left);
+
+ columns.AddFor(m => m.Question.QuestionLevel).Visible(true).Caption("Question Level")
+ .Lookup(lookup => lookup
+ .DataSource(Html.GetEnumSelectList<EnumLevel>()
+ .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+ .ValueExpr("Value")
+ .DisplayExpr("Text"));
+
+})
+
+
+
+
+.Selection(s => s.Mode(SelectionMode.Multiple))
+.OnSelectionChanged("selection_changed")
+.OnCellDblClick("selection_changed")
+)
+
+
+<script>
+    function selection_changed(e) {
+        if (e.data.QuestionId != null) {
+            window.location.href = "/Users/Exam/QuestionAnswer/" + e.data.QuestionId;
+        }
+    }</script>
+
+<form asp-action="">
+    <input type="text" name="examQuestion" id="examQuestion">
+    <br />
+    <input type="submit" class="btn btn-primary" value="Submit" />
+</form>
+
+
+
+<script>
+    function selection_changed(selectedItems) {
+        var data = selectedItems.selectedRowsData;
+        document.getElementById("examQuestion").value = JSON.stringify(data);
+    }
+</script>

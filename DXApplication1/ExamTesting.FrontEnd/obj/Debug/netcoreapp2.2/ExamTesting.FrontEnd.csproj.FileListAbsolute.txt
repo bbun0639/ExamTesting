@@ -71,3 +71,5 @@ D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEn
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\_SubjectHeader.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\ListExams.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\_SideList.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Exam\Test.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Exam\QuestionAnswer.g.cshtml.cs
