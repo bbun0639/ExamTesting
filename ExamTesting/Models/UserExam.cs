@@ -36,5 +36,27 @@ namespace ExamTesting.Models
             TotalQuestionScore = UserExamQuestions?.Sum(m => m.QuestionScore) ?? 0;
 
         }
+
+
+
+        public void StartExam()
+        {
+            if (UserExamQuestions.Count > 0)
+                return; //return empty value
+
+            Exam.QuestionsExams.ToList().ForEach(e =>
+            {
+                var userquestionexam = new UserExamQuestion()
+                {
+                    UserExamQuestionId = Guid.NewGuid(),
+                    QuestionId = e.QuestionId,
+                    UserExamId = this.UserExamId,
+                };
+
+                UserExamQuestions.Add(userquestionexam);
+
+
+            });
+        }
     }
 }

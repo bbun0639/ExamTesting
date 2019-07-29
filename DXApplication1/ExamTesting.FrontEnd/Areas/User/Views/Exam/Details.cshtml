@@ -1,10 +1,12 @@
-﻿
+﻿@model  ExamTesting.Models.UserExam
+
+
 <div id="form-container" class="row">
 
     <div class="col">
 
         <div class="col mb-2 h3 font-weight-normal">
-            @Model.ExamCode: @Model.ExamName
+            @Model.Exam.ExamCode : @Model.Exam.ExamName
         </div>
 
         <div class="p-4 bg-light rounded col">
@@ -18,27 +20,27 @@
                     .Caption("Exam Info")
                     .Template(@<text>
                         <div class="h6 font-weight-normal">
-                            Code : @Model.ExamCode
+                            Code : @Model.Exam.ExamCode
                         </div>
 
                         <div class="h6 font-weight-normal">
-                            Subject : @Model.Subject.SubjectName
+                            Subject : @Model.Exam.Subject.SubjectName
                         </div>
 
                         <div class="h6 font-weight-normal">
-                            Version : @Model.ExamVersion
+                            Version : @Model.Exam.ExamVersion
                         </div>
 
                         <div class="h6 font-weight-normal">
-                            Strat Date : @String.Format("{0:d MMMM yyyy}", @Model.StartDate)
+                            Strat Date : @String.Format("{0:d MMMM yyyy}", @Model.Exam.StartDate)
                         </div>
 
                         <div class="h6 font-weight-normal">
-                            End Date: @String.Format("{0:d MMMM yyyy}", @Model.EndDate)
+                            End Date: @String.Format("{0:d MMMM yyyy}", @Model.Exam.EndDate)
                         </div>
 
                         <div class="h6 font-weight-normal text-danger">
-                            Remaining Day : @Model.RemainingDay
+                            Remaining Day : @Model.Exam.RemainingDay
                         </div>
 
 
@@ -55,7 +57,7 @@
                                  @(Html.DevExtreme().Button()
                                     .Type(ButtonType.Default)
                                     .Text("Start Exam")
-                                    .OnClick("showInfo")
+                                    .OnClick("Testing")
                                 )
                             </div>
                             
@@ -65,16 +67,6 @@
 
             })
 
-            )
-
-            @(Html.DevExtreme().Popup()
-                .Width(800)
-                .Height(900)
-                .ShowTitle(true)
-                .Title("Exam")
-                .Visible(false)
-                .DragEnabled(false)
-                .CloseOnOutsideClick(true)
             )
 
 
@@ -109,15 +101,11 @@
 
 <script>
     function Back() {
-        window.location.href = "@Url.Action("Index")";
+        window.location.href = "@Url.Action("Index","Exams")";
     }
 
     function Testing() {
-        window.location.href = "@Url.Action("#")";
-    }
-
-    function showInfo(e) {
-        popup.show(e);
+        window.location.href = "@Url.Action("Testing")/@Model.ExamId";
     }
 
 </script>

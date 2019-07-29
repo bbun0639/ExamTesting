@@ -24,5 +24,8 @@ namespace ExamTesting.Models
         public virtual ICollection<Topic> Childs { get; set; }
 
         public string TopicName { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }

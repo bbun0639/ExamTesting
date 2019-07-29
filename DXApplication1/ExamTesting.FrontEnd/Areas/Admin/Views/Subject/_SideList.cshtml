@@ -1,0 +1,25 @@
+﻿<div class="p-3 col-3 bg-light">
+
+    <div class="col text-center pb-2">
+        <b>Exams this Subject</b>&nbsp;<span class="badge badge-pill badge-primary">@Model.Exams.Count</span>
+    </div>
+
+    <div class="col">
+
+        @foreach (var eq in Model.Exams)
+        {
+            <div class="row">
+
+                <div class="col pl-0 text-left">
+                    <a asp-action="Index" asp-controller="Exam" asp-route-id="@eq.ExamCodeId">
+                        <span>&#9679; @eq.ExamName</span>
+                    </a>
+
+                </div>
+
+            </div>
+        }
+        <br />
+
+    </div>
+</div>

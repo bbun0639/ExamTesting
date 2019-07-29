@@ -66,3 +66,8 @@ D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEn
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Dashboard\Index.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Exams\EnrollExams.g.cshtml.cs
 D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Exam\Details.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\User\Views\Exam\Testing.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\Index.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\_SubjectHeader.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\ListExams.g.cshtml.cs
+D:\TraineePROJ\Proj 5 ExamTesting\ExamTesting\DXApplication1\ExamTesting.FrontEnd\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Subject\_SideList.g.cshtml.cs

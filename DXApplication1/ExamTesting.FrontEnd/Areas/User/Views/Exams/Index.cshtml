@@ -28,13 +28,13 @@
         .Columns(columns =>
         {
             columns.AddFor(m => m.Exam.ExamCode)
-            .Caption("Exam Name");
+            .Caption("Code");
             @*.CellTemplate
                 (@<text>
                         <a href="/User/Exam/Details/<%= data.ExamCodeId %>"><%= data.Exam.ExamCode %></a>
                 </text>);*@
 
-            columns.AddFor(m => m.Exam.ExamName)
+            columns.AddFor(m => m.Exam.ExamName).SortOrder(SortOrder.Asc)
             .Caption("Exam Name");
 
             columns.AddFor(m => m.Exam.SubjectId)

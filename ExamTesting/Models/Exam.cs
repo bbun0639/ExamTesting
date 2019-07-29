@@ -54,5 +54,34 @@ namespace ExamTesting.Models
             });
 
         }
+
+
+
+        [JsonIgnore]
+        public virtual ICollection<UserExam> UserExams { get; set; }
+
+        public void AddQuestions(List<Question> questionsList)
+        {
+            //if null => add new
+            if (this.QuestionsExams == null)
+                this.QuestionsExams = new List<QuestionExam>();
+
+            questionsList.ForEach(question =>
+            {
+                //Need checking list question
+
+
+                QuestionExam newQuestionExam = new QuestionExam()
+                {
+                    QuestionExamId = Guid.NewGuid(),
+                    ExamId = this.ExamCodeId,
+                    QuestionId = question.QuestionId
+                };
+
+                QuestionsExams.Add(newQuestionExam);
+
+            });
+
+        }
     }
 }

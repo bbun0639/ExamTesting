@@ -1,0 +1,77 @@
+﻿@using ExamTesting.Models
+@model ExamTesting.Models.Subject
+
+
+<div class="row ">
+    <div class="col">
+
+        <partial name="_SubjectHeader" />
+
+        <div class="p-4 bg-light rounded col">
+
+            @(Html.DevExtreme().Form<ExamTesting.Models.Subject>()
+            .ID("form")
+            .ColCount(1)
+            .Items(items =>
+                    {
+                items.AddGroup()
+                    .Caption("Subject Info")
+                    .Template(@<text>
+                                <div class="h6 font-weight-normal">
+                                    Subject : @Model.SubjectName
+                                </div>
+
+                                <div class="h6 font-weight-normal">
+                                    Level : @Model.SubjectLevels
+                                </div>
+
+                                <div class="row pt-4">
+                                    <div class="text-left col">
+                                        @(Html.DevExtreme().Button()
+                                          .Icon("back")
+                                          .Text("Subjects List")
+                                          .OnClick("BacktoIndex")
+                                        )
+                                    </div>
+                                </div>
+
+                    </text>);
+
+})
+
+            )
+
+
+        </div>
+
+    </div>
+
+    @*<div class="col-sm-4" style="background-color:#efdfdf">
+        <br />
+        <div class="bg-white p-1 text-center"><h6>( @Model.Exams.Count )  List Exams!  </h6></div>
+        <br />
+
+        @foreach (var eq in Model.Exams)
+        {
+            <a asp-action="Index" asp-controller="Exam" asp-route-id="@eq.ExamCodeId">
+                <span>&#9679; @eq.ExamName </span><br />
+            </a>
+        }
+
+        <br /><br />
+
+        <a asp-action="ListExams" asp-route-id="@Model.SubjectId">
+            See More Exams!<br />
+        </a>
+    </div>*@
+
+    <partial name="_SideList">
+</div>
+
+
+
+<script>
+    function BacktoIndex() {
+        window.location.href = "/Admin/Subjects/Index";
+    }
+</script>

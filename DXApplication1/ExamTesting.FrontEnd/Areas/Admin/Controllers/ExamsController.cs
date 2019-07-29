@@ -35,6 +35,12 @@ namespace ExamTesting.FrontEnd.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public object GetSubjectExam(DataSourceLoadOptions loadOptions, Guid id)
+        {
+            return DataSourceLoader.Load(_db.Exams.Where(m => m.SubjectId == id), loadOptions);
+        }
+
+        [HttpGet]
         public object GetChoices(DataSourceLoadOptions loadOptions)
         {
             return DataSourceLoader.Load(_db.Choices, loadOptions);

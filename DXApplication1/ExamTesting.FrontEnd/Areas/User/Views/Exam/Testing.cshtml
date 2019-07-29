@@ -1,0 +1,46 @@
+﻿@(Html.DevExtreme().DataGrid<ExamTesting.Models.QuestionExam>()
+    .ID("gridContainer")
+    .ShowBorders(true)
+    .DataSource(d => d.Mvc()
+        .Controller("Exam")
+        .LoadAction("GetQuestion")
+        .Key("QuestionId")
+    )
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.Question.QuestionStr).Caption("Questions");
+
+        columns.AddFor(m => m.Question.QuestionType).Caption("Questions Type");
+
+        columns.AddFor(m => m.Question.Topic).Caption("Topics");
+
+        columns.AddFor(m => m.Question.QuestionPoint).Caption("Point");
+
+    })
+
+    .MasterDetail(md =>
+        {
+        md.Enabled(true);
+        md.Template(@<text>
+                <div class="master-detail-caption"><%= data.FirstName %> <%= data.LastName %>'s Tasks:</div>
+                @(Html.DevExtreme().DataGrid<ExamTesting.Models.Choice>()
+                   .ColumnAutoWidth(true)
+                   .ShowBorders(true)
+                   .Columns(columns =>
+                   {
+                       columns.AddFor(m => m.ChoiceStr);
+
+                       columns.Add()
+                           .Caption("Completed")
+                           .DataType(GridColumnDataType.Boolean)
+                           .CalculateCellValue(@"function(rowData) { return rowData.Status == ""Completed""; }");
+                   })
+                   .DataSource(d => d.Mvc()
+                       .Controller("Exam")
+                       .LoadAction("GetChoice")
+                   //.LoadParams(new { id = new JS("data.ID") })
+                   )
+                )
+        </text>);
+})
+)

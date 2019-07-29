@@ -74,7 +74,17 @@
             .Alignment(HorizontalAlignment.Center);
 
     })
+    .OnCellClick("QuestionDetails").HoverStateEnabled(true)
 
-)
+
+)<script>
+    function QuestionDetails(e) {
+
+        if (e.data.QuestionId != null) {
+            window.location.href = "/Admin/Question/Index/" + e.data.QuestionId;
+        }
+
+    }
+</script>
 
 

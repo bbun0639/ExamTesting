@@ -1,0 +1,45 @@
+﻿@using ExamTesting.Models
+
+<partial name="_SubjectHeader">
+
+@(Html.DevExtreme().DataGrid<ExamTesting.Models.Exam>()
+    .ID("gridContainer")
+        .DataSource(d => d.Mvc()
+        .Controller("Exams")
+        .LoadAction("GetSubjectExam")
+        .Area("Admin")
+
+        .Key("ExamCodeId")
+
+        .LoadParams(new { id = Model.SubjectId })
+
+        )
+
+    .SearchPanel(searchPanel => searchPanel.Visible(true).Width(240).Placeholder("Search..."))
+
+    .Paging(paging => paging.Enabled(true).PageSize(10))
+
+    .ShowBorders(true)
+    .Selection(s => s.Mode(SelectionMode.Single))
+    .HoverStateEnabled(true)
+
+
+    .Columns(columns =>
+    {
+        columns.AddFor(m => m.ExamName).Caption("Exam Name");
+
+        columns.AddFor(m => m.ExamVersion).Caption("Vesion").Alignment(HorizontalAlignment.Left);
+
+        columns.AddFor(m => m.StartDate).Caption("Start Date");
+
+
+    })
+    .OnCellClick("ExamDetails")
+)
+
+<script>
+    function ExamDetails(e) {
+        window.location.href = "/Admin/Exam/"+ e.data.ExamCodeId +"/Details";
+    }
+
+</script>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -16,5 +17,7 @@ namespace ExamTesting.Models
         [Display(Name = "Level")]
         public EnumLevel SubjectLevels { get; set; }
 
+        [JsonIgnore]
+        public virtual ICollection<Exam> Exams { get; set; }
     }
 }

@@ -17,26 +17,23 @@
 
         <div class="p-4 col bg-light">
 
-        @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
-              .Items(items => {
-                  items.AddGroup()
-                  .Caption("Questions (" + Model.QuestionsExams.Count + ")")
-                  .Template(@<text>
+        @*@(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+            .Items(items => {
+                items.AddGroup()
+                .Caption("Questions (" + Model.QuestionsExams.Count + ")")
+                .Template(@<text>
 
-                        @foreach (var eq in Model.QuestionsExams)
-                        {
-                            <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
-                                <span>&#9900; @eq.Question.QuestionStr (@eq.Question.QuestionExams.Count)</span><br />
-                            </a>
-                        }
+                    @foreach (var eq in Model.QuestionsExams)
+                    {
+                        <a asp-action="Index" asp-controller="Question" asp-route-id="@eq.QuestionId">
+                            <span>&#9900; @eq.Question.QuestionStr (@eq.Question.QuestionExams.Count)</span><br />
+                        </a>
+                    }
+                </text>);
 
- 
-                        
-              </text>);
+            })
 
-              })
-
-        )
+        )*@
 
 
         <partial name="_ListQuestions">

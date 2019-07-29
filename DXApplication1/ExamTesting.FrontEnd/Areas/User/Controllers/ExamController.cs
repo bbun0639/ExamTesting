@@ -20,22 +20,28 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
         }
         public IActionResult Details(Guid id)
         {
-            var _exams = _db.Exams.First(a => a.ExamCodeId == id);
+            var _exams = _db.UserExams.First(a => a.ExamId == id);
             return View(_exams);
         }
 
         public IActionResult Testing(Guid id)
         {
-            var _exams = _db.Exams.First(a => a.ExamCodeId == id);
+            var _exams = _db.UserExams.First(a => a.ExamId == id);
             return View(_exams);
         }
 
-        //[HttpGet]
-        //public object GetChoice(DataSourceLoadOptions loadOptions)
-        //{
-        //    return DataSourceLoader.Load(_db.Choices.Where(u => u.QuestionId == ), loadOptions);
-        //}
 
+        [HttpGet]
+        public object GetQuestion(DataSourceLoadOptions loadOptions, Guid id)
+        {
+            return DataSourceLoader.Load(_db.QuestionExams.Where(u => u.ExamId == id), loadOptions);
+        }
+
+        [HttpGet]
+        public object GetChoice(DataSourceLoadOptions loadOptions, Guid id)
+        {
+            return DataSourceLoader.Load(_db.Choices.Where(u => u.QuestionId == id), loadOptions);
+        }
 
     }
 }
