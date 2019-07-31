@@ -26,7 +26,9 @@ namespace ExamTesting.Models
         public int QuestionScore => Question.QuestionPoint;
         public bool IsCorrect { get; set; }
 
-        public void verifyAnswer()
+        public bool IsComplete { get; set; }
+
+        public void VerifyAnswer()
         {
             if (SelectChoiceId != null && SelectChoiceId == Question.GetCorectChoiceId())
             {
@@ -37,7 +39,6 @@ namespace ExamTesting.Models
             {
                 IsCorrect = false;
                 EarnScore = 0;
-
             }
         }
     }

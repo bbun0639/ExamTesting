@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,7 @@ namespace ExamTesting.Models
 
         public int TotalQuestionScore { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<UserExamQuestion> UserExamQuestions { get; set; }
 
 

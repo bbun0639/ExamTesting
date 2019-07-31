@@ -1,92 +1,111 @@
 ﻿@using ExamTesting.Models
-@model ExamTesting.Models.UserExam
+@model ExamTesting.Models.UserExamQuestion
 @{
     ViewData["Title"] = "Test";
 }
 
-<div class="h3">
-    Test : @Model.Exam.ExamName
+<div class="col mb-4 h4 font-weight-normal">
+    Exam Test : @Model.UserExam.Exam.ExamName
 </div>
-<br />
 
-@(Html.DevExtreme().DataGrid<ExamTesting.Models.UserExamQuestion>()
+
+<div class="col">
+
+    @(Html.DevExtreme().DataGrid<ExamTesting.Models.UserExamQuestion>()
 .ID("gridContainer")
     .DataSource(d => d.Mvc()
-    .Controller("Exam")
-    .LoadAction("GetExamQuestion")
-
-    .Area("User")
-
-    .Key("QuestionId")
-
-    .LoadParams(new { id = Model.ExamId })
-
+        .Controller("Exam")
+        .LoadAction("GetExamQuestion")
+        .Area("User")
+        .Key("QuestionId")
+        .LoadParams(new { id = Model.UserExam.ExamId })
     )
+    .Paging(paging => paging.Enabled(true).PageSize(10))
 
 
-.FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
-.SearchPanel(searchPanel => searchPanel.Visible(true).Width(240).Placeholder("Search..."))
-
-.Paging(paging => paging.Enabled(true).PageSize(10))
-
-.ShowBorders(true)
-//.HeaderFilter(headerFilter => headerFilter.Visible(true))
-//.Selection(s => s.Mode(SelectionMode.Single))
-.HoverStateEnabled(true)
-
-.Editing(editing =>
-{
-    editing.Mode(GridEditMode.Form).UseIcons(true);
-    editing.AllowUpdating(true);
-})
-
-.Columns(columns =>
-{
-columns.AddFor(m => m.Question.QuestionStr).Caption("Questions")
-    .CellTemplate(@<text>
-                <a href="/User/Exam/QuestionAnswer/<%= data.Question.QuestionId %>"><%= data.Question.QuestionStr %></a>
-        </text>
- );
+    //.FilterRow(filterRow => filterRow.Visible(true).ApplyFilter(GridApplyFilterMode.Auto))
+    //.SearchPanel(searchPanel => searchPanel.Visible(true).Width(240).Placeholder("Search..."))    
+    //.HeaderFilter(headerFilter => headerFilter.Visible(true))
+    //.Selection(s => s.Mode(SelectionMode.Single))
 
 
- columns.AddFor(m => m.Question.QuestionPoint).Visible(true).Caption("Point").Alignment(HorizontalAlignment.Left);
+    .Columns(columns =>
+    {
+            columns.AddFor(m => m.IsComplete).Caption("Completed");
 
- columns.AddFor(m => m.Question.QuestionLevel).Visible(true).Caption("Question Level")
- .Lookup(lookup => lookup
- .DataSource(Html.GetEnumSelectList<EnumLevel>()
- .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
- .ValueExpr("Value")
- .DisplayExpr("Text"));
+            columns.AddFor(m => m.Question.QuestionStr).Caption("Questions").Width(700)
+            .CellTemplate(@<text>
+                            <a href="/User/Exam/QuestionAnswer/<%= data.UserExamQuestionId %>"><%= data.Question.QuestionStr %></a>
+                    </text>
+                );
 
-})
+
+            columns.AddFor(m => m.Question.QuestionPoint).Visible(true).Caption("Point")
+               .Alignment(HorizontalAlignment.Center);
+
+            columns.AddFor(m => m.Question.QuestionLevel).Visible(true).Caption("Question Level").Visible(false)
+            .Lookup(lookup => lookup
+                .DataSource(Html.GetEnumSelectList<EnumLevel>()
+                .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
+                .ValueExpr("Value")
+                .DisplayExpr("Text"))
+            .Alignment(HorizontalAlignment.Center);
+
+        })
 
 
 
+        //.Selection(s => s.Mode(SelectionMode.Multiple))
+        //.OnSelectionChanged("selection_changed")
+        .ShowBorders(true)
+        .HoverStateEnabled(true)
+        //.OnCellClick("QuestionAnswer")
+        )
 
-.Selection(s => s.Mode(SelectionMode.Multiple))
-.OnSelectionChanged("selection_changed")
-.OnCellDblClick("selection_changed")
-)
+    
+        <div class="row pt-4">
+            <div class="text-left col">
+                @(Html.DevExtreme().Button()
+                    .Icon("back")
+                    .OnClick("Back")
+                    
+                )
+            </div>
+            <form asp-action="Test" asp-route-id="@Model.UserExam.ExamId">
+
+                <input type="submit" class="btn btn-primary" value="Subnit the Exam" />
+
+                @*<div class="text-right col">
+                    @(Html.DevExtreme().Button()
+                        .Type(ButtonType.Default)
+                        .Icon("check")
+                        .Text("Submit the Exam")
+                    )
+                </div>*@
+                @*<input type="text" name="examQuestion" id="examQuestion" style="width:900px;" />*@
+
+            </form>
+        </div>
+    
+
+</div>
 
 
 <script>
-    function selection_changed(e) {
+    function QuestionAnswer(e) {
         if (e.data.QuestionId != null) {
-            window.location.href = "/Users/Exam/QuestionAnswer/" + e.data.QuestionId;
+            window.location.href = "/User/Exam/QuestionAnswer/" + e.data.UserExam.ExamId;
         }
-    }</script>
-
-<form asp-action="">
-    <input type="text" name="examQuestion" id="examQuestion">
-    <br />
-    <input type="submit" class="btn btn-primary" value="Submit" />
-</form>
+    }
 
 
-
-<script>
     function selection_changed(selectedItems) {
         var data = selectedItems.selectedRowsData;
         document.getElementById("examQuestion").value = JSON.stringify(data);
+    }
+
+
+    function Back() {
+        window.location.href = "@Url.Action("Details","Exam")/@Model.UserExam.ExamId";
     }
 </script>

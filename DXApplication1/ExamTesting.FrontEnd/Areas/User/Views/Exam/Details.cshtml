@@ -5,7 +5,7 @@
 
     <div class="col">
 
-        <div class="col mb-2 h3 font-weight-normal">
+        <div class="col mb-4 h3 font-weight-normal">
             @Model.Exam.ExamCode : @Model.Exam.ExamName
         </div>
 
@@ -57,7 +57,7 @@
                                  @(Html.DevExtreme().Button()
                                     .Type(ButtonType.Default)
                                     .Text("Start Exam")
-                                    .OnClick("Testing")
+                                    .OnClick("StartExam")
                                 )
                             </div>
                             
@@ -104,8 +104,8 @@
         window.location.href = "@Url.Action("Index","Exams")";
     }
 
-    function Testing() {
-        window.location.href = "@Url.Action("Test")/@Model.ExamId";
+    function StartExam() {
+        window.location.href = "@Url.Action("Start")/@Model.ExamId";
     }
 
 </script>

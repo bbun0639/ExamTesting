@@ -52,9 +52,9 @@
             )
             .Width(400)
             .CellTemplate(@<text>
-                                        <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
-                                </text>
-                                );
+                    <a href="/Admin/Question/Index/<%= data.QuestionId %>"><%= data.QuestionStr %></a>
+            </text>
+            );
 
                 columns.Add().DataField("Hint").Caption("Hint").Visible(false)
                     .FormItem(i => i
@@ -140,12 +140,8 @@
 
             })
             .ShowBorders(true)
-            @*.OnContentReady(
-                    @<text>
-                            function(e) {
-                                e.component.validate();
-                            }
-                    </text>)*@
+            .OnCellClick("QuestionDetails")
+            .HoverStateEnabled(true)
 
 )
 </div>
@@ -187,6 +183,20 @@
     }
 
 <script>
+
+    function QuestionDetails(e) {
+
+
+
+        if (e.data.SubjectId != null) {
+            window.location.href = "/Admin/Question/Index/"+ e.data.QuestionId;
+        }
+
+        //var myJs = JSON.stringify(e.data.QuestionId);
+        //console.log(myJs)
+    }
+
+
 //Ezy dropdown
     function innerList_selectionChanged(e) {
         var dropDownBox = $("#dropDownBox").dxDropDownBox("instance");

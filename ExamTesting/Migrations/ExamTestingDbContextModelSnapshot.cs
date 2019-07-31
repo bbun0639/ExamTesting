@@ -180,6 +180,8 @@ namespace ExamTesting.Migrations
 
                     b.Property<int>("EarnScore");
 
+                    b.Property<bool>("IsComplete");
+
                     b.Property<bool>("IsCorrect");
 
                     b.Property<Guid>("QuestionId");
@@ -208,7 +210,7 @@ namespace ExamTesting.Migrations
             modelBuilder.Entity("ExamTesting.Models.Exam", b =>
                 {
                     b.HasOne("ExamTesting.Models.Subject", "Subject")
-                        .WithMany()
+                        .WithMany("Exams")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -216,7 +218,7 @@ namespace ExamTesting.Migrations
             modelBuilder.Entity("ExamTesting.Models.Question", b =>
                 {
                     b.HasOne("ExamTesting.Models.Topic", "Topic")
-                        .WithMany()
+                        .WithMany("Questions")
                         .HasForeignKey("TopicId");
                 });
 
@@ -243,7 +245,7 @@ namespace ExamTesting.Migrations
             modelBuilder.Entity("ExamTesting.Models.UserExam", b =>
                 {
                     b.HasOne("ExamTesting.Models.Exam", "Exam")
-                        .WithMany()
+                        .WithMany("UserExams")
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade);
 

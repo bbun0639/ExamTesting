@@ -8,14 +8,18 @@ using DevExtreme.AspNet.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using ExamTesting.DAL;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace ExamTesting.FrontEnd.Areas.Users.Controllers
 {
     [Area("User")]
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
     public class ExamController : Controller
     {
         private readonly ExamTestingDbContext _db;
+
+        protected Guid CurrentUserId => Guid.Parse(this.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
         public ExamController(ExamTestingDbContext db)
         {
             _db = db;
@@ -36,7 +40,7 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
         [HttpGet]
         public object GetExamQuestion(DataSourceLoadOptions loadOptions, Guid id)
         {
-            return DataSourceLoader.Load(_db.QuestionExams.Where(u => u.ExamId == id), loadOptions);
+            return DataSourceLoader.Load(_db.UserExamQuestions.Where(u => u.UserExam.ExamId == id), loadOptions);
         }
 
         [HttpGet]
@@ -51,31 +55,80 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
 
         public IActionResult QuestionAnswer(Guid id)
         {
-            var _exams = _db.QuestionExams.First(a => a.QuestionId == id);
+            var _exams = _db.UserExamQuestions.Where(a => a.UserExamQuestionId == id).ToList();
+
+            foreach (var _question in _exams)
+            {
+                _exams.ForEach(e =>
+                {
+                    if(e.QuestionId == _question.QuestionId)
+                    {
+                        _db.SaveChanges();
+                    }
+                });
+                return View(_question);
+            }
             return View(_exams);
+        }
+
+
+        [HttpGet]
+        public IActionResult Start(Guid id)
+        {
+            var _UserExams = _db.UserExams.First(a => a.ExamId == id);
+            _UserExams.StartExam();
+
+            _db.SaveChanges();
+            //return View(_UserExams);
+            return RedirectToAction("Test", new { id = id });
         }
 
 
         [HttpGet]
         public IActionResult Test(Guid id)
         {
-            var _UserExams = _db.UserExams.First(a => a.ExamId == id);
-            _UserExams.StartExam();
+            var _exams = _db.UserExamQuestions.Where(a => a.UserExam.ExamId == id).ToList();
+            foreach (var _userExam in _exams)
+            {
+                _exams.ForEach(u =>
+                {
+                    if (u.UserExamQuestionId == _userExam.UserExamQuestionId)
+                    {
+                        _userExam.UserExam.UpdateScore();
+                        _db.SaveChanges();
 
-            _db.SaveChanges();
-            return View(_UserExams);
+                    }
+
+                });
+                return View(_userExam);
+            }
+
+            return View(_exams);
         }
 
+
+
         [HttpPost, ActionName("Test")]
-        public IActionResult TestPost(Guid id, Guid questionAnswer)
+        public IActionResult TestPost(Guid id, Guid questionAnswer, Guid QuestionId)
         {
 
-            var _questionAnswer = _db.UserExamQuestions.First(a => a.UserExam.ExamId == id);
-            _questionAnswer.SelectChoiceId = questionAnswer;
+            var _questionAnswer = _db.UserExamQuestions.Where(a => a.UserExam.ExamId == id).ToList();
+
+            foreach (var _questAns in _questionAnswer)
+            {
+                if (_questAns.QuestionId == QuestionId)
+                {
+                    _questAns.SelectChoiceId = questionAnswer;
+                    _questAns.IsComplete = true;
+                }
+
+                _questAns.VerifyAnswer();
+
+            }
 
             _db.SaveChanges();
 
-            return RedirectToAction("Test");
+            return RedirectToAction("Test", new { id = id });
         }
     }
 }
