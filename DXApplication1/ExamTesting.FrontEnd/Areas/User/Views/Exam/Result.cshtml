@@ -1,0 +1,84 @@
+﻿@model ExamTesting.Models.UserExam
+
+
+    <div id="form-container" class="row">
+
+        <div class="col">
+
+            <div class="p-4 bg-light rounded col">
+
+                @(Html.DevExtreme().Form<ExamTesting.Models.Exam>()
+                .ID("form")
+                .ColCount(2)
+                .Items(items =>
+                {
+                    items.AddGroup()
+                        .Caption("Exam Info")
+                        .Template(@<text>
+                            <div class="h6 font-weight-normal">
+                                Code : @Model.Exam.ExamCode
+                            </div>
+                                    
+                            <div class="h6 font-weight-normal">
+                                Exam : @Model.Exam.ExamName
+                            </div>                                   
+
+                            <div class="h6 font-weight-normal">
+                                Subject : @Model.Exam.Subject.SubjectName
+                            </div>
+
+                            <div class="h6 font-weight-normal">
+                                Version : @Model.Exam.ExamVersion
+                            </div>
+                        </text>);
+
+                    items.AddGroup()
+                        .Caption("Exam result")
+                        .Template(@<text>
+                            <div class="h6 font-weight-normal">
+                                Total Score : @Model.TotalQuestionScore
+                            </div>
+
+                            <div class="h6 font-weight-normal">
+                                Earn Score : @Model.TotalEarnScore
+                            </div>
+
+                            <div class="h6 font-weight-normal">
+                                Percentage : @Model.Exam.ExamVersion
+                            </div>
+                            
+                            <div class="h6 font-weight-normal">
+                                Percentage : @Model.Exam.ExamVersion
+                            </div>
+
+                        </text>);
+
+                })
+
+                )
+
+                <div class="row pt-4">
+                    <div class="text-right col">
+                        @(Html.DevExtreme().Button()
+                            .Type(ButtonType.Normal)
+                            .Text("Exit")
+                            .OnClick("Exit")
+                        )
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-3 bg-light"></div>
+
+    </div>
+
+<script>
+    function Exit() {
+        window.location.href = "@Url.Action("Index","Exams")";
+    }
+</script>

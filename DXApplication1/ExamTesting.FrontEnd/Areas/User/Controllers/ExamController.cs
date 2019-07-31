@@ -24,17 +24,20 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
         {
             _db = db;
         }
+
+        [HttpGet]
         public IActionResult Details(Guid id)
         {
             var _exams = _db.UserExams.First(a => a.ExamId == id);
             return View(_exams);
         }
 
-        public IActionResult Testing(Guid id)
-        {
-            var _exams = _db.UserExams.First(a => a.ExamId == id);
-            return View(_exams);
-        }
+        //[HttpGet]
+        //public IActionResult Testing(Guid id)
+        //{
+        //    var _exams = _db.UserExams.First(a => a.ExamId == id);
+        //    return View(_exams);
+        //}
 
 
         [HttpGet]
@@ -50,9 +53,6 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
         }
 
 
-
-
-
         public IActionResult QuestionAnswer(Guid id)
         {
             var _exams = _db.UserExamQuestions.Where(a => a.UserExamQuestionId == id).ToList();
@@ -61,7 +61,7 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
             {
                 _exams.ForEach(e =>
                 {
-                    if(e.QuestionId == _question.QuestionId)
+                    if (e.QuestionId == _question.QuestionId)
                     {
                         _db.SaveChanges();
                     }
@@ -107,7 +107,6 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
         }
 
 
-
         [HttpPost, ActionName("Test")]
         public IActionResult TestPost(Guid id, Guid questionAnswer, Guid QuestionId)
         {
@@ -128,7 +127,18 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("Test", new { id = id });
+            return RedirectToAction("Result", new { id = id });
+        }
+
+
+        [HttpGet]
+        public IActionResult Result(Guid id)
+        {
+            var _result = _db.UserExams.First(a => a.ExamId == id);
+
+            if(_result.TotalEarnScore >= ())
+
+            return View(_result);
         }
     }
 }
