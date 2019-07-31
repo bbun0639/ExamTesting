@@ -33,15 +33,20 @@
 
     .Columns(columns =>
     {
-        columns.AddFor(m => m.QuestionId).Caption("Questions")
+        columns.AddFor(m => m.QuestionId).Caption("Questions").Width(400)
         .Lookup(lookup => lookup
             .DataSource(d => d.Mvc().Controller("Questions").LoadAction("Get").Key("QuestionId"))
             .ValueExpr("QuestionId")
             .DisplayExpr("QuestionStr")
-        );
+        )
+        .CellTemplate(@<text>
+                    <a href="/Admin/Question/Index/<%= data.Question.QuestionId %>"><%= data.Question.QuestionStr %></a>
+            </text>
+            );
+        
 
 
-        columns.AddFor(m => m.Question.TopicId).Visible(true).Caption("Topic Name")
+        columns.AddFor(m => m.Question.TopicId).Visible(true).Caption("Topic")
         .Lookup(lookup => lookup
             .DataSource(d => d.Mvc().Controller("Questions").LoadAction("GetTopicDropdown").Key("QuestionId"))
             .ValueExpr("TopicId")
@@ -50,7 +55,7 @@
         .Alignment(HorizontalAlignment.Center);
 
 
-        columns.AddFor(m => m.Question.QuestionType).Visible(true).Caption("Question Type")
+        columns.AddFor(m => m.Question.QuestionType).Visible(true).Caption("Question Type").Visible(false)
         .Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<QuestionType>()
                 .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
@@ -60,7 +65,7 @@
         .Alignment(HorizontalAlignment.Center);
 
 
-        columns.AddFor(m => m.Question.QuestionLevel).Visible(true).Caption("Question Level")
+        columns.AddFor(m => m.Question.QuestionLevel).Visible(true).Caption("Question Level").Visible(false)
         .Lookup(lookup => lookup
             .DataSource(Html.GetEnumSelectList<EnumLevel>()
                     .Select(l => new { Value = int.Parse(l.Value), Text = l.Text }))
@@ -68,13 +73,15 @@
                     .DisplayExpr("Text")
                 )
         .Alignment(HorizontalAlignment.Center);
-       
 
-         columns.AddFor(m => m.Question.QuestionPoint).Visible(true).Caption("Points")
-            .Alignment(HorizontalAlignment.Center);
+
+        columns.AddFor(m => m.Question.QuestionPoint).Visible(true).Caption("Points")
+           .Alignment(HorizontalAlignment.Center)
+           .Width(100);
 
     })
-    .OnCellClick("QuestionDetails").HoverStateEnabled(true)
+    //.OnCellClick("QuestionDetails")
+    .HoverStateEnabled(true)
 
 
 )<script>

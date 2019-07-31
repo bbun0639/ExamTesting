@@ -39,6 +39,12 @@
                             End Date: @String.Format("{0:d MMMM yyyy}", @Model.Exam.EndDate)
                         </div>
 
+                        <div class="h6 font-weight-normal text-success">
+                            Passing Rate : @Model.Exam.PercentPass %
+                        </div>
+
+                        <br />
+
                         <div class="h6 font-weight-normal text-danger">
                             Remaining Day : @Model.Exam.RemainingDay
                         </div>

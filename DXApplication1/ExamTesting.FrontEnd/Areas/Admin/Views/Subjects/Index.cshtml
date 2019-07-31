@@ -48,7 +48,12 @@
         .HeaderFilter(headerFilter => headerFilter.Visible(true))
         .Columns(columns =>
         {
-            columns.Add().DataField("SubjectName").Caption("Subject Name");
+            columns.Add().DataField("SubjectName").Caption("Subject Name")
+                .CellTemplate(@<text>
+                        <a href="/Admin/Subject/<%= data.SubjectId %>/Details"><%= data.SubjectName %></a>
+                </text>
+                );
+
             columns.Add().DataField("SubjectLevels").Caption("Subject Level")
 
                 .Lookup(lookup => lookup.DataSource(Html.GetEnumSelectList<EnumLevel>()
@@ -56,7 +61,7 @@
                             .ValueExpr("Value")
                             .DisplayExpr("Text")
                         )
-           
+
                 .FormItem(i => i
                     .Editor(e => e.SelectBox()
                         .ID("SubjectLevels")
@@ -66,11 +71,11 @@
                         .DisplayExpr("Text")
                         )
                     );
-            
+
         })
-        
+
     .ShowBorders(true)
-    .OnCellClick("SubjectDetails")
+    //.OnCellClick("SubjectDetails")
     .HoverStateEnabled(true)
     )
 

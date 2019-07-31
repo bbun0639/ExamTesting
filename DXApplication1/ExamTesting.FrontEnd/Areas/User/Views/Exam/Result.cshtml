@@ -31,7 +31,7 @@
                                 Version : @Model.Exam.ExamVersion
                             </div>
                         </text>);
-
+            
                     items.AddGroup()
                         .Caption("Exam result")
                         .Template(@<text>
@@ -40,15 +40,15 @@
                             </div>
 
                             <div class="h6 font-weight-normal">
-                                Earn Score : @Model.TotalEarnScore
+                                Passing Rate : @Model.Exam.PercentPass %
                             </div>
-
-                            <div class="h6 font-weight-normal">
-                                Percentage : @Model.Exam.ExamVersion
+                            <br />
+                            <div class="h6 font-weight-normal text-dark">
+                                <b>Your Earn Score : @Model.TotalEarnScore </b>
                             </div>
-                            
-                            <div class="h6 font-weight-normal">
-                                Percentage : @Model.Exam.ExamVersion
+                                                                        
+                            <div class="h6 font-weight-normal text-dark">
+                                <b>Your Percentage : @Model.Percentage %</b>
                             </div>
 
                         </text>);
@@ -57,23 +57,43 @@
 
                 )
 
-                <div class="row pt-4">
+                <div class="row pt-4">                                           
+
                     <div class="text-right col">
+
+                        @if (Model.Percentage >= Model.Exam.PercentPass)
+                        {
+                            <div class="text-center bg-success font-weight-light p-1">
+                                <h4 class="text-white">Congratulation! You Pass</h4>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-center bg-danger font-weight-light p-1">
+                                <h4 class="text-white">Sorry, Please try again</h4>
+                            </div>
+
+                        }
+
+                        <br />
+
                         @(Html.DevExtreme().Button()
                             .Type(ButtonType.Normal)
                             .Text("Exit")
                             .OnClick("Exit")
                         )
+
                     </div>
 
                 </div>
-
+                    
             </div>
 
         </div>
 
 
         <div class="col-3 bg-light"></div>
+
 
     </div>
 

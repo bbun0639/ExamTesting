@@ -50,6 +50,8 @@ namespace ExamTesting.Migrations
 
                     b.Property<int>("ExamVersion");
 
+                    b.Property<int>("PercentPass");
+
                     b.Property<DateTime>("StartDate");
 
                     b.Property<Guid>("SubjectId");

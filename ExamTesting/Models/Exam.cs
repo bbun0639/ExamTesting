@@ -32,6 +32,9 @@ namespace ExamTesting.Models
 
         public string ExamCode { get; set; }
 
+        public int PercentPass { get; set; }
+
+
 
         public void AddQuestionns(List<Question> questionsList)
         {
@@ -54,11 +57,12 @@ namespace ExamTesting.Models
             });
 
         }
-
-
+        
 
         [JsonIgnore]
         public virtual ICollection<UserExam> UserExams { get; set; }
+
+
 
         public void AddQuestions(List<Question> questionsList)
         {

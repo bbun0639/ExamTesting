@@ -25,6 +25,23 @@ namespace ExamTesting.Models
         public int TotalEarnScore { get; set; }
 
         public int TotalQuestionScore { get; set; }
+                
+
+        [NotMapped]
+        public int PassingScore => (TotalQuestionScore*Exam.PercentPass)/100;
+
+        [NotMapped]
+        public int Percentage {
+            get {
+                if (TotalQuestionScore == 0) {
+                    return 0;
+                }
+                else {
+                    return (TotalEarnScore * 100 / TotalQuestionScore);
+                }
+            }
+        }
+
 
         [JsonIgnore]
         public virtual ICollection<UserExamQuestion> UserExamQuestions { get; set; }

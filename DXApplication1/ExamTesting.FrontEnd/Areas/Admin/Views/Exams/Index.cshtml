@@ -12,6 +12,7 @@
     @*<h2 class="pb-4 text-center font-weight-light">Exams List</h2>*@
 
     @(Html.DevExtreme().DataGrid<ExamTesting.Models.Exam>()
+        .ID("gridContainer")
         .DataSource(d => d.Mvc()
         .Controller("Exams")
         .LoadAction("Get")
@@ -20,12 +21,8 @@
         .DeleteAction("Delete")
         .Area("Admin")
         .Key("ExamCodeId"))
-
-
-     .ID("gridContainer")
-
-
-
+           
+        
      .Editing(editing =>
      {
          editing.Mode(GridEditMode.Form);
@@ -47,11 +44,11 @@
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
     .Columns(columns =>
     {
-    columns.AddFor(m => m.ExamCode).Caption("Code");
-            @*.CellTemplate
+    columns.AddFor(m => m.ExamCode).Caption("Code")
+            .CellTemplate
                 (@<text>
                     <a  href ="/Admin/Exam/<%= data.ExamCodeId %>/Details"><%= data.ExamCode %></a>
-                    </text>);*@
+                    </text>);
 
         columns.AddFor(m => m.ExamName).Caption("Exam").SortOrder(SortOrder.Asc);
 
@@ -73,7 +70,7 @@
             .FormItem(i => i
                 .Editor(e => e
                     .DateBox()
-                    .Placeholder("d/MMM/y")
+                    .Placeholder("dd/MMM/YY")
                     .DisplayFormat("dd MMM yyyy")
                         .Type(DateBoxType.Date)
                     )
@@ -102,10 +99,23 @@
                     )
                 );
 
+        columns.AddFor(m => m.PercentPass).Visible(false)
+            .Caption("Passing Rate (%)")
+            .Alignment(HorizontalAlignment.Center)
+            .FormItem(i => i
+                .Editor(e => e
+                    .NumberBox()
+                    .Placeholder("%")
+                    .ShowSpinButtons(true)
+                    .ShowClearButton(true)
+                    )
+                );
+
     })
 
     .ShowBorders(true)
-    .OnCellClick("ExamDetails").HoverStateEnabled(true)
+    //.OnCellClick("ExamDetails")
+    .HoverStateEnabled(true)
 
     )
 

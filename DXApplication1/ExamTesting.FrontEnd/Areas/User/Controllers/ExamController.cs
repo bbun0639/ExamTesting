@@ -136,7 +136,6 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
         {
             var _result = _db.UserExams.First(a => a.ExamId == id);
 
-            if(_result.TotalEarnScore >= ())
 
             return View(_result);
         }
