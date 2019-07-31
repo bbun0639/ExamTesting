@@ -31,7 +31,21 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
             var _exams = _db.UserExams.First(a => a.ExamId == id);
             return View(_exams);
         }
+        [HttpGet]
+        public IActionResult GenReport(Guid id)
+        {
+            var _exams = _db.UserExams.ToList();
 
+            var report = new ExamTesting.FrontEnd.Reports.TestResult()
+            {
+                DataSource = _exams
+        };
+
+            report.ExportToPdf("C:/TempReport/report.pdf");
+
+
+            return Content("Report Done");
+        }
         //[HttpGet]
         //public IActionResult Testing(Guid id)
         //{
@@ -127,7 +141,7 @@ namespace ExamTesting.FrontEnd.Areas.Users.Controllers
 
             _db.SaveChanges();
 
-            return RedirectToAction("Result", new { id = id });
+            return RedirectToAction("Test", new { id = id });
         }
 
 
